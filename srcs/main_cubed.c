@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:25:06 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/25 20:19:59 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2024/11/25 21:30:50 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,6 @@ static char	play_game(char *file)
 	return (0);
 }
 
-/*
-**	añadir mensaje de error si el número de argumentos es incorrecto y retornar -1?
-**	si argc >2 retorna 0
-** 
-*/
 int	main(int argc, char **argv)
 {
 	if (argc == 2)

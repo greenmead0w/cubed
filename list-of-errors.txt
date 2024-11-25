@@ -1,0 +1,8 @@
+
+1 - "err_relative_path.cub": 
+Path is not correct relative to the directory from which the program is being executed
+
+2- Para ./cub3D maps/ex1.cub sale el mensaje de error. Revisar
+The path to the texture does not exist or is incorrect 
+
+Para ./cub3D maps/err_relative_path.cub da el mismo error que creo está ok.

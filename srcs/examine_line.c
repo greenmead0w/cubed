@@ -6,11 +6,12 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 21:16:14 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/25 19:44:41 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2024/11/25 21:37:58 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
+#include <fcntl.h>
 
 /*
 ** dudas:

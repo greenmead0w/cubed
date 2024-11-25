@@ -6,12 +6,12 @@
 /*   By: dpinedo- <dpinedo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 14:34:24 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/19 21:05:51 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/11/25 21:36:36 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
-
+#include <fcntl.h>
 
 static char	read_lines(int fd, char *line, t_game *game, \
 		t_track_items *track_elements)
@@ -44,7 +44,7 @@ static char	open_and_read_file_check(char *file, t_game *game, \
 	fd = open(file, O_RDONLY, 0111); //parece que O_RDONLY no requiere 3er argumento, O_CREAT sí
 	if (fd == -1)
 	{
-		perror("Error opening a file"); //mantenemos perror o añadimos nuestro error.h? (he añadido stdio.h para perror en cub3d.h)
+		write(2, OPEN_FILE, ft_strlen(OPEN_FILE));
 		return (-1);
 	}
 	if (read_lines(fd, line, game, track_elements))
@@ -53,9 +53,6 @@ static char	open_and_read_file_check(char *file, t_game *game, \
 	return (0);
 }
 
-/*
-** !!! TESTAR !!!
-*/
 static char	check_file_extension(char *file)
 {
 	char	*run;

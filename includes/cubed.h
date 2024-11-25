@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 14:31:54 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/25 20:20:32 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2024/11/25 21:36:56 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@
 # include "definitions.h"
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdio.h> //perror
-#include <errno.h> //para que perror pueda acceder a errno (variable global que recoge el error en la llamada al sistema)
-#include <fcntl.h> //open, close
+# include <stdio.h>
 
 char    check(char *file, t_game *game, t_track_items *track_elements);
 char    examine_line(char *line, t_game *game, t_track_items *track_elems);

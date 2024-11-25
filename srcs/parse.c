@@ -6,11 +6,12 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:54:08 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/25 18:36:27 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2024/11/25 21:37:33 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
+#include <fcntl.h>
 
 /*
 **	parsea colores en lista enlazada, texturas en una matriz y 

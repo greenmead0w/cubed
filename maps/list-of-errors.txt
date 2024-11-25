@@ -1,5 +1,0 @@
-
-1 - "err_relative_path.cub": 
-Path is not correct relative to the directory from which the program is being executed
-
-2- 
