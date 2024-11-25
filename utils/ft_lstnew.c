@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <dpinedo-@42.urduliz.com>             +#+  +:+       +#+        */
+/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:22:12 by kali              #+#    #+#             */
-/*   Updated: 2024/11/22 18:46:49 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/11/25 20:12:48 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
+#include <stdlib.h>
 
 t_color	*ft_lstnew(void)
 {

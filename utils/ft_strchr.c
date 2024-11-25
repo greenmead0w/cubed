@@ -3,14 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <dpinedo-@42.urduliz.com>             +#+  +:+       +#+        */
+/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:16:37 by kali              #+#    #+#             */
-/*   Updated: 2024/11/20 21:36:14 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/11/25 20:15:20 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "utils.h"
 
 char	*ft_strchr(const char *s, int c)
 {

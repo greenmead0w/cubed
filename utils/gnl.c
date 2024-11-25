@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   gnl.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpinedo- <dpinedo-@student.42urduliz.      +#+  +:+       +#+        */
+/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 18:26:39 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/22 18:37:11 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/11/25 20:25:55 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "definitions.h"
+#include <stdlib.h>
+#include <unistd.h>
 
 static char	*join_buffer(char *buff, int fd)
 {

@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:25:06 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/25 18:35:45 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2024/11/25 20:19:59 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,16 +99,15 @@ static char	play_game(char *file)
 */
 int	main(int argc, char **argv)
 {
-	printf("argc is: %d\n", argc);
-	printf("argv[0] is: %s\n", argv[0]);
-	printf("argv[1] is: %s\n", argv[1]);
-	printf("argv[2] is: %s\n", argv[2]);
-	if (!argv[1])
-		return (-1);
 	if (argc == 2)
 	{
 		if (play_game(argv[1]))
 			return (-1);
+	}
+	else
+	{
+		write(2, ARG_NUM, ft_strlen(ARG_NUM));
+		return (-1);
 	}
 	return (0);
 }

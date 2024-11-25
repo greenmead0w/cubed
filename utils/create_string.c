@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   creat_string.c                                     :+:      :+:    :+:   */
+/*   create_string.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpinedo- <dpinedo-@student.42urduliz.      +#+  +:+       +#+        */
+/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 20:46:24 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/21 21:10:25 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/11/25 20:14:41 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include <stdlib.h>
 
 char	*create_string(char **line, int size)
 {

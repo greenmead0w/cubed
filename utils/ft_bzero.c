@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <dpinedo-@42.urduliz.com>             +#+  +:+       +#+        */
+/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 06:48:56 by kali              #+#    #+#             */
-/*   Updated: 2024/07/01 15:28:46 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/11/25 20:23:47 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include <stddef.h>
 
 void	ft_bzero(void *s, size_t n)
 {

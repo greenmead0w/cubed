@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   count_digits.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpinedo- <dpinedo-@student.42urduliz.      +#+  +:+       +#+        */
+/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 20:40:06 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/21 20:59:58 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/11/25 20:14:53 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
 
 /*
 **	se llama a esta función desde:

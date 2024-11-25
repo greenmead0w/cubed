@@ -6,12 +6,12 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 21:58:14 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/25 18:56:43 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2024/11/25 20:37:01 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "utils.h"
-
+# include <stdlib.h>
 
 //Igual hay que añadir una función que se llama cuando hay un error y exiteamos?
 void	free_simple_pointer(void *ptr)
@@ -37,7 +37,7 @@ void	free_double_pointer(void **ptr)
 	}
 }
 
-void	free_double_pointer_ep(void **ptr)
+static void	free_double_pointer_ep(void **ptr)
 {
 	void	**run;
 

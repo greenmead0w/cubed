@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 19:39:26 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/25 18:48:03 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2024/11/25 19:19:59 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static int	take_partial_color(char **line)
 	free(partial_color_str);
 	if (!partial_color)
 		return (-1);
+	if (partial_color > 255)
+		return (-2);
 	return (partial_color);
 }
 
@@ -56,7 +58,7 @@ char	fill_colors_list(char *line, t_game *game)
 	while (*line == ' ')
 		line++;
 	color->r_color = take_partial_color(&line);
-	if (color->r_color == -1)
+	if (color->r_color <= -1)
 		return (-1);
 	color->g_color = take_partial_color(&line);
 	if (color->g_color == -1)

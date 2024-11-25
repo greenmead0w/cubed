@@ -3,20 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpinedo- <dpinedo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 14:28:07 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/22 18:48:28 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/11/25 20:36:22 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
-# include "cubed.h"
-# include <stdlib.h>
-# include <stddef.h> //para size_t (ft_strlen)
-
+#include <stddef.h>
+#include "structs.h"
 
 size_t	ft_strlen(const char *str);
 void	ft_bzero(void *s, size_t n);

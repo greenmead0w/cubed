@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpinedo- <dpinedo-@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 20:00:37 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/22 18:48:25 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/11/25 20:26:20 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "structs.h"
 
 void	ft_lstadd_back(t_color **alst, t_color *new)
 {

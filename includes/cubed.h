@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpinedo- <dpinedo-@student.42urduliz.      +#+  +:+       +#+        */
+/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 14:31:54 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/22 19:14:03 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/11/25 20:20:32 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "utils.h"
 # include "definitions.h"
 # include <unistd.h>
+# include <stdlib.h>
 # include <stdio.h> //perror
 #include <errno.h> //para que perror pueda acceder a errno (variable global que recoge el error en la llamada al sistema)
 #include <fcntl.h> //open, close

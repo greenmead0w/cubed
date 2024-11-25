@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 21:16:14 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/25 18:38:09 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2024/11/25 19:44:41 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static char	alternative_check_texture(char *line)
 	while (*line == ' ')
 		line++;
 	start = line;
-	while (*line != ' ' && *line != '\n' && *line)
+	while (*line != '\n' && *line)
 		line++;
 	temp = *line; //añadir caracter nulo temporalmente, para que el path termine ahí
 	*line = '\0';
