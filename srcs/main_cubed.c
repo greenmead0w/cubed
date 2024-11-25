@@ -16,7 +16,7 @@
 static char	generate_and_initialize_game(t_game **game, \
 		t_track_items **track_elements)
 {
-	*game = malloc(sizeof(t_game));
+	*game= malloc(sizeof(t_game));
 	*track_elements = malloc(sizeof(t_track_items));
 	if (!*game || !*track_elements)
 	{
