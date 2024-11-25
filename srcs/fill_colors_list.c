@@ -10,10 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils_lists.h"
-#include "utils.h"
-#include "structs.h"
-#include "errors.h"
+#include "cubed.h"
 
 static t_color	*generate_and_add_node(t_game *game)
 {
@@ -25,6 +22,10 @@ static t_color	*generate_and_add_node(t_game *game)
 	return (color);
 }
 
+/*
+** he modificado -->  count_digits recibia parametro char **, por lo que a pesar de utilizar una temporal
+** se estaba modificando line despues de contar digitos
+*/
 static int	take_partial_color(char **line)
 {
 	int	partial_color;
@@ -33,16 +34,17 @@ static int	take_partial_color(char **line)
 
 	while (**line != ',' && **line != '\n' && **line)
 	{
-		size = count_digits(line);
+		size = count_digits(*line); //modificado
 		partial_color_str = create_string(line, size);
 		if (!partial_color_str)
-			return (-1);
+			return (-1); //printear malloc error antes de salir?
 		partial_color = ft_atoi(partial_color_str);
 		if (!partial_color)
 			return (-1);
 	}
 	return (partial_color);
 }	
+
 
 char	fill_colors_list(char *line, t_game *game)
 {
@@ -55,7 +57,7 @@ char	fill_colors_list(char *line, t_game *game)
 	line++;
 	while (*line == ' ')
 		line++;
-	color->r_color = take_partial_color(&line)
+	color->r_color = take_partial_color(&line);
 	if (color->r_color == -1)
 		return (-1);
 	color->g_color = take_partial_color(&line);

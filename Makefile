@@ -23,7 +23,7 @@ BONUS_NAME = cub3D_bonus
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 CPPFLAGS = -iquote $(HEADS_DIR)
-LDLFLAGS = -LLibraries
+LDLFLAGS = -Llibraries
 RM = -f
 
 SRCS =	main_cubed.c\
@@ -34,8 +34,7 @@ SRCS =	main_cubed.c\
 	parse.c\
 	check_map.c\
 	examine_line.c\
-	fill_map.c\
-	main_cubed.c
+	fill_map.c
 
 #SRCS_BONUS = main_bonus.c\
 
@@ -66,11 +65,11 @@ $(NAME): $(OBJS) $(LIBS)
 	$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $(OBJS_DIR)/$@
 
 libutils.a:
-	$(MAKE) -C Utils/
+	$(MAKE) -C utils/
 
 clean:
 	rm -f $(OBJS_PATH) $(OBJS_PATH_BONUS)
-	$(MAKE) -C Utils/ clean
+	$(MAKE) -C utils/ clean
 
 fclean: clean
 	rm -f $(NAME) $(BONUS_NAME)

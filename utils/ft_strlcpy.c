@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "utils.h"
+
 size_t	ft_strlcpy(char *dest, char *src, size_t size)
 {
 	size_t	index;

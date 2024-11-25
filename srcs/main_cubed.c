@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "cubed.h"
+#include <stdio.h> //para debuggear (printf)
 
 static char	generate_and_initialize_game(t_game **game, \
 		t_track_items **track_elements)
@@ -44,6 +45,7 @@ static char	check_and_parse(char *file, t_game *game, \
 		free_all_game(game);
 		return (-1);
 	}
+	printf("error en check_map\n");
 	if (check_map(game))
 	{
 		free_all_game(game);
@@ -63,12 +65,45 @@ static char	play_game(char *file)
 		return (-1);
 	if (check_and_parse(file, game, track_elements))
 		return (-1);
+
+	char **temp_text = game->textures;
+	int i = 0;
+	while(temp_text[i] != NULL)
+	{
+		printf("texture[%d]: %s\n", i, temp_text[i]);
+		i++;
+	}
+	t_color *temp = game->color_root;
+	while(temp != NULL)
+	{
+		printf("ceiling or roof: %c\n", temp->cf);
+		printf("r_color: %d\n", temp->r_color);
+		printf("g_color: %d\n", temp->g_color);
+		printf("b_color: %d\n", temp->b_color);
+		temp = temp->next;
+	}
+	char **temp_map = game->game_map;
+	i = 0;
+	while(temp_map[i] != NULL)
+	{
+		printf("map line[%d]: %s\n", i, temp_map[i]);
+		i++;
+	}
 	free_all_game(game);
 	return (0);
 }
 
+/*
+**	añadir mensaje de error si el número de argumentos es incorrecto y retornar -1?
+**	si argc >2 retorna 0
+** 
+*/
 int	main(int argc, char **argv)
 {
+	printf("argc is: %d\n", argc);
+	printf("argv[0] is: %s\n", argv[0]);
+	printf("argv[1] is: %s\n", argv[1]);
+	printf("argv[2] is: %s\n", argv[2]);
 	if (!argv[1])
 		return (-1);
 	if (argc == 2)

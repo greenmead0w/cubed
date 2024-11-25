@@ -13,8 +13,10 @@
 #ifndef UTILS_H
 # define UTILS_H
 
-# include "structs.h"
+# include "cubed.h"
 # include <stdlib.h>
+# include <stddef.h> //para size_t (ft_strlen)
+
 
 size_t	ft_strlen(const char *str);
 void	ft_bzero(void *s, size_t n);
@@ -30,16 +32,19 @@ void    *ft_memset(void *s, int c, size_t n);
 int	ft_atoi(const char *str);
 void	define_set(char **set);
 int	map_max_length(char **map);
-int	count_digits(char **line);
+int	count_digits_2(char **line);
+int	count_digits(char *line);
 char	*create_string(char **line, int size);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strdup(const char *src);
 char	*get_next_line(int fd);
 
+
 t_color	*ft_lstnew(void);
 void	ft_lstadd_back(t_color **alst, t_color *new);
 
 void	free_simple_pointer(void *ptr);
+void	free_double_pointer(void **ptr);
 void	free_all_game(t_game *game);
 
 #endif //UTILS_H

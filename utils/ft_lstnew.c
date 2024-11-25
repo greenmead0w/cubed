@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "structs.h"
 #include "utils.h"
-#include <stdlib.h>
 
 t_color	*ft_lstnew(void)
 {
@@ -20,6 +18,6 @@ t_color	*ft_lstnew(void)
 
 	new_node = (t_color *) malloc(sizeof(t_color));
 	if (new_node != 0)
-		bzero(new_node, sizeof(t_color));
+		ft_bzero(new_node, sizeof(t_color));
 	return (new_node);
 }

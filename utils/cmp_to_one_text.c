@@ -10,12 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "utils.h"
+
 char	cmp_to_one_text(char *line, int i)
 {
-	char	set[4];
+	char	*set[4];
 
 	define_set(set);
-	if (ft_strncmp(line, set[i], 2);
+	//if (ft_strncmp(line, set[i], 2)); ORIGINAL
+	if (!ft_strncmp(line, set[i], 2)) //MODIFICADO, retorna 1 cuando hay match no?
 		return (1);
 	else
 		return (0);

@@ -10,9 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cubed.h>
-#include <fnctl.h>
+#include "cubed.h"
 
+/*
+**	parsea colores en lista enlazada, texturas en una matriz y 
+**	copia el mapa (no validado todavía) en una matriz
+*/
 static char    parse_items(char *line, t_game *game)
 {
 	char	result;
@@ -27,11 +30,13 @@ static char    parse_items(char *line, t_game *game)
 	while (*run == ' ')
 		run++;
 	if (*run == 'F' || *run == 'C')
-		result = fill_colors_list(run, game);
+	{
+		result = fill_colors_list(run, game);	
+	}
 	else if (!compare_to_all_textures(run))
 		result = fill_textures_matrix(run, game);
 	else if (*run == '1')
-		result = fill_map(line);
+		result = fill_map(game, line);
 	else
 		write(2, WRONG_FILE, ft_strlen(WRONG_FILE));
 	if (result)
@@ -39,11 +44,17 @@ static char    parse_items(char *line, t_game *game)
 	return (0);
 }
 
+/*
+**	segunda lectura del .cub, sirve para:
+**	fill la lista enlazada de colores
+**	fill la matriz de texturas
+**	parsear primera versión del mapa
+*/
 static char	read_lines(int fd, char *line, t_game *game)
 {
 	while (line)
 	{
-		line = gnl(fd);
+		line = get_next_line(fd);
 		if (line)
 		{
 			if (parse_items(line, game))
@@ -61,13 +72,14 @@ static char	read_lines(int fd, char *line, t_game *game)
 
 static char	initialize_map_matrix(t_game *game)
 {
-	game->map = malloc(sizeof(void *) * (game->map_rows_counter + 1))
+	game->map = malloc(sizeof(void *) * (game->map_rows_counter + 1));
 	if (!game->map)
 	{
 		write(2, MEM_ALLOC, ft_strlen(MEM_ALLOC));
 		return (-1);
 	}
 	game->map[game->map_rows_counter] = (void *) 0;
+	return (0);
 }
 
 char	parse(char *file, t_game *game)
@@ -78,7 +90,7 @@ char	parse(char *file, t_game *game)
 	if (initialize_map_matrix(game))
 		return (-1);
 	line = (char *) 1;
-	fd = open(file, O_RDONLY, 0111);
+	fd = open(file, O_RDONLY, 0111); //no hace falta tercer argumento creo
 	if (fd == -1)
 	{
 		write(2, OPEN_FILE, ft_strlen(OPEN_FILE));

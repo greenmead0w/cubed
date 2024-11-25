@@ -12,15 +12,21 @@
 
 #include "utils.h"
 
+/*
+** retorna 0 si empieza como textura
+*/
 char	compare_to_all_textures(char *line)
 {
 	char	*set[4];
+	int			i;
 
 	define_set(set);
-	while (*set)
+	i = 0;
+	while (set[i])
 	{
-		if (!ft_strncmp(line, *set++, 2))
+		if (!ft_strncmp(line, set[i], 2))
 			return (0);
+		i++;
 	}
 	return (-1);
 }

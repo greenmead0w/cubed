@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include <stdio.h>
+#include "utils.h"
 
 static int	ft_get_num_in_base(int *digits, unsigned int size, \
 		unsigned int base)
@@ -65,10 +65,4 @@ int	ft_atoi(const char *str)
 		nbr = 0;
 	return (nbr);
 }
-/*
-int	main(int argc, char **argv)
-{
-	if (argc == 2)
-		printf("%i", ft_atoi(argv[1]));
-	return (0);
-}*/
+

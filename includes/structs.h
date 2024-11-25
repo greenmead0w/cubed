@@ -18,8 +18,9 @@ typedef struct s_track_items
 {
 	char	colors_ok[2];
 	char	textures_ok[4];
-	int	item_counter;
-	char	map_flag;
+	int	item_counter; // 2 colors + 4textures  --> 6. if not 6, .cub is wrong
+	char	map_flag; //map_flag 1 quiere decir que ya se ha leido la primera linea del mapa, 
+								// por lo que todas las demas lineas hasta EOF corresponden a la parte del mapa
 }		t_track_items;
 
 //Colors for ceiling, floor

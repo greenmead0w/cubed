@@ -29,7 +29,7 @@
 # define COLOR_X_2 "Duplicity in floor/ceiling\n"
 
 //MAP
-# define WALLS "Open map. Not surrended by walls\n"
+# define WALLS "Open map. Not surrounded by walls\n"
 # define CHARACTER "Map contains invalid characters\n"
 # define PLAYER "No players or more than one\n"
 

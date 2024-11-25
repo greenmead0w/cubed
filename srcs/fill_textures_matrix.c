@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "error.h"
+#include "cubed.h"
 
-static calculate_size(char *line)
+static int calculate_size(char *line)
 {
 	int	counter;
 
@@ -41,7 +40,7 @@ static void	copy_texture(char *dest, char *src)
 	*dest = '\0';
 }
 
-char	fill_textures_matrix(t_game *game, char *line)
+char	fill_textures_matrix(char *line, t_game *game)
 {
 	int	i;
 	int	size;

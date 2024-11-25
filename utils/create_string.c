@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "utils.h"
 
 char	*create_string(char **line, int size)
 {
@@ -21,10 +21,13 @@ char	*create_string(char **line, int size)
 	if (!str)
 		return ((void *) 0);
 	run = str;
-	while ('0' <= **line <= '9')
-		*run++ = (*line)++;
+	while ('0' <= **line && **line <= '9')
+	{
+		*run++ = **line; //original era *run++=(*line)++; pero daba errores de compilacion
+		(*line)++;
+	}
 	*run = '\0';
-	if (**line = ',')
+	if (**line == ',')
 		(*line)++;
 	return (str);
 }

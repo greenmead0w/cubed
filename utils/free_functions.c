@@ -10,16 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "structs.h"
-#include "stdlib.h"
+# include "utils.h"
 
+
+//Igual hay que añadir una función que se llama cuando hay un error y exiteamos?
 void	free_simple_pointer(void *ptr)
 {
 	if (ptr)
 		free(ptr);
 }
 
-static void	free_double_pointer(void **ptr)
+/*
+**	he cambiado a no statica para poder llamarlo en check_map.c 
+**	(si falla malloc en make_rectangular_map)
+*/
+void	free_double_pointer(void **ptr)
 {
 	void	**run;
 
@@ -53,10 +58,10 @@ void	free_all_game(t_game *game)
 {
 	if (game)
 	{
-		free_double_pointer(game->textures);
+		free_double_pointer((void **)game->textures);
 		free_color_list(game->color_root);
-		free_double_pointer(game->map);
-		free_double_pointer(game->game_map);
+		free_double_pointer((void **)game->map);
+		free_double_pointer((void **)game->game_map);
 		free(game);
 	}
 }

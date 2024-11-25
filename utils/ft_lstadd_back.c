@@ -10,9 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "utils.h"
+
 void	ft_lstadd_back(t_color **alst, t_color *new)
 {
-	t_list	*running_node;
+	t_color	*running_node;
 
 	if (new != 0)
 	{

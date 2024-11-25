@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 
-HEADS_DIR = ../includes
+HEADS_DIR = ../includes/
 NAME = ../libraries/libutils.a
 
 CC = cc

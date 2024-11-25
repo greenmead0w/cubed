@@ -9,7 +9,8 @@
 /*   Updated: 2024/11/19 21:45:17 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+
+#include "utils.h"
 
 char	*ft_strcpy(char *dest, char *src)
 {

@@ -12,11 +12,15 @@
 
 #include "cubed.h"
 
+/*
+** comprueba que es un número RGB válido
+** duda: qué pasa si son 3 digitos pero es >255?
+*/
 static char	revise_digit(char **line)
 {
 	int	digit_number;
 
-	digit_number = count_digits(line);
+	digit_number = count_digits_2(line);
 	if (digit_number < 1 || digit_number > 3)
 	{
 		write(2, COLOR, ft_strlen(COLOR));
@@ -25,6 +29,9 @@ static char	revise_digit(char **line)
 	return (0);
 }
 
+/*
+** Comprueba que hay 3 números RGB válidos y que están separados por ','
+*/
 static char	check_floor_ceiling(char *line)
 {
 	int	counter;
@@ -48,7 +55,10 @@ static char	check_floor_ceiling(char *line)
 	return (0);
 }
 
-char    examine_color(char *line, t_track_items track_elems)
+/*
+** 
+*/
+char    examine_color(char *line, t_track_items *track_elems)
 {
 	int	i;
 	char	color_flag;
@@ -68,9 +78,10 @@ char    examine_color(char *line, t_track_items track_elems)
 		}
 		i++;
 	}
-	if (color_flag = 0)
+	if (color_flag == 0)
 	{
 		write(2, COLOR_X_2, ft_strlen(COLOR_X_2));
 		return (-1);
 	}
+	return (0);
 }

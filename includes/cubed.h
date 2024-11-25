@@ -18,14 +18,17 @@
 # include "utils.h"
 # include "definitions.h"
 # include <unistd.h>
+# include <stdio.h> //perror
+#include <errno.h> //para que perror pueda acceder a errno (variable global que recoge el error en la llamada al sistema)
+#include <fcntl.h> //open, close
 
-char	check(char *file, t_game *game, t_track_items *track_elements);
+char    check(char *file, t_game *game, t_track_items *track_elements);
 char    examine_line(char *line, t_game *game, t_track_items *track_elems);
-char    examine_color(char *line, t_track_items track_elements);
+char    examine_color(char *line, t_track_items *track_elements);
 char    parse(char *file, t_game *game);
-char	fill_colors_list(char *line, t_game *game);
-char    fill_textures_matrix(t_game *game, char *line);
-void	fill_map(t_game *game, char *line);
-int	check_map(t_game *game);
+char    fill_colors_list(char *line, t_game *game);
+char    fill_textures_matrix(char *line, t_game *game);
+char    fill_map(t_game *game, char *line);
+int         check_map(t_game *game);
 
 #endif //CUBED_H

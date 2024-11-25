@@ -76,10 +76,13 @@ static char	**make_rectangular_map(char **map, int lines, int max_len)
 	if (rect == NULL)
         	return rect;
 	while (i < lines)
-    	{
-        	rect[i] = malloc(sizeof(char) * max_len + 1);
-        	if (rect[i] == NULL)
-			return rect[i];
+    {
+		rect[i] = malloc(sizeof(char) * max_len + 1);
+		if (rect[i] == NULL)
+		{
+			free_double_pointer((void **)rect);
+			return NULL;
+		}
 		ft_strlcpy(rect[i], map[i], ft_strlen(map[i]));
 		ft_memset(rect[i] + ft_strlen(map[i]), ' ', \
 			max_len - ft_strlen(map[i]));
@@ -142,7 +145,7 @@ int check_map(t_game *game)
 		max_len);
 	if (rect_map == NULL)
 	{
-		write(2, MEM_ALLOC, ft_strlen(MEM_ALLOC));
+		write(2, MEM_ALLOC, ft_strlen(MEM_ALLOC)); 
 		return -1;
 	}
 	if (not_sealed_map(rect_map, game->map_rows_counter, max_len) == 1)
