@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_cubed.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpinedo- <dpinedo-@student.42urduliz.      +#+  +:+       +#+        */
+/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:25:06 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/22 19:17:18 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/11/25 18:35:45 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 static char	generate_and_initialize_game(t_game **game, \
 		t_track_items **track_elements)
 {
-	*game= malloc(sizeof(t_game));
+	*game = malloc(sizeof(t_game));
 	*track_elements = malloc(sizeof(t_track_items));
 	if (!*game || !*track_elements)
 	{
@@ -45,18 +45,17 @@ static char	check_and_parse(char *file, t_game *game, \
 		free_all_game(game);
 		return (-1);
 	}
-	printf("error en check_map\n");
 	if (check_map(game))
 	{
 		free_all_game(game);
 		return (-1);
-	}	
+	}
 	return (0);
 }
 
 static char	play_game(char *file)
 {
-	t_game		*game;
+	t_game			*game;
 	t_track_items	*track_elements;
 
 	game = (void *) 0;
@@ -86,7 +85,7 @@ static char	play_game(char *file)
 	i = 0;
 	while(temp_map[i] != NULL)
 	{
-		printf("map line[%d]: %s\n", i, temp_map[i]);
+		printf("map line[%d]: line_len: %ld || line: %s\n", i, ft_strlen(temp_map[i]), temp_map[i]);
 		i++;
 	}
 	free_all_game(game);

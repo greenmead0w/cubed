@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   examine_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpinedo- <dpinedo-@student.42urduliz.      +#+  +:+       +#+        */
+/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 21:16:14 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/20 21:21:23 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/11/25 18:38:09 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@
 //alternativa a check_texture:
 static char	alternative_check_texture(char *line)
 {
-	int fd;
-	char *start;
-	char temp;
+	int		fd;
+	char	*start;
+	char	temp;
 
 	while (*line == ' ')
 		line++;
@@ -65,9 +65,9 @@ static char	alternative_check_texture(char *line)
 	return (0);
 }
 
-static char    examine_texture(char *line, t_track_items *track_elems)
+static char	examine_texture(char *line, t_track_items *track_elems)
 {
-	int	i;
+	int		i;
 	char	texture_flag;
 
 	i = 0;

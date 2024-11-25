@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   compare.c                                          :+:      :+:    :+:   */
+/*   compare_to_all_textures.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpinedo- <dpinedo-@student.42urduliz.      +#+  +:+       +#+        */
+/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 21:37:19 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/18 22:16:23 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/11/25 16:29:46 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 */
 char	compare_to_all_textures(char *line)
 {
-	char	*set[4];
+	char	*set[5];
 	int			i;
 
 	define_set(set);

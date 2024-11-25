@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_colors_list.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpinedo- <dpinedo-@student.42urduliz.      +#+  +:+       +#+        */
+/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 19:39:26 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/21 21:43:51 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/11/25 18:48:03 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static t_color	*generate_and_add_node(t_game *game)
 {
 	t_color	*color;
-	
+
 	color = ft_lstnew();
 	if (color)
 		ft_lstadd_back(&game->color_root, color);
@@ -28,22 +28,20 @@ static t_color	*generate_and_add_node(t_game *game)
 */
 static int	take_partial_color(char **line)
 {
-	int	partial_color;
-	int	size;
+	int		partial_color;
+	int		size;
 	char	*partial_color_str;
 
-	while (**line != ',' && **line != '\n' && **line)
-	{
-		size = count_digits(*line); //modificado
-		partial_color_str = create_string(line, size);
-		if (!partial_color_str)
-			return (-1); //printear malloc error antes de salir?
-		partial_color = ft_atoi(partial_color_str);
-		if (!partial_color)
-			return (-1);
-	}
+	size = count_digits(*line); //modificado
+	partial_color_str = create_string(line, size);
+	if (!partial_color_str)
+		return (-1); //printear malloc error antes de salir?
+	partial_color = ft_atoi(partial_color_str);
+	free(partial_color_str);
+	if (!partial_color)
+		return (-1);
 	return (partial_color);
-}	
+}
 
 
 char	fill_colors_list(char *line, t_game *game)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpinedo- <dpinedo-@student.42urduliz.      +#+  +:+       +#+        */
+/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:54:08 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/21 21:37:14 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/11/25 18:36:27 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 **	parsea colores en lista enlazada, texturas en una matriz y 
 **	copia el mapa (no validado todavía) en una matriz
 */
-static char    parse_items(char *line, t_game *game)
+static char	parse_items(char *line, t_game *game)
 {
 	char	result;
 	char	*run;
@@ -31,7 +31,7 @@ static char    parse_items(char *line, t_game *game)
 		run++;
 	if (*run == 'F' || *run == 'C')
 	{
-		result = fill_colors_list(run, game);	
+		result = fill_colors_list(run, game);
 	}
 	else if (!compare_to_all_textures(run))
 		result = fill_textures_matrix(run, game);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   examine_color.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpinedo- <dpinedo-@student.42urduliz.      +#+  +:+       +#+        */
+/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 21:18:00 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/22 18:56:41 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/11/25 18:38:45 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ static char	check_floor_ceiling(char *line)
 /*
 ** 
 */
-char    examine_color(char *line, t_track_items *track_elems)
+char	examine_color(char *line, t_track_items *track_elems)
 {
-	int	i;
+	int		i;
 	char	color_flag;
 
 	i = 0;

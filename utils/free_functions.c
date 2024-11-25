@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpinedo- <dpinedo-@student.42urduliz.      +#+  +:+       +#+        */
+/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 21:58:14 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/21 21:44:41 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/11/25 18:56:43 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,18 @@ void	free_double_pointer(void **ptr)
 	}
 }
 
+void	free_double_pointer_ep(void **ptr)
+{
+	void	**run;
+
+	if (ptr)
+	{
+		run = ptr;
+		while (*run)
+			free_simple_pointer(*run++);
+	}
+}
+
 static void	free_color_list(t_color *color_root)
 {
 	t_color	*run;
@@ -58,7 +70,7 @@ void	free_all_game(t_game *game)
 {
 	if (game)
 	{
-		free_double_pointer((void **)game->textures);
+		free_double_pointer_ep((void **)game->textures);
 		free_color_list(game->color_root);
 		free_double_pointer((void **)game->map);
 		free_double_pointer((void **)game->game_map);

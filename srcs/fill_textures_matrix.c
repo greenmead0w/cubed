@@ -3,21 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   fill_textures_matrix.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpinedo- <dpinedo-@student.42urduliz.      +#+  +:+       +#+        */
+/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:59:47 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/21 21:38:59 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/11/25 19:01:59 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-static int calculate_size(char *line)
+static int	calculate_size(char *line)
 {
 	int	counter;
 
 	counter = 2;
-	
 	line += 2;
 	while (*line == ' ')
 		line++;
@@ -54,9 +53,10 @@ char	fill_textures_matrix(char *line, t_game *game)
 	if (*line == 'E')
 		i = 3;
 	size = calculate_size(line);
-	game->textures[i] = malloc(sizeof(char) * (size + 1));	
+	game->textures[i] = malloc(sizeof(char) * (size + 1));
 	if (!game)
 		return (-1);
 	copy_texture(game->textures[i], line);
+	game->textures[4] = NULL;
 	return (0);
 }
