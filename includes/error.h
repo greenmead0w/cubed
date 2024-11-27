@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 21:24:20 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/25 19:47:54 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2024/11/27 20:58:46 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@
 # define ARG_NUM "Wrong argument number\n"
 
 //TEXTURES
-# define ORIENTATION "Invalid orientation\n"
+//# define ORIENTATION "Invalid orientation\n"
 # define PATH "The path to the texture does not exist or is incorrect\n"
-# define TEXTURES_X_2 "Duplicity in floor/ceiling\n"
+# define TEXTURES_X_2 "Duplicity in texture\n"
 
 //FLOOR-CEILING COLOR
 # define COLOR "Error in floor/ceiling definition\n"

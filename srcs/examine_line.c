@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 21:16:14 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/25 21:37:58 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/11/26 21:51:01 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ char	examine_line(char *line, t_game *game, t_track_items *track_elems)
 {
 	char	result;
 
-	result = 0;
+	result = -1;
 	if (!line)
 		return (-1);
 	if (*line == '\n' && track_elems->map_flag != 1)
@@ -122,6 +122,7 @@ char	examine_line(char *line, t_game *game, t_track_items *track_elems)
 		if (track_elems->map_flag == 0)
 			track_elems->map_flag = 1;
 		game->map_rows_counter++;
+		result = 0;
 	}
 	else
 		write(2, WRONG_FILE, ft_strlen(WRONG_FILE));

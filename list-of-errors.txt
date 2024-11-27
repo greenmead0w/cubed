@@ -1,8 +1,69 @@
+He creado el mapa test_map_2 copiando el test_map para hacer las pruebas.
 
-1 - "err_relative_path.cub": 
-Path is not correct relative to the directory from which the program is being executed
+Resultados:
 
-2- Para ./cub3D maps/ex1.cub sale el mensaje de error. Revisar
-The path to the texture does not exist or is incorrect 
+El tema sobre que no se abría el fichero en función de la ruta relativa -> OK
 
-Para ./cub3D maps/err_relative_path.cub da el mismo error que creo está ok.
+Igual más adelante hay que añadir la comprobación de que la textura tenga
+extension xpm por si otro formato da problemas con la librería gráfica.
+
+Revisar take_partial_colors, number > 255 -> NOT_OK
+
+Creo que hay que revisar check_map para revisar 4 posicines y no 8. Al final de las líneas 19 y 20 en test_map_2 hay un 0 que no está rodeado por 1 y da correcto. Es difícil controlar 8 espacios para todas las posibilidades. 
+
+Con un fichero de nombre .cub da un mensaje de WRONG_FORMAT en vez de WRONG_EXT
+-> ¿damos por bueno o no?. Como acaba en .cub da la extensión por buena. 
+
+Una letra de color mal -> OK
+
+Una letra de textura mal -> OK
+Si las 2 primeras letras son correctas y se añade una tercera letra, el error
+que sale es PATH. Lo veo correcto porque según el subject los tipos de 
+información de los elementos pueden (can) estar separados por uno o más espacios, y de esta forma si se añade una tercera letra no hay forma de saber si se
+trata del path a la textura o de la orientación. Se podría diferenciar si fuese 
+obligatorio un espacio de separación.
+
+textura o color con líneas en medio -> OK
+
+un color en medio de una textura -> OK
+
+una textura en medio de un color -> OK
+
+Doble color -> OK
+
+Doble textura -> OK
+
+Color incompleto -> OK
+
+Textura incompleta -> OK
+
+Color con más info de la necesaria -> OK
+
+Textura con más info de la necesaria -> OK
+
+
+
+
+
+A partir de aquí todo hace referencia al mapa:
+
+abierto no da error -> NOT OK
+
+con espacio en medio de una línea no hace el parseo y no da un mensaje de error
+-> NOT OK
+
+con espacios al final -> OK
+
+con espacios al principio -> OK
+
+con líneas en medio -> OK (detecta el error)
+
+con + de 1 jugador -> OK
+
+con carácteres inválidos -> OK
+
+con salto de línea por medio -> OK
+
+con algo distinto(cualquier cosa) en una línea intermedia -> OK
+
+con una fila de mapa en medio de las texturas o colores -> OK  

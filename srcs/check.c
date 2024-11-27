@@ -6,7 +6,7 @@
 /*   By: dpinedo- <dpinedo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 14:34:24 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/25 21:36:36 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/11/26 20:18:45 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static char	check_file_extension(char *file)
 	run = file;
 	while (*run)
 		run++;
-	run--;
+//	run--;
 	while (run != file && *run != '.')
 		run--;
 	if (run == file || ft_strcmp(run, ".cub"))

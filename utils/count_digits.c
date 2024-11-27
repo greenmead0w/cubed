@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 20:40:06 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/25 20:14:53 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2024/11/27 22:08:57 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,11 @@
 int	count_digits(char *line)
 {
 	int	digit_number;
-	//char	**run;
-	char *run;
 
 	digit_number = 0;
-	run = line;
-	//while ('0' <= **run  && **run<= '9')
-	while ('0' <= *run  && *run<= '9')
+	while ('0' <= *line  && *line<= '9')
 	{
-		//(*run)++;
-		run++;
+		line++;
 		digit_number++;
 	}
 	return (digit_number);
@@ -48,13 +43,11 @@ int	count_digits(char *line)
 int	count_digits_2(char **line)
 {
 	int	digit_number;
-	char	**run;
 
 	digit_number = 0;
-	run = line;
-	while ('0' <= **run  && **run<= '9')
+	while ('0' <= **line  && **line<= '9')
 	{
-		(*run)++;
+		(*line)++;
 		digit_number++;
 	}
 	return (digit_number);

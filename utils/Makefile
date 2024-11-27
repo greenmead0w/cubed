@@ -6,7 +6,7 @@
 #    By: dpinedo- <dpinedo-@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/15 01:31:40 by dpinedo-          #+#    #+#              #
-#    Updated: 2024/11/22 18:35:23 by dpinedo-         ###   ########.fr        #
+#    Updated: 2024/11/27 20:22:44 by dpinedo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,10 +20,9 @@ CPPFLAGS = -iquote $(HEADS_DIR)
 RM = -f
 
 SRCS =  ft_strcmp.c\
-	cmp_to_one_text.c\
+	compare_textures_functions.c\
 	free_functions.c\
 	ft_strlcpy.c\
-	compare_to_all_textures.c\
 	ft_atoi.c\
 	ft_memset.c\
 	ft_strlen.c\
