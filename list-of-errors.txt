@@ -7,12 +7,13 @@ El tema sobre que no se abría el fichero en función de la ruta relativa -> OK
 Igual más adelante hay que añadir la comprobación de que la textura tenga
 extension xpm por si otro formato da problemas con la librería gráfica.
 
-Revisar take_partial_colors, number > 255 -> NOT_OK
+Revisar take_partial_colors, number > 255 -> NOT_OK ||| (mikel) dices not ok porque printea "Error allocating memory"?
 
 Creo que hay que revisar check_map para revisar 4 posicines y no 8. Al final de las líneas 19 y 20 en test_map_2 hay un 0 que no está rodeado por 1 y da correcto. Es difícil controlar 8 espacios para todas las posibilidades. 
 
 Con un fichero de nombre .cub da un mensaje de WRONG_FORMAT en vez de WRONG_EXT
--> ¿damos por bueno o no?. Como acaba en .cub da la extensión por buena. 
+-> ¿damos por bueno o no?. Como acaba en .cub da la extensión por buena. ||| (mikel) en relación a esto: "./cub3D .cub" da file extension error, bien?
+
 
 Una letra de color mal -> OK
 
@@ -21,7 +22,7 @@ Si las 2 primeras letras son correctas y se añade una tercera letra, el error
 que sale es PATH. Lo veo correcto porque según el subject los tipos de 
 información de los elementos pueden (can) estar separados por uno o más espacios, y de esta forma si se añade una tercera letra no hay forma de saber si se
 trata del path a la textura o de la orientación. Se podría diferenciar si fuese 
-obligatorio un espacio de separación.
+obligatorio un espacio de separación. ||| (mikel) veo correcto error de PATH 
 
 textura o color con líneas en medio -> OK
 
@@ -41,13 +42,50 @@ Color con más info de la necesaria -> OK
 
 Textura con más info de la necesaria -> OK
 
+||| 
+
+(mikel)
+nombre mapa: wrong_0_rgb.cub 
+status: not ok --> si el color rgb es 0 devuelve "error allocating memory" take_partial_colors no procesa bien que partial_color == 0 (returnea -1)
+
+(mikel)
+mapa: wrong_file_format.cub
+printea muchos mensajes de error antes de sacar del programa (modificar parse_items y/o examine_line (WRNG_FILE))
+
+(mikel)
+doubts_mixed_type.cub
+damos por válido? el subject dice que el orden de colors y textures puede ser cualquiera, pero no se si el orden dentro de cada tipo de elemento 
+se puede cambiar
+
+(mikel)
+doubt_space_same_type.cub
+subject dice: "each type of element can be separated by one or more empty lines"
+como interpretamos esto? podría ser el espacio entre colores y texturas, no lineas entre distintos elementos de texturas, por ejemplo
+
+(mikel)
+mapa: wrong_no_break_line.cub
+subject no dice que los tipos de elementos tengan que ser separados por lineas obligatoriamente
+
+(mikel)
+mapa: empty.cub
+printea error: "No players or more than one"
+
+(mikel)
+mapa: no_error_message.cub, player_at_border.cub
+cuando el mapa es invalido por espacio en mal sitio, 0 en borde, posición inicial en borde
+no parsea pero tampoco printea mensaje de error (eso creo que ya lo habías identificado)
+
+(mikel)
+mapa: no_map.cub
+printea: "No players or more than one" cuando no hay mapa en el .cub, damos por bueno?
+
 
 
 
 
 A partir de aquí todo hace referencia al mapa:
 
-abierto no da error -> NOT OK
+abierto no da error -> NOT OK ||| (mikel) tengo que mirar la lógica en not_sealed_map()
 
 con espacio en medio de una línea no hace el parseo y no da un mensaje de error
 -> NOT OK
