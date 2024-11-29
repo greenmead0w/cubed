@@ -7,13 +7,13 @@ El tema sobre que no se abría el fichero en función de la ruta relativa -> OK
 Igual más adelante hay que añadir la comprobación de que la textura tenga
 extension xpm por si otro formato da problemas con la librería gráfica.
 
-Revisar take_partial_colors, number > 255 -> NOT_OK ||| (mikel) dices not ok porque printea "Error allocating memory"?
+Revisar take_partial_colors, number > 255 -> NOT_OK ||| (mikel) dices not ok porque printea "Error allocating memory"?  Sí
 
 Creo que hay que revisar check_map para revisar 4 posicines y no 8. Al final de las líneas 19 y 20 en test_map_2 hay un 0 que no está rodeado por 1 y da correcto. Es difícil controlar 8 espacios para todas las posibilidades. 
 
 Con un fichero de nombre .cub da un mensaje de WRONG_FORMAT en vez de WRONG_EXT
--> ¿damos por bueno o no?. Como acaba en .cub da la extensión por buena. ||| (mikel) en relación a esto: "./cub3D .cub" da file extension error, bien?
-
+-> ¿damos por bueno o no?. Como acaba en .cub da la extensión por buena. ||| (mikel) en relación a esto: "./cub3D .cub" da file extension error, bien? Sí
+-> OK
 
 Una letra de color mal -> OK
 
@@ -47,28 +47,47 @@ Textura con más info de la necesaria -> OK
 (mikel)
 nombre mapa: wrong_0_rgb.cub 
 status: not ok --> si el color rgb es 0 devuelve "error allocating memory" take_partial_colors no procesa bien que partial_color == 0 (returnea -1)
+-> OK (corregido)
+
 
 (mikel)
 mapa: wrong_file_format.cub
 printea muchos mensajes de error antes de sacar del programa (modificar parse_items y/o examine_line (WRNG_FILE))
+-> OK (sale sólo con un mensaje WRONG_FILE)
+
 
 (mikel)
 doubts_mixed_type.cub
 damos por válido? el subject dice que el orden de colors y textures puede ser cualquiera, pero no se si el orden dentro de cada tipo de elemento 
 se puede cambiar
+-> OK (veo el mapa correcto, dentro de color y textures deben aparecer
+       lo primero las letras) 
+
 
 (mikel)
 doubt_space_same_type.cub
 subject dice: "each type of element can be separated by one or more empty lines"
 como interpretamos esto? podría ser el espacio entre colores y texturas, no lineas entre distintos elementos de texturas, por ejemplo
+-> Según se indica en el subject yo entiendo que sólo puede existir un salto
+   de línea entre colores, texturas o colores y texturas. Un espacio para
+   mí sería inválido porque ya no es 'empty line'. Tal como lo tenemos 
+   configurado estaría OK.
+
 
 (mikel)
 mapa: wrong_no_break_line.cub
 subject no dice que los tipos de elementos tengan que ser separados por lineas obligatoriamente
+-> No lo dice pero yo no me preocuparía por ello. Además, esa posibilidad 
+   queda excluída por esto 'Each element (except the map) firsts information
+   is the type identifier'. Si tenemos un color seguido de una textura,
+   la textura no sería correcta. También debe estar la información 
+   específica de cada tipo, no de otros tipos.
 
 (mikel)
 mapa: empty.cub
 printea error: "No players or more than one"
+
+
 
 (mikel)
 mapa: no_error_message.cub, player_at_border.cub
@@ -78,7 +97,8 @@ no parsea pero tampoco printea mensaje de error (eso creo que ya lo habías iden
 (mikel)
 mapa: no_map.cub
 printea: "No players or more than one" cuando no hay mapa en el .cub, damos por bueno?
-
+-> Veo cómo corregirlo y poner un error de NO_MAP con la variable
+   track_elems->map_flag
 
 
 

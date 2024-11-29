@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 19:39:26 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/25 19:19:59 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2024/11/29 18:24:19 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ static int	take_partial_color(char **line)
 		return (-1); //printear malloc error antes de salir?
 	partial_color = ft_atoi(partial_color_str);
 	free(partial_color_str);
-	if (!partial_color)
-		return (-1);
 	if (partial_color > 255)
 		return (-2);
 	return (partial_color);
