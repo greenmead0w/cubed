@@ -123,6 +123,7 @@ static int	not_sealed_map(char **map, int lines, int max_len)
 	int	j;
 
 	i = 0;
+	printf("max_len is: %d\n", max_len);
 	while (map[i] != NULL)
 	{
 		j = 0;
@@ -130,12 +131,18 @@ static int	not_sealed_map(char **map, int lines, int max_len)
 		{
 			if (map[i][j] != '1' && map[i][j] != ' ' && map[i][j] != '\n')
 			{
-				if (i == 0 || i == lines -1 || j == 0 || j == max_len -1)
+				if (i == 0 || i == lines -1 || j == 0 || j == max_len -2)
+				{
+					printf("invalid char at border\n");
 					return (1); //AÑADIR MENSAJE ERROR
+				}
 				if (map[i - 1][j - 1] == ' ' || map[i - 1][j] == ' ' || map[i - 1][j + 1] == ' '
 					|| map[i][j - 1] == ' ' || map[i][j + 1] == ' '
 					|| map[i + 1][j - 1] == ' ' || map[i + 1][j] == ' ' || map[i + 1][j + 1] == ' ')
-						return (1); //AÑADIR MENSAJE ERROR
+					{
+						printf("char surrounded by space\n");
+						return (1);
+					}
 			}
 			j++;
 		}

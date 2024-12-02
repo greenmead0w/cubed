@@ -126,5 +126,6 @@ char	examine_line(char *line, t_game *game, t_track_items *track_elems)
 	}
 	else
 		write(2, WRONG_FILE, ft_strlen(WRONG_FILE));
+	//printf("hello from examine line!\n");
 	return (result);
 }
