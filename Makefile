@@ -6,7 +6,7 @@
 #    By: ithernan <ithernan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/15 01:31:40 by dpinedo-          #+#    #+#              #
-#    Updated: 2024/11/22 18:12:30 by dpinedo-         ###   ########.fr        #
+#    Updated: 2024/12/03 20:34:38 by dpinedo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,10 +38,10 @@ SRCS =	main_cubed.c\
 
 #SRCS_BONUS = main_bonus.c\
 
-LIBS =	libutils.a
+LIBS = libutils.a libmlx.a
 LIBS_PATH = $(patsubst %.a,$(LIBS_DIR)/%.a,$(LIBS))
 
-LIBS1 = -lutils
+LIBS1 = -lutils -lmlx
 
 OBJS = $(SRCS:.c=.o)
 OBJS_PATH = $(patsubst %.o,$(OBJS_DIR)/%.o,$(OBJS))
