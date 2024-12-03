@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 21:26:35 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/25 18:44:39 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2024/12/03 19:51:05 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,23 +52,19 @@ static int	map_start_position(char **map)
 
 	pos_counter = 0;
 	i = 0;
-	//j = 0;
 	while (map[i] != NULL)
 	{
 		j = 0;
 		while (map[i][j] != '\0')
 		{
-			//printf("map[%d][%d]\n", i, j);
 			if (ft_strchr(start_chars, map[i][j]) != NULL)
 				pos_counter++;
 			j++;
 		}
 		i++;
-		//printf("lines count is %d\n", i);
 	}
 	if (pos_counter != 1)
 		write(2, PLAYER, ft_strlen(PLAYER));
-	printf("pos_counter is %d\n", pos_counter);
 	return (pos_counter);
 }
 
@@ -133,15 +129,16 @@ static int	not_sealed_map(char **map, int lines, int max_len)
 			{
 				if (i == 0 || i == lines -1 || j == 0 || j == max_len -2)
 				{
-					printf("invalid char at border\n");
-					return (1); //AÑADIR MENSAJE ERROR
+					write(2, OPEN_MAP, ft_strlen(OPEN_MAP));
+					return (-1);
 				}
 				if (map[i - 1][j - 1] == ' ' || map[i - 1][j] == ' ' || map[i - 1][j + 1] == ' '
 					|| map[i][j - 1] == ' ' || map[i][j + 1] == ' '
 					|| map[i + 1][j - 1] == ' ' || map[i + 1][j] == ' ' || map[i + 1][j + 1] == ' ')
 					{
-						printf("char surrounded by space\n");
-						return (1);
+					//	printf("char surrounded by space\n");
+						write(2, SPACE, ft_strlen(SPACE));
+						return (-1);
 					}
 			}
 			j++;
@@ -164,7 +161,7 @@ int	check_map(t_game *game)
 	char	**rect_map;
 
 	max_len = map_max_length(game->map);
-	if (map_valid_chars(game->map) == -1 || map_start_position(game->map) != 1)
+	if (map_valid_chars(game->map) || map_start_position(game->map) != 1)
 		return (-1);
 	rect_map = make_rectangular_map(game->map, game->map_rows_counter, \
 		max_len);
@@ -173,7 +170,7 @@ int	check_map(t_game *game)
 		write(2, MEM_ALLOC, ft_strlen(MEM_ALLOC));
 		return (-1);
 	}
-	if (not_sealed_map(rect_map, game->map_rows_counter, max_len) == 1)
+	if (not_sealed_map(rect_map, game->map_rows_counter, max_len))
 		return (-1);
 	game->game_map = rect_map;
 	return (0);
