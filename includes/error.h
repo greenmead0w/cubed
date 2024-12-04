@@ -34,6 +34,10 @@
 # define WALLS "Open map. Not surrounded by walls\n"
 # define CHARACTER "Map contains invalid characters\n"
 # define PLAYER "No players or more than one\n"
+# define SPACE "Valid char in map surrounded by space\n"
+# define BORDER "Valid char in map border\n"
+//# define NO_MAP "No map found\n"
+
 
 
 #endif //ERROR_H

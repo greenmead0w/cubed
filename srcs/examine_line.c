@@ -125,7 +125,12 @@ char	examine_line(char *line, t_game *game, t_track_items *track_elems)
 		result = 0;
 	}
 	else
-		write(2, WRONG_FILE, ft_strlen(WRONG_FILE));
-	//printf("hello from examine line!\n");
+		// write(2, WRONG_FILE, ft_strlen(WRONG_FILE));
+	{
+		if (track_elems->map_flag != 1)
+			write(2, WRONG_FILE, ft_strlen(WRONG_FILE));
+		else
+			write(2, WALLS, ft_strlen(WALLS));
+	}
 	return (result);
 }

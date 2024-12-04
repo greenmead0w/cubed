@@ -22,7 +22,6 @@ static char	read_lines(int fd, char *line, t_game *game, \
 	while (line)
 	{
 		line = get_next_line(fd); // no estamos diferenciando si gnl devuelve nulo for EOF o por problemas de read() no?
-		//printf("line[%d] is: %s\n", i++, line);
 		if (line)
 		{
 			if (examine_line(line, game, track_elements))
@@ -35,7 +34,6 @@ static char	read_lines(int fd, char *line, t_game *game, \
 			line_counter++;
 		}
 	}
-	//printf("line_counter is: %d\n", line_counter);
 	if (!line_counter)
 		return printf("empty_.cub_error\n");
 	else if (!game->map_rows_counter)

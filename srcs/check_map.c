@@ -21,7 +21,6 @@ static int	map_valid_chars(char **map)
 	int 		j;
 
 	i = 0;
-	//j = 0;
 	if (map == NULL)
 		return (-1);
 	while (map[i] != NULL)
@@ -29,7 +28,6 @@ static int	map_valid_chars(char **map)
 		j = 0;
 		while (map[i][j] != '\0' && map[i][j] != '\n')
 		{
-			//printf("map[%d][%d]\n", i, j);
 			if (ft_strchr(valid_chars, map[i][j]) == NULL)
 			{
 				write(2, CHARACTER, ft_strlen(CHARACTER));
@@ -52,23 +50,19 @@ static int	map_start_position(char **map)
 
 	pos_counter = 0;
 	i = 0;
-	//j = 0;
 	while (map[i] != NULL)
 	{
 		j = 0;
 		while (map[i][j] != '\0')
 		{
-			//printf("map[%d][%d]\n", i, j);
 			if (ft_strchr(start_chars, map[i][j]) != NULL)
 				pos_counter++;
 			j++;
 		}
 		i++;
-		//printf("lines count is %d\n", i);
 	}
 	if (pos_counter != 1)
 		write(2, PLAYER, ft_strlen(PLAYER));
-	printf("pos_counter is %d\n", pos_counter);
 	return (pos_counter);
 }
 
@@ -83,28 +77,69 @@ map[0][27]:
 "
 */
 
+// static char	**make_rectangular_map(char **map, int lines, int max_len)
+// {
+// 	int		i;
+// 	char	**rect;
+
+// 	i = 0;
+// 	rect = malloc(sizeof(char *) * (lines + 1));
+// 	if (rect == NULL)
+// 		return (rect);
+// 	while (i < lines)
+// 	{
+// 		rect[i] = malloc(max_len + 1);
+// 		ft_bzero(rect[i], max_len + 1);
+// 		if (rect[i] == NULL)
+// 		{
+// 			free_double_pointer((void **)rect);
+// 			return (NULL);
+// 		}
+// 		ft_strlcpy(rect[i], map[i], ft_strlen(map[i]) + 1); //antes: ft_strlen(map[i]) +1
+// 		if (i + 1 != lines) //ultima linea del mapa no tiene \n
+// 			rect[i][ft_strlen(rect[i]) - 1] = ' ';
+// 		ft_memset(rect[i] + ft_strlen(map[i]), ' ', /*\*/
+// 			max_len - ft_strlen(map[i])); //antes en la linea de arriba: ft_strlen(map[i])
+// 		rect[i][max_len] = '\0';
+// 		i++;
+// 	}
+// 	rect[lines] = NULL;
+// 	return (rect);
+// }
+
+static char	*create_rectangular_line(char *line, int max_len)
+{
+	char	*rect_line;
+	
+	rect_line = malloc(max_len + 1);
+	if (rect_line == NULL)
+		return (NULL);
+	ft_bzero(rect_line, max_len + 1);
+	ft_strlcpy(rect_line, original_line, ft_strlen(original_line) + 1);
+	if (ft_strlen(line) > 0 && line[ft_strlen(line) - 1] == '\n') //ultima linea no va a tener break of line
+		rect_line[ft_strlen(rect_line) - 1] = ' ';
+	ft_memset(rect_line + ft_strlen(line), ' ', max_len - ft_strlen(line));
+	rect_line[max_len] = '\0';
+	return (rect_line);
+}
+
 static char	**make_rectangular_map(char **map, int lines, int max_len)
 {
 	int		i;
 	char	**rect;
-
-	i = 0;
+	
 	rect = malloc(sizeof(char *) * (lines + 1));
 	if (rect == NULL)
 		return (rect);
+	i = 0;
 	while (i < lines)
 	{
-		rect[i] = malloc(max_len + 1);
-		ft_bzero(rect[i], max_len + 1);
+		rect[i] = create_rectangular_line(map[i], max_len);
 		if (rect[i] == NULL)
 		{
 			free_double_pointer((void **)rect);
 			return (NULL);
 		}
-		ft_strlcpy(rect[i], map[i], ft_strlen(map[i]) + 1);
-		ft_memset(rect[i] + ft_strlen(map[i]), ' ', \
-			max_len - ft_strlen(map[i]));
-		rect[i][max_len] = '\0';
 		i++;
 	}
 	rect[lines] = NULL;
@@ -123,7 +158,6 @@ static int	not_sealed_map(char **map, int lines, int max_len)
 	int	j;
 
 	i = 0;
-	printf("max_len is: %d\n", max_len);
 	while (map[i] != NULL)
 	{
 		j = 0;
@@ -131,18 +165,27 @@ static int	not_sealed_map(char **map, int lines, int max_len)
 		{
 			if (map[i][j] != '1' && map[i][j] != ' ' && map[i][j] != '\n')
 			{
-				if (i == 0 || i == lines -1 || j == 0 || j == max_len -2)
-				{
-					printf("invalid char at border\n");
-					return (1); //AÑADIR MENSAJE ERROR
-				}
+				if (i == 0 || i == lines -1 || j == 0||j == max_len -2)
+					return (write(2, BORDER, ft_strlen(BORDER)));
 				if (map[i - 1][j - 1] == ' ' || map[i - 1][j] == ' ' || map[i - 1][j + 1] == ' '
 					|| map[i][j - 1] == ' ' || map[i][j + 1] == ' '
 					|| map[i + 1][j - 1] == ' ' || map[i + 1][j] == ' ' || map[i + 1][j + 1] == ' ')
+				{
+					if (i == 11 && j == 3)
 					{
-						printf("char surrounded by space\n");
-						return (1);
+						printf("map[i - 1][j - 1]: %c\n", map[i - 1][j - 1] );
+						printf("map[i - 1][j]: %c\n", map[i - 1][j]);
+						printf("map[i - 1][j + 1]: %c\n", map[i - 1][j + 1]);
+						printf("map[i][j - 1]: %c\n", map[i][j - 1]);
+						printf("map[i][j +1]: %c\n", map[i][j + 1]);
+						printf("map[i+1][j - 1]: %c\n", map[i + 1][j - 1]);
+						printf("map[i+1][j]: %c\n", map[i + 1][j]);
+						printf("map[i+1][j+1]: %c\n", map[i + 1][j + 1]);
+
 					}
+					printf("map[i][j] -> i: %d j: %d\n", i, j);
+					return (write(2, SPACE, ft_strlen(SPACE)));
+				}
 			}
 			j++;
 		}
@@ -173,7 +216,7 @@ int	check_map(t_game *game)
 		write(2, MEM_ALLOC, ft_strlen(MEM_ALLOC));
 		return (-1);
 	}
-	if (not_sealed_map(rect_map, game->map_rows_counter, max_len) == 1)
+	if (not_sealed_map(rect_map, game->map_rows_counter, max_len))
 		return (-1);
 	game->game_map = rect_map;
 	return (0);
