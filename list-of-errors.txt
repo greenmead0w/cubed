@@ -7,7 +7,7 @@ El tema sobre que no se abría el fichero en función de la ruta relativa -> OK
 Igual más adelante hay que añadir la comprobación de que la textura tenga
 extension xpm por si otro formato da problemas con la librería gráfica.
 
-Revisar take_partial_colors, number > 255 -> NOT_OK ||| (mikel) dices not ok porque printea "Error allocating memory"?  Sí
+Revisar take_partial_colors, number > 255 -> NOT_OK ||| (mikel) dices not ok porque printea "Error allocating memory"?  Sí XXXXXXXXXXXXXXXXXXXXXXX
 
 Creo que hay que revisar check_map para revisar 4 posicines y no 8. Al final de las líneas 19 y 20 en test_map_2 hay un 0 que no está rodeado por 1 y da correcto. Es difícil controlar 8 espacios para todas las posibilidades. 
 
@@ -86,29 +86,25 @@ subject no dice que los tipos de elementos tengan que ser separados por lineas o
 (mikel)
 mapa: empty.cub
 printea error: "No players or more than one"
-
+-> OK
 
 
 (mikel)
 mapa: no_error_message.cub, player_at_border.cub
 cuando el mapa es invalido por espacio en mal sitio, 0 en borde, posición inicial en borde
-no parsea pero tampoco printea mensaje de error (eso creo que ya lo habías identificado)
+no parsea pero tampoco printea mensaje de error (eso creo que ya lo habías identificado) 
 
 (mikel)
 mapa: no_map.cub
 printea: "No players or more than one" cuando no hay mapa en el .cub, damos por bueno?
--> Veo cómo corregirlo y poner un error de NO_MAP con la variable
-   track_elems->map_flag
-
-
+-> OK
 
 
 A partir de aquí todo hace referencia al mapa:
 
-abierto no da error -> NOT OK ||| (mikel) tengo que mirar la lógica en not_sealed_map()
 
 con espacio en medio de una línea no hace el parseo y no da un mensaje de error
--> NOT OK
+-> OK
 
 con espacios al final -> OK
 

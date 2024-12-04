@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 21:26:35 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/25 18:44:39 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2024/12/03 19:51:05 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,26 +166,11 @@ static int	not_sealed_map(char **map, int lines, int max_len)
 			if (map[i][j] != '1' && map[i][j] != ' ' && map[i][j] != '\n')
 			{
 				if (i == 0 || i == lines -1 || j == 0||j == max_len -2)
-					return (write(2, BORDER, ft_strlen(BORDER)));
+					return (write(2, OPEN_MAP, ft_strlen(OPEN_MAP)));
 				if (map[i - 1][j - 1] == ' ' || map[i - 1][j] == ' ' || map[i - 1][j + 1] == ' '
-					|| map[i][j - 1] == ' ' || map[i][j + 1] == ' '
+				 	|| map[i][j - 1] == ' ' || map[i][j + 1] == ' '
 					|| map[i + 1][j - 1] == ' ' || map[i + 1][j] == ' ' || map[i + 1][j + 1] == ' ')
-				{
-					if (i == 11 && j == 3)
-					{
-						printf("map[i - 1][j - 1]: %c\n", map[i - 1][j - 1] );
-						printf("map[i - 1][j]: %c\n", map[i - 1][j]);
-						printf("map[i - 1][j + 1]: %c\n", map[i - 1][j + 1]);
-						printf("map[i][j - 1]: %c\n", map[i][j - 1]);
-						printf("map[i][j +1]: %c\n", map[i][j + 1]);
-						printf("map[i+1][j - 1]: %c\n", map[i + 1][j - 1]);
-						printf("map[i+1][j]: %c\n", map[i + 1][j]);
-						printf("map[i+1][j+1]: %c\n", map[i + 1][j + 1]);
-
-					}
-					printf("map[i][j] -> i: %d j: %d\n", i, j);
 					return (write(2, SPACE, ft_strlen(SPACE)));
-				}
 			}
 			j++;
 		}
@@ -207,7 +192,7 @@ int	check_map(t_game *game)
 	char	**rect_map;
 
 	max_len = map_max_length(game->map);
-	if (map_valid_chars(game->map) == -1 || map_start_position(game->map) != 1)
+	if (map_valid_chars(game->map) || map_start_position(game->map) != 1)
 		return (-1);
 	rect_map = make_rectangular_map(game->map, game->map_rows_counter, \
 		max_len);

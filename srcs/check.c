@@ -6,7 +6,7 @@
 /*   By: dpinedo- <dpinedo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 14:34:24 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/26 20:18:45 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/12/03 19:24:13 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ static char	read_lines(int fd, char *line, t_game *game, \
 		}
 	}
 	if (!line_counter)
-		return printf("empty_.cub_error\n");
-	else if (!game->map_rows_counter)
-		return printf("no_map_error\n");
+	{
+		write(2, EMPTY_FILE, ft_strlen(EMPTY_FILE));
+		return (-1);
+	}
 	return (0);
 }
 
@@ -67,7 +68,6 @@ static char	check_file_extension(char *file)
 	run = file;
 	while (*run)
 		run++;
-//	run--;
 	while (run != file && *run != '.')
 		run--;
 	if (run == file || ft_strcmp(run, ".cub"))
@@ -78,17 +78,16 @@ static char	check_file_extension(char *file)
 	return (0);
 }
 
-/*
-**	no he encontrado referencias a open_and_read_parse,
-**	he supuesto que tiene la funcionalidad de parse() (se llama en main_cubed.c)
-*/
 char	check(char *file, t_game *game, t_track_items *track_elements)
 {
 	if (check_file_extension(file))
 		return (-1);
 	if (open_and_read_file_check(file, game, track_elements))
 		return (-1);
-	// if (open_and_read_parse(file, game))
-	// 	return (-1);
+	if (!game->map_rows_counter)
+	{
+		write(2, NO_MAP, ft_strlen(NO_MAP));
+		return (-1);
+	}
 	return (0);
 }
