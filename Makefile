@@ -38,10 +38,12 @@ SRCS =	main_cubed.c\
 
 #SRCS_BONUS = main_bonus.c\
 
-LIBS = libutils.a libmlx.a
+# LIBS = libutils.a libmlx.a
+LIBS = libutils.a
 LIBS_PATH = $(patsubst %.a,$(LIBS_DIR)/%.a,$(LIBS))
 
-LIBS1 = -lutils -lmlx
+#LIBS1 = -lutils -lmlx
+LIBS1 = -lutils
 
 OBJS = $(SRCS:.c=.o)
 OBJS_PATH = $(patsubst %.o,$(OBJS_DIR)/%.o,$(OBJS))

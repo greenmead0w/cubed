@@ -115,7 +115,7 @@ static char	*create_rectangular_line(char *line, int max_len)
 	if (rect_line == NULL)
 		return (NULL);
 	ft_bzero(rect_line, max_len + 1);
-	ft_strlcpy(rect_line, original_line, ft_strlen(original_line) + 1);
+	ft_strlcpy(rect_line, line, ft_strlen(line) + 1);
 	if (ft_strlen(line) > 0 && line[ft_strlen(line) - 1] == '\n') //ultima linea no va a tener break of line
 		rect_line[ft_strlen(rect_line) - 1] = ' ';
 	ft_memset(rect_line + ft_strlen(line), ' ', max_len - ft_strlen(line));
