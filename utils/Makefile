@@ -40,7 +40,9 @@ SRCS =  ft_strcmp.c\
 	ft_lstnew.c\
 	ft_lstadd_back.c\
 	ft_strcpy.c\
-	map_max_length.c
+	map_max_length.c\
+	texture_extension.c
+
 
 OBJS = $(SRCS:.c=.o)
 

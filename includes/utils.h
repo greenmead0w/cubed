@@ -15,6 +15,7 @@
 
 #include <stddef.h>
 #include "structs.h"
+#include <unistd.h>
 
 size_t	ft_strlen(const char *str);
 void	ft_bzero(void *s, size_t n);
@@ -36,6 +37,7 @@ char	*create_string(char **line, int size);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strdup(const char *src);
 char	*get_next_line(int fd);
+char    texture_extension(char *line, char *start, int fd);
 
 
 t_color	*ft_lstnew(void);

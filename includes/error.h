@@ -16,9 +16,9 @@
 //CHECKS
 # define EMPTY_FILE "The file is empty\n"
 # define MEM_ALLOC "Error allocating memory\n"
-# define OPEN_FILE "Error openning file\n"
+# define OPEN_FILE "Error opening file\n"
 # define WRONG_EXT "File extension is invalid\n"
-# define WRONG_FILE "File format not valid\n"
+# define WRONG_FILE "File content not valid\n"
 # define ARG_NUM "Wrong argument number\n"
 
 //TEXTURES
@@ -37,6 +37,5 @@
 # define CHARACTER "Map contains invalid characters\n"
 # define PLAYER "No players or more than one\n"
 # define SPACE "Invalid space in map\n"
-# define OPEN_MAP "Open map\n"
 
 #endif //ERROR_H

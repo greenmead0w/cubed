@@ -41,6 +41,7 @@
 // 	return (0);
 // }
 
+
 //alternativa a check_texture:
 static char	alternative_check_texture(char *line)
 {
@@ -57,7 +58,7 @@ static char	alternative_check_texture(char *line)
 	*line = '\0';
 	fd = open(start, O_RDONLY);
 	*line = temp; //restablecer ' ' ó '\n'
-	if (fd == -1)
+	if (fd == -1 || texture_extension(line, start, fd))
 	{
 		write(2, PATH, ft_strlen(PATH));
 		return (-1);

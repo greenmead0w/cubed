@@ -166,7 +166,7 @@ static int	not_sealed_map(char **map, int lines, int max_len)
 			if (map[i][j] != '1' && map[i][j] != ' ' && map[i][j] != '\n')
 			{
 				if (i == 0 || i == lines -1 || j == 0||j == max_len -2)
-					return (write(2, OPEN_MAP, ft_strlen(OPEN_MAP)));
+					return (write(2, WALLS, ft_strlen(WALLS)));
 				if (map[i - 1][j - 1] == ' ' || map[i - 1][j] == ' ' || map[i - 1][j + 1] == ' '
 				 	|| map[i][j - 1] == ' ' || map[i][j + 1] == ' '
 					|| map[i + 1][j - 1] == ' ' || map[i + 1][j] == ' ' || map[i + 1][j + 1] == ' ')
@@ -202,7 +202,10 @@ int	check_map(t_game *game)
 		return (-1);
 	}
 	if (not_sealed_map(rect_map, game->map_rows_counter, max_len))
+	{
+		free_double_pointer((void **)rect_map);
 		return (-1);
+	}
 	game->game_map = rect_map;
 	return (0);
 }
