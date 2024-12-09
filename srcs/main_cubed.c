@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:25:06 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/25 21:30:50 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/12/09 18:50:21 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ static char	play_game(char *file)
 	while(temp != NULL)
 	{
 		printf("ceiling or roof: %c\n", temp->cf);
-		printf("r_color: %d\n", temp->r_color);
-		printf("g_color: %d\n", temp->g_color);
-		printf("b_color: %d\n", temp->b_color);
+		printf("R_color: %d\n", temp->r_color);
+		printf("G_color: %d\n", temp->g_color);
+		printf("B_color: %d\n", temp->b_color);
 		temp = temp->next;
 	}
 	char **temp_map = game->game_map;

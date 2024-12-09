@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ithernan <ithernan@student.42.fr>          +#+  +:+       +#+         #
+#    By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/15 01:31:40 by dpinedo-          #+#    #+#              #
-#    Updated: 2024/12/03 20:34:38 by dpinedo-         ###   ########.fr        #
+#    Updated: 2024/12/09 18:49:59 by mzuloaga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,8 +32,7 @@ SRCS =	main_cubed.c\
 	examine_color.c\
 	fill_colors_list.c\
 	fill_textures_matrix.c\
-	parse.c\
-	check_map.c\
+	parse_map.c\
 	examine_line.c\
 	fill_map.c
 
