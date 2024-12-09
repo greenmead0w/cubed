@@ -104,5 +104,18 @@ int	main(int argc, char **argv)
 		write(2, ARG_NUM, ft_strlen(ARG_NUM));
 		return (-1);
 	}
+	printf("\n\n");
+	printf("--------Trying MINILIBX------------\n");
+	printf("\n\n");
+
+	void	*mlx;
+	void 	*mlx_wdw;
+	mlx = mlx_init();
+	mlx_wdw = mlx_new_window (mlx, 800, 800, "test");
+	sleep(5);
+	// mlx_loop(mlx);
+	printf("%p\n", mlx_wdw);
+
+
 	return (0);
 }

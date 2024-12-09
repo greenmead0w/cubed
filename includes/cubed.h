@@ -20,6 +20,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+#include "../minilibx-linux/mlx.h"
 
 char    check(char *file, t_game *game, t_track_items *track_elements);
 char    examine_line(char *line, t_game *game, t_track_items *track_elems);

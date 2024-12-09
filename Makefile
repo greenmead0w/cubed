@@ -16,14 +16,15 @@ HEADS_DIR = includes
 OBJS_DIR = objs
 #OBJS_DIR_BONUS = objs
 LIBS_DIR = libraries
+MLX_DIR = minilibx-linux
 
 NAME = cub3D
 BONUS_NAME = cub3D_bonus
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-CPPFLAGS = -iquote $(HEADS_DIR)
-LDLFLAGS = -Llibraries
+CPPFLAGS = -iquote $(HEADS_DIR) -I$(MLX_DIR)
+LDLFLAGS = -L$(LIBS_DIR) -L$(MLX_DIR)
 RM = -f
 
 SRCS =	main_cubed.c\
@@ -38,12 +39,12 @@ SRCS =	main_cubed.c\
 
 #SRCS_BONUS = main_bonus.c\
 
-# LIBS = libutils.a libmlx.a
-LIBS = libutils.a
+LIBS =  libmlx.a libutils.a
+# GOOD LIBS = libutils.a
 LIBS_PATH = $(patsubst %.a,$(LIBS_DIR)/%.a,$(LIBS))
+LIBS1 = -lutils -lmlx -lXext -lX11
 
-#LIBS1 = -lutils -lmlx
-LIBS1 = -lutils
+# GOOD LIBS1 = -lutils
 
 OBJS = $(SRCS:.c=.o)
 OBJS_PATH = $(patsubst %.o,$(OBJS_DIR)/%.o,$(OBJS))
@@ -53,7 +54,7 @@ OBJS_PATH = $(patsubst %.o,$(OBJS_DIR)/%.o,$(OBJS))
 
 vpath %.c $(SRCS_DIR) $(SRCS_DIR_BONUS)
 vpath %.o $(OBJS_DIR)
-vpath %.a $(LIBS_DIR)
+vpath %.a $(LIBS_DIR) $(MLX_DIR)
 
 all: $(NAME)
 
@@ -69,9 +70,13 @@ $(NAME): $(OBJS) $(LIBS)
 libutils.a:
 	$(MAKE) -C utils/
 
+libmlx.a:
+	$(MAKE) -C $(MLX_DIR)
+
 clean:
 	rm -f $(OBJS_PATH) $(OBJS_PATH_BONUS)
 	$(MAKE) -C utils/ clean
+	$(MAKE) -C $(MLX_DIR) clean
 
 fclean: clean
 	rm -f $(NAME) $(BONUS_NAME)
