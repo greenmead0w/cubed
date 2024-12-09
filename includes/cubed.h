@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 14:31:54 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/25 21:36:56 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/12/09 22:41:20 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,11 @@ char    examine_line(char *line, t_game *game, t_track_items *track_elems);
 char    examine_color(char *line, t_track_items *track_elements);
 char    parse(char *file, t_game *game);
 char    fill_colors_list(char *line, t_game *game);
-char    fill_textures_matrix(char *line, t_game *game);
-char    fill_map(t_game *game, char *line);
-int         check_map(t_game *game);
+char    fill_textures_matrix(char *line, t_vars *vars);
+char    fill_map(t_vars *vars, char *line);
+int	check_map(t_vars *vars);
+char    execute(t_game *game);
+void	get_textures(t_conn *con, void **textures);
+void	load_background(t_game *game);
 
 #endif //CUBED_H

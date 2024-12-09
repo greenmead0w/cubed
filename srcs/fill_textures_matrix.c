@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:59:47 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/25 19:01:59 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2024/12/09 21:38:18 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	copy_texture(char *dest, char *src)
 	*dest = '\0';
 }
 
-char	fill_textures_matrix(char *line, t_game *game)
+char	fill_textures_matrix(char *line, t_vars *vars)
 {
 	int	i;
 	int	size;
@@ -53,10 +53,10 @@ char	fill_textures_matrix(char *line, t_game *game)
 	if (*line == 'E')
 		i = 3;
 	size = calculate_size(line);
-	game->textures[i] = malloc(sizeof(char) * (size + 1));
-	if (!game)
+	vars->textures[i] = malloc(sizeof(char) * (size + 1));
+	if (!vars->textures[i])
 		return (-1);
-	copy_texture(game->textures[i], line);
-	game->textures[4] = NULL;
+	copy_texture(vars->textures[i], line);
+	vars->textures[4] = NULL;
 	return (0);
 }

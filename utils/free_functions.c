@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 21:58:14 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/25 20:37:01 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2024/12/09 22:15:55 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ void	free_all_game(t_game *game)
 {
 	if (game)
 	{
-		free_double_pointer_ep((void **)game->textures);
+		free_double_pointer_ep((void **)game->vars->textures);
 		free_color_list(game->color_root);
-		free_double_pointer((void **)game->map);
-		free_double_pointer((void **)game->game_map);
+		free_double_pointer((void **)game->vars->map);
+		free_double_pointer((void **)game->vars->game_map);
 		free(game);
 	}
 }

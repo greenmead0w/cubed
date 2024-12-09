@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:25:06 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/12/09 18:50:21 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2024/12/09 21:51:07 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static char	check_and_parse(char *file, t_game *game, \
 		free_all_game(game);
 		return (-1);
 	}
-	if (check_map(game))
+	if (check_map(game->vars))
 	{
 		free_all_game(game);
 		return (-1);
@@ -64,8 +64,8 @@ static char	play_game(char *file)
 		return (-1);
 	if (check_and_parse(file, game, track_elements))
 		return (-1);
-
-	char **temp_text = game->textures;
+	
+	char **temp_text = game->vars->textures;
 	int i = 0;
 	while(temp_text[i] != NULL)
 	{
@@ -81,13 +81,16 @@ static char	play_game(char *file)
 		printf("B_color: %d\n", temp->b_color);
 		temp = temp->next;
 	}
-	char **temp_map = game->game_map;
+	char **temp_map = game->vars->game_map;
 	i = 0;
 	while(temp_map[i] != NULL)
 	{
 		printf("map line[%d]: line_len: %ld || line: %s\n", i, ft_strlen(temp_map[i]), temp_map[i]);
 		i++;
 	}
+
+	if (execute(game))
+		return (-1);
 	free_all_game(game);
 	return (0);
 }

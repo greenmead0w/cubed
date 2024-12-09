@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 21:26:35 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/12/03 19:51:05 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/12/09 22:24:44 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,26 +186,25 @@ static int	not_sealed_map(char **map, int lines, int max_len)
 **  3- caracteres válidos: "0,1, ,N,S,E,W"
 **  4- 
 */
-int	check_map(t_game *game)
+int	check_map(t_vars *vars)
 {
-	int		max_len;
 	char	**rect_map;
 
-	max_len = map_max_length(game->map);
-	if (map_valid_chars(game->map) || map_start_position(game->map) != 1)
+	vars->map_cols = map_max_length(vars->map);
+	if (map_valid_chars(vars->map) || map_start_position(vars->map) != 1)
 		return (-1);
-	rect_map = make_rectangular_map(game->map, game->map_rows_counter, \
-		max_len);
+	rect_map = make_rectangular_map(vars->map, vars->map_rows, \
+		vars->map_cols);
 	if (rect_map == NULL)
 	{
 		write(2, MEM_ALLOC, ft_strlen(MEM_ALLOC));
 		return (-1);
 	}
-	if (not_sealed_map(rect_map, game->map_rows_counter, max_len))
+	if (not_sealed_map(rect_map, vars->map_rows, vars->map_cols))
 	{
 		free_double_pointer((void **)rect_map);
 		return (-1);
 	}
-	game->game_map = rect_map;
+	vars->game_map = rect_map;
 	return (0);
 }

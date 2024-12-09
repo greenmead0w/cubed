@@ -6,7 +6,7 @@
 #    By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/15 01:31:40 by dpinedo-          #+#    #+#              #
-#    Updated: 2024/12/09 18:49:59 by mzuloaga         ###   ########.fr        #
+#    Updated: 2024/12/09 22:32:47 by dpinedo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,9 +32,13 @@ SRCS =	main_cubed.c\
 	examine_color.c\
 	fill_colors_list.c\
 	fill_textures_matrix.c\
-	parse_map.c\
+	parse.c\
 	examine_line.c\
-	fill_map.c
+	fill_map.c\
+	check_map.c\
+	get_textures.c\
+	load_background.c\
+	execute.c
 
 #SRCS_BONUS = main_bonus.c\
 

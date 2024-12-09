@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:26:50 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/25 19:58:33 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2024/12/09 21:28:16 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,28 @@ typedef struct s_color
 	struct s_color	*next;
 }		t_color;
 
+//Connection
+typedef struct s_conn
+{
+	void	*mlx;
+	void	*win;
+}		t_conn;
+
+typedef struct s_vars
+{
+	char		*textures[5];
+	char		**map;
+	char		**game_map;
+	int		map_rows;
+	int		map_cols;
+}		t_vars;
+
 //General struct for the game
 typedef struct s_game
 {
-	char	*textures[5];
 	t_color	*color_root;
-	char	**map;
-	char	**game_map;
-	int	map_rows_counter;
+	t_vars	*vars;
+	t_conn	*conn;
 }		t_game;
 
 #endif //STRUCTS_H

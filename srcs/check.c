@@ -6,7 +6,7 @@
 /*   By: dpinedo- <dpinedo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 14:34:24 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/12/03 19:24:13 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/12/09 21:34:23 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	check(char *file, t_game *game, t_track_items *track_elements)
 		return (-1);
 	if (open_and_read_file_check(file, game, track_elements))
 		return (-1);
-	if (!game->map_rows_counter)
+	if (!game->vars->map_rows)
 	{
 		write(2, NO_MAP, ft_strlen(NO_MAP));
 		return (-1);
