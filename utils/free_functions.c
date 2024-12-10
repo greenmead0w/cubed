@@ -74,6 +74,7 @@ void	free_all_game(t_game *game)
 		free_color_list(game->color_root);
 		free_double_pointer((void **)game->vars->map);
 		free_double_pointer((void **)game->vars->game_map);
+		free(game->vars); //AÑADIDO
 		free(game);
 	}
 }

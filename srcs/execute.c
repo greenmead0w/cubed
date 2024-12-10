@@ -34,13 +34,21 @@ static void	*open_connection(t_conn *conn, t_vars *vars)
 
 char	execute(t_game *game)
 {
+	game->conn = malloc(sizeof(t_conn)); //AÑADIDO
+	if (!game->conn)//AÑADIDO
+	{
+		free_all_game(game);//AÑADIDO
+		return -1;//AÑADIDO
+	}//AÑADIDO
+	ft_bzero(game->conn, sizeof(t_conn)); //AÑADIDO
 	if (!open_connection(game->conn, game->vars))
 	{
+		printf("error open_connection()\n"); //solo añadido para debuggear
 		free_all_game(game);
 		return (-1);
 	}
-	get_textures(game->conn, game->vars->textures);
-	load_background(game);
+	//get_textures(game->conn, game->vars->textures);
+	//load_background(game);
 /*	mlx_key_hook(params->conn->win, &key_hook, params);
 	mlx_hook(params->conn->win, 17, 0, ft_close_conn, params);
 */	mlx_loop(game->conn->mlx);

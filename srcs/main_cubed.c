@@ -18,7 +18,8 @@ static char	generate_and_initialize_game(t_game **game, \
 {
 	*game = malloc(sizeof(t_game));
 	*track_elements = malloc(sizeof(t_track_items));
-	if (!*game || !*track_elements)
+
+	if (!*game || !*track_elements) 
 	{
 		write(2, MEM_ALLOC, ft_strlen(MEM_ALLOC));
 		free_simple_pointer(*game);
@@ -27,6 +28,16 @@ static char	generate_and_initialize_game(t_game **game, \
 	}
 	ft_bzero(*game, sizeof(t_game));
 	ft_bzero(*track_elements, sizeof(t_track_items));
+	(*game)->vars = malloc(sizeof(t_vars)); //AÑADIDO
+	if (!(*game)->vars)
+	{
+		write(2, MEM_ALLOC, ft_strlen(MEM_ALLOC)); //AÑADIDO
+		free_simple_pointer((*game)->vars); //AÑADIDO
+		free_simple_pointer(*game); //AÑADIDO
+		free_simple_pointer(*track_elements); //AÑADIDO
+		return (-1);
+	}
+	ft_bzero((*game)->vars, sizeof(t_vars));//AÑADIDO
 	return (0);
 }
 
@@ -36,6 +47,7 @@ static char	check_and_parse(char *file, t_game *game, \
 	if (check(file, game, track_elems))
 	{
 		free_simple_pointer(track_elems);
+		free_simple_pointer(game->vars); //AÑADIDO
 		free_simple_pointer(game);
 		return (-1);
 	}
@@ -64,8 +76,56 @@ static char	play_game(char *file)
 		return (-1);
 	if (check_and_parse(file, game, track_elements))
 		return (-1);
-	
-	char **temp_text = game->vars->textures;
+
+	// char **temp_text = game->vars->textures;
+	// int i = 0;
+	// while(temp_text[i] != NULL)
+	// {
+	// 	printf("texture[%d]: %s\n", i, temp_text[i]);
+	// 	i++;
+	// }
+	// t_color *temp = game->color_root;
+	// while(temp != NULL)
+	// {
+	// 	printf("ceiling or roof: %c\n", temp->cf);
+	// 	printf("R_color: %d\n", temp->r_color);
+	// 	printf("G_color: %d\n", temp->g_color);
+	// 	printf("B_color: %d\n", temp->b_color);
+	// 	temp = temp->next;
+	// }
+	// char **temp_map = game->vars->game_map;
+	// i = 0;
+	// while(temp_map[i] != NULL)
+	// {
+	// 	printf("map line[%d]: line_len: %ld || line: %s\n", i, ft_strlen(temp_map[i]), temp_map[i]);
+	// 	i++;
+	// }
+	if (execute(game))
+		return (-1);
+	free_all_game(game);
+	return (0);
+}
+
+int	main(int argc, char **argv)
+{
+	if (argc == 2)
+	{
+		if (play_game(argv[1]))
+			return (-1);
+	}
+	else
+	{
+		write(2, ARG_NUM, ft_strlen(ARG_NUM));
+		return (-1);
+	}
+
+
+	return (0);
+}
+
+/*
+PRINT PARSED DATA
+char **temp_text = game->vars->textures;
 	int i = 0;
 	while(temp_text[i] != NULL)
 	{
@@ -89,36 +149,4 @@ static char	play_game(char *file)
 		i++;
 	}
 
-	if (execute(game))
-		return (-1);
-	free_all_game(game);
-	return (0);
-}
-
-int	main(int argc, char **argv)
-{
-	if (argc == 2)
-	{
-		if (play_game(argv[1]))
-			return (-1);
-	}
-	else
-	{
-		write(2, ARG_NUM, ft_strlen(ARG_NUM));
-		return (-1);
-	}
-	printf("\n\n");
-	printf("--------Trying MINILIBX------------\n");
-	printf("\n\n");
-
-	void	*mlx;
-	void 	*mlx_wdw;
-	mlx = mlx_init();
-	mlx_wdw = mlx_new_window (mlx, 800, 800, "test");
-	sleep(5);
-	// mlx_loop(mlx);
-	printf("%p\n", mlx_wdw);
-
-
-	return (0);
-}
+*/

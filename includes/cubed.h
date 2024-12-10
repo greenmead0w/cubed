@@ -31,7 +31,7 @@ char    fill_textures_matrix(char *line, t_vars *vars);
 char    fill_map(t_vars *vars, char *line);
 int	check_map(t_vars *vars);
 char    execute(t_game *game);
-void	get_textures(t_conn *con, void **textures);
-void	load_background(t_game *game);
+//void	get_textures(t_conn *con, void **textures);
+//void	load_background(t_game *game);
 
 #endif //CUBED_H
