@@ -6,7 +6,7 @@
 /*   By: dpinedo- <dpinedo-@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 20:04:30 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/12/09 22:40:02 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/12/10 21:47:04 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ static void	text(char value, t_game *p, int i, int j)
 		IMAGE_TO_WINDOW(p->conn->mlx, p->conn->win, p->textures[ZERO], x, y);
 		IMAGE_TO_WINDOW(p->conn->mlx, p->conn->win, p->textures[COLL], x, y);
 	}
-	if (value == 'P')
-		IMAGE_TO_WINDOW(p->conn->mlx, p->conn->win, p->textures[PLAYER], x, y);
-	if (value == 'E')
-		IMAGE_TO_WINDOW(p->conn->mlx, p->conn->win, p->textures[EXIT], x, y);
-*/}
+*/	if (ft_strchr(SET_2, value))
+		IMAGE_TO_WINDOW(p->conn->mlx, p->conn->win, p->vars->textures[EAST], x, y);
+//	if (value == 'E')
+//		IMAGE_TO_WINDOW(p->conn->mlx, p->conn->win, p->textures[EXIT], x, y);
+}
 
 void	load_background(t_game *game)
 {

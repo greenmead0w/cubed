@@ -6,7 +6,7 @@
 #    By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/15 01:31:40 by dpinedo-          #+#    #+#              #
-#    Updated: 2024/12/09 22:32:47 by dpinedo-         ###   ########.fr        #
+#    Updated: 2024/12/10 20:39:22 by dpinedo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,9 @@ SRCS =	main_cubed.c\
 	check_map.c\
 	get_textures.c\
 	load_background.c\
+	key_hook.c\
+	find_player_pos.c\
+	ft_close_conn.c\
 	execute.c
 
 #SRCS_BONUS = main_bonus.c\

@@ -6,7 +6,7 @@
 /*   By: dpinedo- <dpinedo-@student.42urduliz.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 20:05:12 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/12/09 22:27:48 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/12/10 20:43:09 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ char	execute(t_game *game)
 		free_all_game(game);
 		return (-1);
 	}
-	//get_textures(game->conn, game->vars->textures);
-	//load_background(game);
-/*	mlx_key_hook(params->conn->win, &key_hook, params);
-	mlx_hook(params->conn->win, 17, 0, ft_close_conn, params);
-*/	mlx_loop(game->conn->mlx);
+	get_textures(game->conn, game->vars->textures);
+	load_background(game);
+	mlx_key_hook(game->conn->win, &key_hook, game->vars);
+	mlx_hook(game->conn->win, 17, 0, ft_close_conn, game->vars);
+	mlx_loop(game->conn->mlx);
 	return (0);
 }

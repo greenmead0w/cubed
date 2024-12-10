@@ -6,16 +6,17 @@
 /*   By: dpinedo- <dpinedo-@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:33:36 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/02/22 11:41:18 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/12/10 21:37:43 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "utils.h"
+#include "definitions.h"
 
-int	find_play_pos(char **map, size_t rows, size_t columns, int *player_pos)
+int	find_play_pos(char **map, int rows, int columns, int *player_pos)
 {
-	size_t	i;
-	size_t	j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < rows)
@@ -23,7 +24,7 @@ int	find_play_pos(char **map, size_t rows, size_t columns, int *player_pos)
 		j = 0;
 		while (j < columns)
 		{
-			if (map[i][j] == 'P')
+			if (ft_strchr(SET_2, map[i][j]))
 			{
 				player_pos[0] = i;
 				player_pos[1] = j;

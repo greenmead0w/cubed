@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:26:50 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/12/09 21:28:16 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/12/10 21:25:46 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,12 @@ typedef struct s_conn
 
 typedef struct s_vars
 {
-	char		*textures[5];
-	char		**map;
-	char		**game_map;
-	int		map_rows;
-	int		map_cols;
+	void	*textures[5];
+	char	**map;
+	char	**game_map;
+	int	map_rows;
+	int	map_cols;
+	int	play_pos[2];
 }		t_vars;
 
 //General struct for the game

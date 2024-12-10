@@ -6,7 +6,7 @@
 /*   By: dpinedo- <dpinedo-@student.42urduliz.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 22:16:56 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/12/09 22:14:32 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/12/10 21:33:55 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define COLORS_NUM 2
 # define TEXTURES_NUM 4
 # define SET "FC"
+# define SET_2 "NSEW"
 
 # define NORTH 0
 # define SOUTH 1

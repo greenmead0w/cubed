@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 14:31:54 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/12/09 22:41:20 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/12/10 20:43:27 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ char    fill_textures_matrix(char *line, t_vars *vars);
 char    fill_map(t_vars *vars, char *line);
 int	check_map(t_vars *vars);
 char    execute(t_game *game);
-//void	get_textures(t_conn *con, void **textures);
-//void	load_background(t_game *game);
+void	get_textures(t_conn *con, void **textures);
+void	load_background(t_game *game);
+int     key_hook(int keycode, t_vars *vars);
+int	find_play_pos(char **map, int rows, int columns, int *player_pos);
+int     ft_close_conn(t_vars *vars);
 
 #endif //CUBED_H
