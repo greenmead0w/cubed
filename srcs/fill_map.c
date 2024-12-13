@@ -14,7 +14,7 @@
 
 char	fill_map(t_vars *vars, char *line)
 {
-	static int	row; //uso de staticas sin problemas no?
+	static int	row;
 
 	vars->map[row] = malloc(sizeof(char *) * (ft_strlen(line) + 1));
 	if (!vars->map[row])

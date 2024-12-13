@@ -33,7 +33,7 @@ int	check_map(t_vars *vars);
 char    execute(t_game *game);
 void	get_textures(t_conn *con, void **textures);
 void	load_background(t_game *game);
-int     key_hook(int keycode, t_vars *vars);
+int     key_hook(int keycode, t_game *game);
 int	find_play_pos(char **map, int rows, int columns, int *player_pos);
 int     ft_close_conn(t_vars *vars);
 

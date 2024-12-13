@@ -33,4 +33,14 @@
 # define EAST_W "textures/east.xpm"
 # define WEST_W "textures/west.xpm"
 
+//source: keysym def for XSERVER: https://www.cl.cam.ac.uk/~mgk25/ucs/keysymdef.h 
+//keycode is local to hardware or OS, keysym is global to all devices using XProtocol / XSERVER
+#define XK_Left                          0xff51 // left arrow
+#define XK_Right                         0xff53  // right arrow
+#define XK_w                             0x0077
+#define XK_a                             0x0061
+#define XK_s                            0x0073
+#define XK_d                             0x0064
+#define XK_Escape                        0xff1b
+
 #endif //DEFINITIONS_H

@@ -12,6 +12,7 @@
 
 #include "structs.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 int	ft_close_conn(t_vars *vars)
 {

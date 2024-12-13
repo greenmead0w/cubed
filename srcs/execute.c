@@ -47,9 +47,13 @@ char	execute(t_game *game)
 		free_all_game(game);
 		return (-1);
 	}
+	printf("game->vars->play_pos[0] is: %d\n", game->vars->play_pos[0]);
+	printf("game->vars->play_pos[1] is: %d\n", game->vars->play_pos[1]);
 	get_textures(game->conn, game->vars->textures);
 	load_background(game);
-	mlx_key_hook(game->conn->win, &key_hook, game->vars);
+	find_play_pos(game->vars->game_map, game->vars->map_rows, \
+			game->vars->map_cols, game->vars->play_pos);
+	mlx_key_hook(game->conn->win, &key_hook, game);
 	mlx_hook(game->conn->win, 17, 0, ft_close_conn, game->vars);
 	mlx_loop(game->conn->mlx);
 	return (0);
