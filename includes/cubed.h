@@ -20,7 +20,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
-#include "../minilibx-linux/mlx.h"
+# include <math.h>
+# include "../minilibx-linux/mlx.h"
 
 char    check(char *file, t_game *game, t_track_items *track_elements);
 char    examine_line(char *line, t_game *game, t_track_items *track_elems);
@@ -33,7 +34,8 @@ int	check_map(t_vars *vars);
 char    execute(t_game *game);
 void	get_textures(t_conn *con, void **textures);
 void	load_background(t_game *game);
-int     key_hook(int keycode, t_game *game);
+int     key_press(int keycode, t_game *game);
+//int     key_release(int keycode, t_game *game);
 int	find_play_pos(char **map, int rows, int columns, int *player_pos);
 int     ft_close_conn(t_vars *vars);
 

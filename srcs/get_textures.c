@@ -19,8 +19,8 @@ void	get_textures(t_conn *con, void **textures)
 
 	width = 64;
 	height = 64;
-	textures[NORTH] = XPM_TO_IMAGE(con->mlx, NORTH_W, &width, &height);
-	textures[SOUTH] = XPM_TO_IMAGE(con->mlx, SOUTH_W, &width, &height);
-	textures[EAST] = XPM_TO_IMAGE(con->mlx, EAST_W, &width, &height);
+	textures[WALL] = XPM_TO_IMAGE(con->mlx, NORTH_W, &width, &height);
+	textures[SPACE_T] = XPM_TO_IMAGE(con->mlx, SPACE_W, &width, &height);
+	textures[PLAYER_T] = XPM_TO_IMAGE(con->mlx, EAST_W, &width, &height);
 	textures[WEST] = XPM_TO_IMAGE(con->mlx, WEST_W, &width, &height);
 }

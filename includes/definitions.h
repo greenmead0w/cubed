@@ -23,15 +23,16 @@
 # define SET "FC"
 # define SET_2 "NSEW"
 
-# define NORTH 0
-# define SOUTH 1
-# define EAST 2
+# define WALL 0
+# define PLAYER_T 1
+# define SPACE_T 2
 # define WEST 3
 
 # define NORTH_W "textures/north.xpm"
 # define SOUTH_W "textures/south.xpm"
 # define EAST_W "textures/east.xpm"
 # define WEST_W "textures/west.xpm"
+# define SPACE_W "textures/space.xpm"
 
 //source: keysym def for XSERVER: https://www.cl.cam.ac.uk/~mgk25/ucs/keysymdef.h 
 //keycode is local to hardware or OS, keysym is global to all devices using XProtocol / XSERVER

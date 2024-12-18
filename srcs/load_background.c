@@ -20,20 +20,12 @@ static void	text(char value, t_game *p, int i, int j)
 	x = j * 64;
 	y = i * 64;
 	if (value == '1')
-	{
-		IMAGE_TO_WINDOW(p->conn->mlx, p->conn->win, p->vars->textures[NORTH], x, y);
-	}
+		IMAGE_TO_WINDOW(p->conn->mlx, p->conn->win, p->vars->textures[WALL], x, y);
 	if (value == '0')
-		IMAGE_TO_WINDOW(p->conn->mlx, p->conn->win, p->vars->textures[SOUTH], x, y);
-/*	if (value == 'C')
-	{
-		IMAGE_TO_WINDOW(p->conn->mlx, p->conn->win, p->textures[ZERO], x, y);
-		IMAGE_TO_WINDOW(p->conn->mlx, p->conn->win, p->textures[COLL], x, y);
-	}
-*/	if (ft_strchr(SET_2, value))
-		IMAGE_TO_WINDOW(p->conn->mlx, p->conn->win, p->vars->textures[EAST], x, y);
-//	if (value == 'E')
-//		IMAGE_TO_WINDOW(p->conn->mlx, p->conn->win, p->textures[EXIT], x, y);
+		IMAGE_TO_WINDOW(p->conn->mlx, p->conn->win, p->vars->textures[SPACE_T], x, y);
+	if (ft_strchr(SET_2, value))
+		IMAGE_TO_WINDOW(p->conn->mlx, p->conn->win, p->vars->textures[PLAYER_T], x, y);
+
 }
 
 void	load_background(t_game *game)

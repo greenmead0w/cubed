@@ -47,6 +47,11 @@ typedef struct s_vars
 	char	**game_map;
 	int	map_rows;
 	int	map_cols;
+	int turn_direction; // 0 default, -1 right, +1 left
+	int walk_direction; // 0 default, -1 backwards, +1 front
+	double rotation_angle; //where is the player looking at, in radians
+	double rotation_speed; //how many radians will the player rotate per frame / key_press
+	int move_speed; //how many pixels per frame / key press will player move
 	int	play_pos[2];
 }		t_vars;
 
