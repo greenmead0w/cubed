@@ -28,7 +28,7 @@ static void	text(char value, t_game *p, int i, int j)
 
 }
 
-void	load_background(t_game *game)
+void	render_map(t_game *game)
 {
 	int		i;
 	int		j;

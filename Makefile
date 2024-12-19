@@ -37,9 +37,9 @@ SRCS =	main_cubed.c\
 	fill_map.c\
 	check_map.c\
 	get_textures.c\
-	load_background.c\
+	render_map.c\
 	key_hook.c\
-	find_player_pos.c\
+	initial_player_pos.c\
 	ft_close_conn.c\
 	execute.c
 

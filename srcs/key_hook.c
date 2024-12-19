@@ -49,7 +49,7 @@ int	key_press(int keycode, t_game *game)
 		move_player(game->vars, 0, -1);
 	else if (keycode ==  XK_d && map[i][j + 1] != '1')
 		move_player(game->vars, 0, +1);
-	load_background(game); //rerender map
+	render_map(game); //rerender map
 	return (0);
 }
 

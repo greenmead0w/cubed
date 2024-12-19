@@ -13,7 +13,7 @@
 #include "utils.h"
 #include "definitions.h"
 
-int	find_play_pos(char **map, int rows, int columns, int *player_pos)
+int	initial_player_pos(char **map, int rows, int columns, int *player_pos)
 {
 	int	i;
 	int	j;

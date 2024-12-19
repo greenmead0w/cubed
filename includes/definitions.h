@@ -44,4 +44,6 @@
 #define XK_d                             0x0064
 #define XK_Escape                        0xff1b
 
+#define TILE_SIZE 64
+
 #endif //DEFINITIONS_H
