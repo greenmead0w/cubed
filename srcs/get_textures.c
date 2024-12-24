@@ -17,8 +17,8 @@ void	get_textures(t_conn *con, void **textures)
 	int	width;
 	int	height;
 
-	width = 64;
-	height = 64;
+	width = TILE_SIZE
+	height = TILE_SIZE;
 	textures[WALL] = XPM_TO_IMAGE(con->mlx, NORTH_W, &width, &height);
 	textures[SPACE_T] = XPM_TO_IMAGE(con->mlx, SPACE_W, &width, &height);
 	textures[PLAYER_T] = XPM_TO_IMAGE(con->mlx, EAST_W, &width, &height);

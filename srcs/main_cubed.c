@@ -13,6 +13,7 @@
 #include "cubed.h"
 #include <stdio.h> //para debuggear (printf)
 
+
 static char	generate_and_initialize_game(t_game **game, \
 		t_track_items **track_elements)
 {

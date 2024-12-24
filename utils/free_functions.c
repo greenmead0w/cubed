@@ -66,6 +66,12 @@ static void	free_color_list(t_color *color_root)
 	}
 }
 
+void free_mlx(t_conn *conn)
+{
+	mlx_destroy_window(conn->mlx, conn->win);
+	free(conn);
+}
+
 void	free_all_game(t_game *game)
 {
 	if (game)
@@ -74,7 +80,9 @@ void	free_all_game(t_game *game)
 		free_color_list(game->color_root);
 		free_double_pointer((void **)game->vars->map);
 		free_double_pointer((void **)game->vars->game_map);
-		free(game->vars); //AÑADIDO
+		free(game->vars);
+		free_mlx(game->conn);
+		free(game->player);
 		free(game);
 	}
 }

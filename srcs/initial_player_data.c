@@ -13,7 +13,20 @@
 #include "utils.h"
 #include "definitions.h"
 
-int	initial_player_pos(char **map, int rows, int columns, int *player_pos)
+static void initial_player_angle(t_player *player, char letter)
+{
+	if (letter == 'S')
+		player->rotation_angle = 90 * M_PI / 180;
+	else if (letter == 'W')
+		player->rotation_angle = 180 * M_PI / 180;
+	else if (letter == 'N')
+		player->rotation_angle = 270 * M_PI / 180;
+	else if (letter == 'E')
+		player->rotation_angle = 360 * M_PI / 180;
+
+}
+
+int	initial_player_data(char **map, int rows, int columns, t_player *player)
 {
 	int	i;
 	int	j;
@@ -26,8 +39,9 @@ int	initial_player_pos(char **map, int rows, int columns, int *player_pos)
 		{
 			if (ft_strchr(SET_2, map[i][j]))
 			{
-				player_pos[0] = i;
-				player_pos[1] = j;
+				player->play_pos[0] = i + 0.5;
+				player->play_pos[1] = j + 0.5;
+				initial_player_angle(player, map[i][j]);
 				return (0);
 			}
 			j++;

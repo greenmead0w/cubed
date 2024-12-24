@@ -35,8 +35,8 @@ char    execute(t_game *game);
 void	get_textures(t_conn *con, void **textures);
 void	render_map(t_game *game);
 int     key_press(int keycode, t_game *game);
-//int     key_release(int keycode, t_game *game);
-int	initial_player_pos(char **map, int rows, int columns, int *player_pos);
-int     ft_close_conn(t_vars *vars);
+int     key_release(int kc, t_game *game);
+int	initial_player_data(char **map, int rows, int columns, t_player *player);
+int     ft_close_conn(t_game *game);
 
 #endif //CUBED_H

@@ -10,14 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "structs.h"
+#include "cubed.h"
 #include <stdlib.h>
-#include <stdio.h>
 
-int	ft_close_conn(t_vars *vars)
+int	ft_close_conn(t_game *game)
 {
-	(void) vars;
-//	free_all(params);
+	free_all_game(game);
 	exit (0);
 	return (0);
 }

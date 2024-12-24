@@ -47,13 +47,20 @@ typedef struct s_vars
 	char	**game_map;
 	int	map_rows;
 	int	map_cols;
-	int turn_direction; // 0 default, -1 right, +1 left
-	int walk_direction; // 0 default, -1 backwards, +1 front
+}		t_vars;
+
+//player data 
+typedef struct s_player 
+{
+	int turn_direction; // 0 default, +1 right, -1 left
+	char walk_direction; // '0' default, 'w', 'a', 's', 'd'
 	double rotation_angle; //where is the player looking at, in radians
 	double rotation_speed; //how many radians will the player rotate per frame / key_press
 	int move_speed; //how many pixels per frame / key press will player move
-	int	play_pos[2];
-}		t_vars;
+	double	play_pos[2]; //player position in the map
+	double dist_to_plane; //distance to projection plane, constant
+	double field_of_view; 
+}	t_player;
 
 //General struct for the game
 typedef struct s_game
@@ -61,6 +68,8 @@ typedef struct s_game
 	t_color	*color_root;
 	t_vars	*vars;
 	t_conn	*conn;
+	t_player *player;
+
 }		t_game;
 
 #endif //STRUCTS_H

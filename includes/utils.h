@@ -14,8 +14,7 @@
 # define UTILS_H
 
 #include <stddef.h>
-#include "structs.h"
-#include <unistd.h>
+#include "cubed.h"
 
 size_t	ft_strlen(const char *str);
 void	ft_bzero(void *s, size_t n);
@@ -45,6 +44,7 @@ void	ft_lstadd_back(t_color **alst, t_color *new);
 
 void	free_simple_pointer(void *ptr);
 void	free_double_pointer(void **ptr);
+void    free_mlx(t_conn *conn);
 void	free_all_game(t_game *game);
 
 #endif //UTILS_H
