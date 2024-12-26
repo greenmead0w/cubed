@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 14:31:54 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/12/10 20:43:27 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/12/26 17:53:55 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,7 @@ int     key_press(int keycode, t_game *game);
 int     key_release(int kc, t_game *game);
 int	initial_player_data(char **map, int rows, int columns, t_player *player);
 int     ft_close_conn(t_game *game);
+void update(t_game *game);
+void	load_background(t_game *game);
 
 #endif //CUBED_H

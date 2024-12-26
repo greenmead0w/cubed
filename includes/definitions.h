@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   definitions.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpinedo- <dpinedo-@student.42urduliz.      +#+  +:+       +#+        */
+/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 22:16:56 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/12/10 21:33:55 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/12/26 09:11:18 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,7 @@
 #define XK_Escape                        0xff1b
 
 #define TILE_SIZE 64
+#define MINI_TILE (TILE_SIZE / 5) //minimap tile size
+#define RAY_WIDTH 1 //width in pixels of "each ray"
 
 #endif //DEFINITIONS_H

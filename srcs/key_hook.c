@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpinedo- <dpinedo-@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 10:24:24 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/12/11 20:51:55 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/12/26 18:49:08 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,11 @@
 	vars->game_map[new_x][new_y] = 'N'; //hardcodeado aquí, solo para ver lógica movimiento
 } */
 
+
+
 int	key_press(int keycode, t_game *game)
 {
+	printf("key press called \n");
 	if (keycode == XK_Escape)
 		ft_close_conn(game);
 	if (keycode ==  XK_w)
@@ -45,11 +48,16 @@ int	key_press(int keycode, t_game *game)
 		game->player->turn_direction = -1;
 	else if (keycode ==  XK_Right)
 		game->player->turn_direction = 1;
+	if (game->player->walk_direction != '0'
+		|| game->player->turn_direction != 0)
+		game->update = 1;
+	printf("kpressed; game->update is: %d\n", game->update);
 	return (0);
 }
 
 int	key_release(int kc, t_game *game)
 {
+	printf("key release called \n");
 	if (kc ==  XK_w || kc == XK_s || kc == XK_a || kc == XK_d)
 		game->player->walk_direction = '0';
 	else if (kc == XK_Left || kc == XK_Right)

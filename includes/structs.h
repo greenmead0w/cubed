@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:26:50 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/12/10 21:25:46 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2024/12/26 18:10:31 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,33 @@ typedef struct s_color
 	struct s_color	*next;
 }		t_color;
 
+//buffer to dump pixels to window
+typedef struct	s_image {
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_length;
+	int		endian;
+}				t_image;
+
 //Connection
 typedef struct s_conn
 {
 	void	*mlx;
 	void	*win;
+	t_image	image;
 }		t_conn;
 
 typedef struct s_vars
 {
 	void	*textures[5];
 	char	**map;
-	char	**game_map;
+	char	**game_map; //rect map
 	int	map_rows;
 	int	map_cols;
+	int screen_width;
+	int screen_height;
+	int num_rays;
 }		t_vars;
 
 //player data 
@@ -56,11 +69,25 @@ typedef struct s_player
 	char walk_direction; // '0' default, 'w', 'a', 's', 'd'
 	double rotation_angle; //where is the player looking at, in radians
 	double rotation_speed; //how many radians will the player rotate per frame / key_press
-	int move_speed; //how many pixels per frame / key press will player move
+	double speed; //how many pixels per frame / key press will player move in total (hypotenuse)
 	double	play_pos[2]; //player position in the map
 	double dist_to_plane; //distance to projection plane, constant
-	double field_of_view; 
+	double field_of_view;  
 }	t_player;
+
+// typedef struct s_plane
+// {
+// 	int screen_width;
+// 	int screen_height;
+
+ 	
+// } t_plane;
+
+
+typedef struct s_ray 
+{
+
+} t_ray;
 
 //General struct for the game
 typedef struct s_game
@@ -69,6 +96,8 @@ typedef struct s_game
 	t_vars	*vars;
 	t_conn	*conn;
 	t_player *player;
+	t_ray *rays;
+	int update; //"dirty flag", signals if image should be updated (1), else 0
 
 }		t_game;
 

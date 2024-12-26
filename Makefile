@@ -6,7 +6,7 @@
 #    By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/15 01:31:40 by dpinedo-          #+#    #+#              #
-#    Updated: 2024/12/10 20:39:22 by dpinedo-         ###   ########.fr        #
+#    Updated: 2024/12/26 17:53:22 by mzuloaga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,14 +41,16 @@ SRCS =	main_cubed.c\
 	key_hook.c\
 	initial_player_data.c\
 	ft_close_conn.c\
-	execute.c
+	execute.c \
+	update.c \
+	show.c
 
 #SRCS_BONUS = main_bonus.c\
 
 LIBS =  libmlx.a libutils.a
 # GOOD LIBS = libutils.a
 LIBS_PATH = $(patsubst %.a,$(LIBS_DIR)/%.a,$(LIBS))
-LIBS1 = -lutils -lmlx -lXext -lX11
+LIBS1 = -lutils -lmlx -lXext -lX11 -lm
 
 # GOOD LIBS1 = -lutils
 
