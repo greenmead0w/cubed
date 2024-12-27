@@ -6,7 +6,7 @@
 #    By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/15 01:31:40 by dpinedo-          #+#    #+#              #
-#    Updated: 2024/12/26 17:53:22 by mzuloaga         ###   ########.fr        #
+#    Updated: 2024/12/27 08:22:09 by mzuloaga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ SRCS =	main_cubed.c\
 	ft_close_conn.c\
 	execute.c \
 	update.c \
-	show.c
+	display.c
 
 #SRCS_BONUS = main_bonus.c\
 

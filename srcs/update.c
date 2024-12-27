@@ -64,6 +64,7 @@ static void update_play_pos(t_vars *vars, t_player *player)
 }
 
 
+
 /*
 **	if user pressed a key then:
 ** 	1 - find new player position
@@ -74,7 +75,9 @@ static void update_play_pos(t_vars *vars, t_player *player)
 void update(t_game *game)
 {
 	update_play_pos(game->vars, game->player);
-	//TODO: update_player_angle()
+	if (game->player->turn_direction != 0) //updates player angle
+		game->player->rotation_angle += 
+		game->player->speed * game->player->turn_direction;
 
 
 

@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 20:05:12 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/12/26 19:27:55 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2024/12/27 12:36:49 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	*init_player(t_game *game)
 	game->player->walk_direction = '0';
 	game->player->rotation_angle = M_PI / 2; //90 degrees in radians
 	game->player->rotation_speed = 2 *(M_PI / 180); //equivalent of 2 degrees in radians
-	game->player->speed = 2.0/64; //pixels per key_press
+	game->player->speed = 10.0/64; //pixels per key_press
 	initial_player_data(game->vars->game_map, game->vars->map_rows, \
 			game->vars->map_cols, game->player);
 	game->player->field_of_view = 60 * (M_PI/180);
@@ -72,8 +72,8 @@ static void	*init_player(t_game *game)
 	printf("rotation_angle is: %f\n", game->player->rotation_angle);
 	printf("rotation_speed is: %f\n", game->player->rotation_speed);
 	printf("speed is: %f\n", game->player->speed);
-	printf("posX is: %f\n", game->player->play_pos[0]);
-	printf("posY is: %f\n", game->player->play_pos[1]);
+	printf("pos_line is: %f\n", game->player->play_pos[0]);
+	printf("pos_col is: %f\n", game->player->play_pos[1]);
 	printf("distance to projection plane is: %f\n", game->player->dist_to_plane);
 
 	printf("----------------\n");
@@ -124,11 +124,14 @@ static int render_game(void *game)
 		update(g);
 		g->update = 0;
 	}
-	printf("get_color -> g_line is: %f\n", g->player->play_pos[0]);
-	printf("get_color -> g_col is: %f\n", g->player->play_pos[1]);
-	sleep(1);
+	// printf("get_color -> g_line is: %f\n", g->player->play_pos[0]);
+	// printf("get_color -> g_col is: %f\n", g->player->play_pos[1]);
 	//TODO: render / draw
-	load_background(g);
+	draw_2d_map(g);
+
+	draw_player(g->conn, g->player);
+
+	draw_direction_line(g->conn, g->player);
 
 	//TODO: dump data from image to window
 	mlx_put_image_to_window(g->conn->mlx, g->conn->win, g->conn->image.img, 0, 0);
