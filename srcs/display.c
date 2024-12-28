@@ -128,6 +128,7 @@ void draw_direction_line(t_conn *conn, t_player *player)
     line_length = TILE_SIZE / 2;  // Length of direction indicator
     start_x = player->play_pos[1] * TILE_SIZE;
     start_y = player->play_pos[0] * TILE_SIZE;
+
     end_x = start_x + (cos(player->rotation_angle) * line_length);
     end_y = start_y + (sin(player->rotation_angle) * line_length);
 
@@ -135,7 +136,13 @@ void draw_direction_line(t_conn *conn, t_player *player)
     while (start_x != end_x || start_y != end_y)
     {
         put_pixel_to_image(conn, start_x, start_y, 0x00FF00);  // Green color for direction
-        start_x += (start_x < end_x) ? 1 : (start_x > end_x ? -1 : 0);
-        start_y += (start_y < end_y) ? 1 : (start_y > end_y ? -1 : 0);
+        if (start_x < end_x)
+            start_x++;
+        else if (start_x > end_x)
+            start_x--;
+        if(start_y < end_y)
+            start_y++;
+        else if (start_y > end_y)
+            start_y--;
     }
 }

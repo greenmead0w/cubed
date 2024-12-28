@@ -95,6 +95,9 @@ static int	init_game(t_game *game)
 		return -1;
 	game->vars->num_rays = game->vars->screen_width / RAY_WIDTH;
 	game->rays = malloc(game->vars->num_rays * sizeof(t_ray));
+	if (!game->rays)
+		return -1;
+	ft_bzero(game->rays, sizeof(t_ray));
 	game->update = 0;
 	printf("num_rays is: %d\n", game->vars->num_rays);
 	return 0;
@@ -131,9 +134,9 @@ static int render_game(void *game)
 
 	draw_player(g->conn, g->player);
 
-	draw_direction_line(g->conn, g->player);
+	draw_direction_line(g->conn, g->player); //temporal function, to test the rotation
 
-	//TODO: dump data from image to window
+	//dump data from image to window
 	mlx_put_image_to_window(g->conn->mlx, g->conn->win, g->conn->image.img, 0, 0);
 
 	//destroy image

@@ -70,7 +70,7 @@ typedef struct s_player
 	double rotation_angle; //where is the player looking at, in radians
 	double rotation_speed; //how many radians will the player rotate per frame / key_press
 	double speed; //how many pixels per frame / key press will player move in total (hypotenuse)
-	double	play_pos[2]; //player position in the map
+	double	play_pos[2]; //player position in the map (tile based, not pixel based)
 	double dist_to_plane; //distance to projection plane, constant
 	double field_of_view;  
 }	t_player;
@@ -86,6 +86,9 @@ typedef struct s_player
 
 typedef struct s_ray 
 {
+	double angle; 
+	double distance; //rays distance to the wall
+	double point_a[2]; //(x, y) for point A
 
 } t_ray;
 
