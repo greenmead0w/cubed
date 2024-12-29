@@ -7,11 +7,19 @@
 
 
 
-
-static int is_wall(int x, int y, t_vars *vars)
+/*
+** function called in update_player_position() and when casting rays
+** in the first case ray is passed as null, in the second one we prevent the ray
+** from being chosen by setting its value high
+*/
+int is_wall(int x, int y, t_vars *vars, t_ray *ray)
 {
 	if (x > vars->screen_width || x < 0 || y < 0 || y > vars->screen_height)
+	{
+		if (ray && ray->distance)
+			ray->distance = INT_MAX;
 		return 1;
+	}
 	if (vars->game_map[y][x] == '1' )
 		return 1;
 	else
@@ -53,7 +61,7 @@ static void update_play_pos(t_vars *vars, t_player *player)
 		new_y += sin(angle) * player->speed;
 	}
 	//check for walls
-	if (is_wall((int)new_x, (int)new_y, vars))
+	if (is_wall((int)new_x, (int)new_y, vars, 0))
 		return;
 	printf("not a wall\n");
 	player->play_pos[0] = new_y; //check for cartesian confusion (lineas*columnas vs (x,y))
@@ -90,8 +98,8 @@ void ray_cast(t_ray *ray, t_player * player, char **map)
     angle = standardize_angle(ray->angle);
     vert_ray->angle = angle;
     horz_ray->angle = angle;
-    vert_border(vert_ray, player, map);
-    horz_border(horz_ray, player, map);
+    vertical_border(vert_ray, player, map);
+    horizontal_border(horz_ray, player, map);
     //TODO: Check which is shorter
 
 }

@@ -88,7 +88,7 @@ typedef struct s_ray
 {
 	double angle; 
 	double distance; //rays distance to the wall
-	double point_a[2]; //(x, y) for point A
+	double pos[2]; //(x, y) values for intersections
 
 } t_ray;
 

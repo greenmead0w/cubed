@@ -43,7 +43,9 @@ SRCS =	main_cubed.c\
 	ft_close_conn.c\
 	execute.c \
 	update.c \
-	display.c
+	display.c\
+	vertical_border.c\
+	horizontal_border.c
 
 #SRCS_BONUS = main_bonus.c\
 

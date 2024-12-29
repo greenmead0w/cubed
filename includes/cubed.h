@@ -42,5 +42,8 @@ void	update(t_game *game);
 void	draw_2d_map(t_game *game);
 void	draw_player(t_conn *conn, t_player *player);
 void draw_direction_line(t_conn *conn, t_player *player);
+int is_wall(int x, int y, t_vars *vars, t_ray *ray);
+void vertical_border(t_ray *ray, t_player *player, char **map);
+void horizontal_border(t_ray *ray, t_player *player, char **map);
 
 #endif //CUBED_H
