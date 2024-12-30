@@ -1,69 +1,33 @@
 #include "cubed.h"
 
 
-
-/*
-** function called in update_player_position() and when casting rays
-** in the first case ray is passed as null, in the second one we prevent the ray
-** from being chosen by setting its value high
-*/
-int is_wall3(int x, int y, t_vars *vars, t_ray *ray)
+int player_is_wall(int x, int y, t_vars *vars)
 {
-	//printf("wall3(): x: %i, y: %i\n", x, y);
-	if (x > vars->screen_width || x < 0 || y < 0 || y > vars->screen_height)
-	{
-		if (ray && ray->distance)
-			ray->distance = INT_MAX;
+	if (x > vars->map_cols || x < 0 || y < 0 || y > vars->map_rows)
 		return 1;
-	}
 	if (vars->game_map[y][x] == '1' )
 		return 1;
 	else
 		return 0;
-
 }
-
-
-
 
 /*
 ** function called in update_player_position() and when casting rays
 ** in the first case ray is passed as null, in the second one we prevent the ray
 ** from being chosen by setting its value high
 */
-int is_wall2(int x, int y, t_vars *vars, t_ray *ray)
+int ray_is_wall(int x, int y, t_vars *vars, t_ray *ray)
 {
-	//printf("wall2(): x: %i, y: %i\n", x, y);
-	if (x > vars->screen_width || x < 0 || y < 0 || y > vars->screen_height)
+	// printf("is_wall: ray_angle is %f, x is %d and y is: %d\n", ray->angle * 180 / M_PI, x, y);
+	// printf("vars->map_rows is: %d\n", vars->map_rows);
+	// printf("vars->map_cols is: %d\n", vars->map_cols);
+	if (x > vars->map_cols || x < 0 || y < 0 || y > vars->map_rows)
 	{
-		if (ray && ray->distance)
-			ray->distance = INT_MAX;
+		ray->distance = INT_MAX;
 		return 1;
 	}
-	if (vars->game_map[y][x] == '1' )
+	if (y == vars->map_rows) // last row of char ** is null, if doing game_map[last_row] then seg fault
 		return 1;
-	else
-		return 0;
-
-}
-
-
-
-
-
-/*
-** function called in update_player_position() and when casting rays
-** in the first case ray is passed as null, in the second one we prevent the ray
-** from being chosen by setting its value high
-*/
-int is_wall(int x, int y, t_vars *vars, t_ray *ray)
-{
-	if (x > vars->screen_width || x < 0 || y < 0 || y > vars->screen_height)
-	{
-		if (ray && ray->distance)
-			ray->distance = INT_MAX;
-		return 1;
-	}
 	if (vars->game_map[y][x] == '1' )
 		return 1;
 	else
@@ -105,7 +69,7 @@ static void update_play_pos(t_vars *vars, t_player *player)
 		new_y += sin(angle) * player->speed;
 	}
 	//check for walls
-	if (is_wall((int)new_x, (int)new_y, vars, 0))
+	if (player_is_wall((int)new_x, (int)new_y, vars))
 		return;
 	//printf("not a wall\n");
 	player->play_pos[0] = new_y; //check for cartesian confusion (lineas*columnas vs (x,y))
@@ -139,18 +103,18 @@ void ray_cast(t_ray *ray, t_player * player, t_vars *vars)
 {
     t_ray vert_ray;
     t_ray horz_ray;
-	static int i = 0;
     double angle;
 
 	//printf("before standard angle[%d] is: %d | ", i, (int)(ray->angle * 180 / M_PI));
     angle = standardize_angle(ray->angle);
 	//printf("standard angle[%d] is: %d\n", i, (int)(angle * 180 / M_PI));
 	//printf("-----------------------\n");
-	i++;
     vert_ray.angle = angle;
     horz_ray.angle = angle;
     vertical_border(&vert_ray, player, vars);
     horizontal_border(&horz_ray, player, vars);
+	//printf("vert_ray.distance is: %f\n", vert_ray.distance);
+	//printf("horz_ray.distance is: %f\n", horz_ray.distance);
 	if (vert_ray.distance < horz_ray.distance)
 		*ray = vert_ray;
 	else
@@ -171,6 +135,7 @@ void cast_all_rays(t_game *game)
 		//printf("ray[%d].angle: %f\n", i, (game->rays[i].angle* 180 / M_PI));
 		ray_cast(&(game->rays[i]), game->player, game->vars);
 		angle += game->player->field_of_view / game->vars->screen_width;
+		//printf("ray[%d].distance: %f\n", i, (game->rays[i].distance));
 		i++;
 		
 	}

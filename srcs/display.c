@@ -1,7 +1,8 @@
 #include "cubed.h"
 
 
-static void put_pixel_to_image(t_conn *conn, int x, int y, int color) {
+static void put_pixel_to_image(t_conn *conn, int x, int y, int color)
+{
     char *dst;
 
     dst = conn->image.addr + (y * conn->image.line_length + x * (conn->image.bpp / 8));
