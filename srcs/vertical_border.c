@@ -43,7 +43,7 @@ static void vert_find_point_a(t_ray *ray, t_player *player, char flag)
     ray->distance = sqrt(pow(adjacent, 2) + pow(opposite, 2));
 }
 
-static void right_facing_ray(t_ray *ray, t_player *player, char **map)
+static void right_facing_ray(t_ray *ray, t_player *player, t_vars *vars)
 {
     double delta_x; //adjacent
     double delta_y; //opposite
@@ -51,11 +51,11 @@ static void right_facing_ray(t_ray *ray, t_player *player, char **map)
     
     delta_x = 1; //TILE_SIZE increment in vertical borders
     vert_find_point_a(ray, player, 'r');
-    if (is_wall(ray->pos[0], ray->pos[1], map, ray))
+    if (is_wall(ray->pos[0], ray->pos[1], vars, ray))
         return;
     delta_y = tan(ray->angle) * delta_x;
     tile_increment = sqrt(pow(delta_x, 2) + pow(delta_y, 2));
-    while(!is_wall(ray->pos[0], ray->pos[1], map, ray))
+    while(!is_wall(ray->pos[0], ray->pos[1], vars, ray))
     {
         ray->pos[0] += delta_x;
         ray->pos[1] += delta_y;
@@ -70,7 +70,7 @@ static void right_facing_ray(t_ray *ray, t_player *player, char **map)
 **  2 - adjacent is negative
 **  3 - the border is part of which tile?
 */
-static void left_facing_ray(t_ray *ray, t_player *player, char **map)
+static void left_facing_ray(t_ray *ray, t_player *player, t_vars *vars)
 {
     double delta_x; //adjacent
     double delta_y; //opposite
@@ -78,11 +78,11 @@ static void left_facing_ray(t_ray *ray, t_player *player, char **map)
     
     delta_x = -1; //TILE_SIZE decrease in vertical borders
     vert_find_point_a(ray, player, 'l');
-    if (is_wall(ray->pos[0] -1, ray->pos[1], map, ray))
+    if (is_wall(ray->pos[0] -1, ray->pos[1], vars, ray))
         return;
     delta_y = tan(ray->angle) * delta_x;
     tile_increment = sqrt(pow(delta_x, 2) + pow(delta_y, 2));
-    while(!is_wall(ray->pos[0] - 1, ray->pos[1], map, ray))
+    while(!is_wall(ray->pos[0] - 1, ray->pos[1], vars, ray))
     {
         ray->pos[0] += delta_x;
         ray->pos[1] += delta_y;
@@ -95,16 +95,16 @@ static void left_facing_ray(t_ray *ray, t_player *player, char **map)
 ** INT_MAX to prevent infinite loop if ray doesn't hit any vertical border,
 **  when angle is either 90 or 270 degrees
 */
-void vertical_border(t_ray *ray, t_player *player, char **map)
+void vertical_border(t_ray *ray, t_player *player, t_vars *vars)
 {
     //can we run into rounding problems due to floating imprecision??
-    if (ray->angle == 90 * M.PI / 180 || ray->angle == 270 * M.PI / 180) 
+    if (ray->angle == 90 * M_PI / 180 || ray->angle == 270 * M_PI / 180) 
     {
         ray->distance = INT_MAX;
         return;
     }
-    if (ray->angle > 270 * M.PI/180  || ray->angle < 90 * M.PI/180)
-        right_facing_ray(ray, player, map);
+    if (ray->angle > 270 * M_PI/180  || ray->angle < 90 * M_PI/180)
+        right_facing_ray(ray, player, vars);
     else
-        left_facing_ray(ray, player, map);
+        left_facing_ray(ray, player, vars);
 }

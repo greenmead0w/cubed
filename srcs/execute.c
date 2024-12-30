@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 20:05:12 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/12/27 12:36:49 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2024/12/30 11:48:00 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ static int	init_game(t_game *game)
 	if (!game->rays)
 		return -1;
 	ft_bzero(game->rays, sizeof(t_ray));
-	game->update = 0;
+	game->update = 1;
 	printf("num_rays is: %d\n", game->vars->num_rays);
 	return 0;
 
@@ -131,6 +131,8 @@ static int render_game(void *game)
 	// printf("get_color -> g_col is: %f\n", g->player->play_pos[1]);
 	//TODO: render / draw
 	draw_2d_map(g);
+
+	draw_all_rays(g);
 
 	draw_player(g->conn, g->player);
 

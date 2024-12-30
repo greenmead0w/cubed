@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 22:16:56 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/12/26 09:11:18 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2024/12/30 11:02:33 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define DEFINITIONS_H
 
 # define BUFFER_SIZE 40
+# define INT_MAX 2147483647
 
 # define XPM_TO_IMAGE mlx_xpm_file_to_image
 # define IMAGE_TO_WINDOW mlx_put_image_to_window

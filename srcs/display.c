@@ -9,6 +9,10 @@ static void put_pixel_to_image(t_conn *conn, int x, int y, int color) {
 }
 
 
+/*
+************************** 2D MAP LAYER ********************
+************************************************************
+*/
 
 static void draw_row(int tmp_l, int col, char value, t_game *game, int line)
 {
@@ -75,6 +79,9 @@ void	draw_2d_map(t_game *game)
 }
 
 
+/*
+******************PLAYER LAYER***************************
+**********************************************************/
 void fill_player_rect(t_conn *conn, int center_x, int center_y, int size, int color)
 {
     int x_start;
@@ -116,6 +123,13 @@ void draw_player(t_conn *conn, t_player *player)
 
 
 
+/*
+**************DIRECTION LINE LAYER*********************
+********************************************************
+*/
+/*
+** temporal  function to debug if rotation working correctly
+*/
 
 void draw_direction_line(t_conn *conn, t_player *player)
 {
@@ -135,7 +149,7 @@ void draw_direction_line(t_conn *conn, t_player *player)
     // Drawing line pixel by pixel
     while (start_x != end_x || start_y != end_y)
     {
-        put_pixel_to_image(conn, start_x, start_y, 0x00FF00);  // Green color for direction
+        put_pixel_to_image(conn, start_x, start_y, 0x00FF00);
         if (start_x < end_x)
             start_x++;
         else if (start_x > end_x)
@@ -146,3 +160,69 @@ void draw_direction_line(t_conn *conn, t_player *player)
             start_y--;
     }
 }
+
+/*
+******************************************************************
+************************DRAW RAYS*********************************
+******************************************************************
+*/
+
+
+static void get_ray_coordinates(t_ray ray, t_player *player, int *line)
+{
+
+    line[0] = player->play_pos[1] * TILE_SIZE;
+    line[1] = player->play_pos[0] * TILE_SIZE;
+    line[2] = line[0] + (cos(ray.angle) * ray.distance * TILE_SIZE);
+    line[3] = line[1] + (sin(ray.angle) * ray.distance * TILE_SIZE);
+
+}
+
+static void draw_ray(int *line, t_conn *conn)
+{
+    double adjacent;
+    double opposite;
+    int hypotenuse;
+    double curr_x;
+    double curr_y;
+
+    adjacent = line[2] - line[0];
+    opposite = line[3] - line[1];
+    hypotenuse = sqrt(pow(adjacent, 2) + pow(opposite, 2));
+    adjacent = adjacent / hypotenuse;
+    opposite = opposite / hypotenuse;
+    curr_x = line[0];
+    curr_y = line[1];
+    while (hypotenuse)
+    {
+        put_pixel_to_image(conn, curr_x, curr_y, 0xFF0000);
+		curr_x += adjacent;
+		curr_y += opposite;
+		hypotenuse--;
+    }
+
+}
+
+
+/* for each ray:
+    1 - get starting position of ray(x,y) at the pixel level
+    2 - get ending position of ray(x, y)
+    3 - calculate adjacent, opposite, hypotenuse
+    4 - calculate increment in x and y position of line per pixel
+    5 - store data on img, pixel by pixel, up to hypotenuse pixel
+    */
+void draw_all_rays(t_game *game)
+{
+    
+    int line[4]; //x_0, y_0, x_1, y_1
+    int i;
+
+    i = 0;
+    while (i < game->vars->screen_width)
+    {
+        get_ray_coordinates(game->rays[i], game->player, line);
+        draw_ray(line, game->conn);
+        i++;
+    }
+}
+

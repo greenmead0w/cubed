@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:26:50 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/12/26 18:10:31 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2024/12/30 10:01:16 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,16 @@ typedef struct s_ray
 	double pos[2]; //(x, y) values for intersections
 
 } t_ray;
+
+//DRAW
+typedef struct s_line
+{
+	int x_0; //initial x coordinate
+	int y_0;
+	int x_1; //final x coordinate
+	int y_1;
+
+} t_line;
 
 //General struct for the game
 typedef struct s_game

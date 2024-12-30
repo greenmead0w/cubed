@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 10:24:24 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/12/26 18:49:08 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2024/12/30 11:42:07 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 
 int	key_press(int keycode, t_game *game)
 {
-	printf("key press called \n");
+	//printf("key press called \n");
 	if (keycode == XK_Escape)
 		ft_close_conn(game);
 	if (keycode ==  XK_w)
@@ -51,13 +51,13 @@ int	key_press(int keycode, t_game *game)
 	if (game->player->walk_direction != '0'
 		|| game->player->turn_direction != 0)
 		game->update = 1;
-	printf("kpressed; game->update is: %d\n", game->update);
+	//printf("kpressed; game->update is: %d\n", game->update);
 	return (0);
 }
 
 int	key_release(int kc, t_game *game)
 {
-	printf("key release called \n");
+	//printf("key release called \n");
 	if (kc ==  XK_w || kc == XK_s || kc == XK_a || kc == XK_d)
 		game->player->walk_direction = '0';
 	else if (kc == XK_Left || kc == XK_Right)

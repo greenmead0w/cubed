@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 14:31:54 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/12/27 12:38:08 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2024/12/30 13:03:57 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdio.h>
 # include <math.h>
 # include "../minilibx-linux/mlx.h"
+
 
 char    check(char *file, t_game *game, t_track_items *track_elements);
 char    examine_line(char *line, t_game *game, t_track_items *track_elems);
@@ -43,7 +44,11 @@ void	draw_2d_map(t_game *game);
 void	draw_player(t_conn *conn, t_player *player);
 void draw_direction_line(t_conn *conn, t_player *player);
 int is_wall(int x, int y, t_vars *vars, t_ray *ray);
-void vertical_border(t_ray *ray, t_player *player, char **map);
-void horizontal_border(t_ray *ray, t_player *player, char **map);
+int is_wall2(int x, int y, t_vars *vars, t_ray *ray);
+int is_wall3(int x, int y, t_vars *vars, t_ray *ray);
+void vertical_border(t_ray *ray, t_player *player, t_vars *vars);
+void horizontal_border(t_ray *ray, t_player *player, t_vars *vars);
+void draw_all_rays(t_game *game);
+
 
 #endif //CUBED_H

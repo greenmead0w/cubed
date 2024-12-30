@@ -23,7 +23,7 @@ static void horz_find_point_a(t_ray *ray, t_player *player, char flag)
 }
 
 
-static void upwards_facing_ray(t_ray *ray, t_player *player, char **map)
+static void upwards_facing_ray(t_ray *ray, t_player *player, t_vars *vars)
 {
     double delta_x; //adjacent
     double delta_y; //opposite
@@ -31,11 +31,11 @@ static void upwards_facing_ray(t_ray *ray, t_player *player, char **map)
     
     delta_y = -1; //TILE_SIZE decrease in horz borders
     horz_find_point_a(ray, player, 'u');
-    if (is_wall(ray->pos[0], ray->pos[1] - 1, map, ray))
+    if (is_wall2(ray->pos[0], ray->pos[1] - 1, vars, ray))
         return;
     delta_x = delta_y / tan(ray->angle);
     tile_increment = sqrt(pow(delta_x, 2) + pow(delta_y, 2));
-    while(!is_wall(ray->pos[0], ray->pos[1] - 1, map, ray))
+    while(!is_wall2(ray->pos[0], ray->pos[1] - 1, vars, ray))
     {
         ray->pos[0] += delta_x;
         ray->pos[1] += delta_y;
@@ -43,7 +43,7 @@ static void upwards_facing_ray(t_ray *ray, t_player *player, char **map)
     }
 }
 
-static void downwards_facing_ray(t_ray *ray, t_player *player, char **map)
+static void downwards_facing_ray(t_ray *ray, t_player *player, t_vars *vars)
 {
     double delta_x; //adjacent
     double delta_y; //opposite
@@ -51,11 +51,11 @@ static void downwards_facing_ray(t_ray *ray, t_player *player, char **map)
     
     delta_y = 1; //TILE_SIZE increase in horz borders
     horz_find_point_a(ray, player, 'd');
-    if (is_wall(ray->pos[0], ray->pos[1], map, ray))
+    if (is_wall3(ray->pos[0], ray->pos[1], vars, ray))
         return;
     delta_x = delta_y / tan(ray->angle);
     tile_increment = sqrt(pow(delta_x, 2) + pow(delta_y, 2));
-    while(!is_wall(ray->pos[0], ray->pos[1], map, ray))
+    while(!is_wall3(ray->pos[0], ray->pos[1], vars, ray))
     {
         ray->pos[0] += delta_x;
         ray->pos[1] += delta_y;
@@ -64,15 +64,16 @@ static void downwards_facing_ray(t_ray *ray, t_player *player, char **map)
     
 }
 
-void horizontal_border(t_ray *ray, t_player *player, char **map)
+void horizontal_border(t_ray *ray, t_player *player, t_vars *vars)
 {
-    if (ray->angle == 0 * M.PI / 180 || ray->angle == 180 * M.PI / 180) 
+    printf("ray->angle is: %d\n", (int)(ray->angle * 180 / M_PI));
+    if (ray->angle == 0 * M_PI / 180 || ray->angle == 180 * M_PI / 180) 
     {
         ray->distance = INT_MAX;
         return;
     }
-    if (ray->angle > 180* M.PI/180)
-        upwards_facing_ray(ray, player, map);
+    if (ray->angle > 180* M_PI/180) //!!
+        upwards_facing_ray(ray, player, vars);
     else
-        downwards_facing_ray(ray, player, map);
+        downwards_facing_ray(ray, player, vars);
 }
