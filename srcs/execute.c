@@ -130,6 +130,8 @@ static int render_game(void *game)
 	// printf("get_color -> g_line is: %f\n", g->player->play_pos[0]);
 	// printf("get_color -> g_col is: %f\n", g->player->play_pos[1]);
 	//TODO: render / draw
+	//draw_ray_cast(g, 0) //passing var i as arg because no space in calling function
+	//draw_floor_ceiling()
 	draw_2d_map(g);
 
 	draw_all_rays(g);

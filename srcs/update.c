@@ -119,6 +119,7 @@ void ray_cast(t_ray *ray, t_player * player, t_vars *vars)
 		*ray = vert_ray;
 	else
 		*ray = horz_ray;
+	// printf("ray.distance is: %f\n", ray->distance);
 
 }
 

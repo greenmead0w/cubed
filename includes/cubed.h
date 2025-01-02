@@ -50,6 +50,7 @@ int player_is_wall(int x, int y, t_vars *vars);
 void vertical_border(t_ray *ray, t_player *player, t_vars *vars);
 void horizontal_border(t_ray *ray, t_player *player, t_vars *vars);
 void draw_all_rays(t_game *game);
+//void draw_ray_cast(t_game *game);
 
 
 #endif //CUBED_H

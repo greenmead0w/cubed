@@ -81,7 +81,8 @@ void	draw_2d_map(t_game *game)
 
 
 /*
-******************PLAYER LAYER***************************
+**********************************************************
+******************PLAYER LAYER****************************
 **********************************************************/
 void fill_player_rect(t_conn *conn, int center_x, int center_y, int size, int color)
 {
@@ -125,8 +126,9 @@ void draw_player(t_conn *conn, t_player *player)
 
 
 /*
+*******************************************************
 **************DIRECTION LINE LAYER*********************
-********************************************************
+*******************************************************
 */
 /*
 ** temporal  function to debug if rotation working correctly
@@ -227,3 +229,119 @@ void draw_all_rays(t_game *game)
     }
 }
 
+
+/*
+******************************************************************
+*********************DRAW 3D  WALLS******************************
+******************************************************************
+*/
+/*double wall_3d_size(t_game *game, t_ray ray)
+{
+    double size;
+    double fisheye;
+    double adjusted_distance;
+
+    fisheye = cos(ray.angle - game->player->rotation_angle);
+    adjusted_distance = ray.distance * fisheye * TILE_SIZE;
+    size = (TILE_SIZE / adjusted_distance) *game->player->dist_to_plane;
+    return size;
+
+}*/
+
+static int color_to_hex(t_color *color, char flag)
+{
+    t_color *current;
+    int hex_color;
+
+    current = color;
+    while(current && current->cf != flag)
+        current = current->next;
+        //understanding the bitwise or operation!!
+
+    return hex_color;
+}
+
+void draw_floor(t_game *game)
+{
+
+}
+
+void draw_ceiling(t_game *game)
+{
+    int x;
+    int y;
+    int color;
+
+    x = 0;
+    //function to get color from rgb linked list to hex
+    color = color_to_hex(game->color_root, 'C');
+    while (x < game->vars->screen_width)
+    {
+        y = 0;
+        while (y < game->vars->screen_height / 2)
+        {
+
+            put_pixel_to_image();
+            y++;
+        }
+        x++;
+    }
+
+}
+
+/*
+**  if conditions protect code from writing pixels outside
+**  the window boundary
+*/
+static void draw_3d_wall(int x, int y, double wall_size, t_game *game )
+{
+    double end_y;
+    int curr_x;
+    int tmp_y;
+
+    end_y = y + wall_size;
+    if (y < 0)
+        y = 0;
+    if (end_y > game->vars->screen_height)
+        end_y = game->vars->screen_height - 1;
+    curr_x = x;
+    while (curr_x < x + RAY_WIDTH && curr_x < game->vars->screen_width)
+    {
+        tmp_y = y;
+        while (tmp_y < end_y)
+        {
+            put_pixel_to_image(game->conn, curr_x, y, 0xFFFFFF);
+            tmp_y++;
+        }
+        curr_x++;
+    }
+}
+
+/*
+**  up until now ray.distance was measured in 2d_map tiles, 
+**  here we convert it to pixels by multiplying by TILE_SIZE
+**   and adjust it to avoid the fisheye distortion
+**
+**  Triangle similarity theorem applied to get the projected wall size 
+**  in pixels
+*/
+void draw_ray_cast(t_game *game, int i)
+{
+    double wall_size;
+    double fisheye;
+    double adjusted_distance;
+    int x;
+    int y;
+
+    while (i < (game->vars->num_rays))
+    {
+        fisheye = cos(game->rays[i].angle - game->player->rotation_angle);
+        adjusted_distance = game->rays[i].distance * fisheye * TILE_SIZE;
+        wall_size = (TILE_SIZE / adjusted_distance) *game->player->dist_to_plane;
+        x = i * RAY_WIDTH;
+        y = (game->vars->screen_height - wall_size) / 2; //what happens if wall_size == screen_height or wall_size > screen_height?
+        //texture for this ray / wall?
+        draw_3d_wall(x, y, wall_size, game);
+        i++;
+    }
+}
