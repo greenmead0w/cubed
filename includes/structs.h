@@ -73,6 +73,7 @@ typedef struct s_player
 	double	play_pos[2]; //player position in the map (tile based, not pixel based)
 	double dist_to_plane; //distance to projection plane, constant
 	double field_of_view;  
+	double display_size; // size in pixels of the player representation in the 2d mini_map
 }	t_player;
 
 // typedef struct s_plane

@@ -15,45 +15,60 @@ static void put_pixel_to_image(t_conn *conn, int x, int y, int color)
 ************************************************************
 */
 
-static void draw_row(int tmp_l, int col, char value, t_game *game, int line)
+static int is_border_map(int curr_x, int curr_y, int start_x, int start_y, int size)
 {
-    int tmp_c;
-    int size;
+    int is_vert_border;
+    int is_horz_border;
 
-    tmp_c = col;
-    size = TILE_SIZE;
+    is_vert_border = (curr_x == start_x || curr_x == start_x + size -1);
+    is_horz_border = (curr_y == start_y || curr_y == start_y + size -1 );
 
-    while (size > 0)
+    return is_vert_border || is_horz_border;
+}
+
+static void draw_row(int y, int start_x, char value, t_game *game, int start_y)
+{
+    int curr_x;
+    int remaining;
+
+    curr_x = start_x;
+    //remaining = TILE_SIZE;
+    remaining = MINI_TILE;
+
+    while (remaining > 0)
     {
-		if (tmp_c == col || tmp_c == col + TILE_SIZE - 1 || tmp_l == line
-			|| tmp_l == line + TILE_SIZE - 1) //border
-			put_pixel_to_image(game->conn, tmp_c, tmp_l, 0xFFA500);
+        if (is_border_map(curr_x, y, start_x, start_y, /*TILE_SIZE*/MINI_TILE))
+			put_pixel_to_image(game->conn, curr_x, y, 0xFFA500);
 		else if (value == '1' || value == ' ')
-        	put_pixel_to_image(game->conn, tmp_c, tmp_l, 0x000000);
+        	put_pixel_to_image(game->conn, curr_x, y, 0x000000);
     	else
-        	put_pixel_to_image(game->conn, tmp_c, tmp_l, 0xFFFFFF);
-        tmp_c++;
-        size--;
+        	put_pixel_to_image(game->conn, curr_x, y, 0xFFFFFF);
+        curr_x++;
+        remaining--;
     }
 }
 
-static void draw_tile(char value, t_game *game, int i, int j)
+static void draw_tile(char value, t_game *game, int row, int col)
 {
-	int line;
-    int col;
-    int tmp_l;
-    int size;
+    int curr_y;
+    int remaining;
+    int start_x;
+    int start_y;
 
-    line = i * TILE_SIZE;
-    col = j * TILE_SIZE;
-    tmp_l = line;
-    size = TILE_SIZE;
+    /*start_y = row * TILE_SIZE;
+    start_x = col * TILE_SIZE;
+    curr_y = start_y;
+    remaining = TILE_SIZE;*/
+    start_y = row * MINI_TILE;
+    start_x = col * MINI_TILE;
+    curr_y = start_y;
+    remaining = MINI_TILE;
 
-    while (size > 0)
+    while (remaining > 0)
     {
-        draw_row(tmp_l, col, value, game, line);
-        tmp_l++;
-        size--;
+        draw_row(curr_y, start_x, value, game, start_y);
+        curr_y++;
+        remaining--;
     }
 }
 
@@ -61,21 +76,25 @@ static void draw_tile(char value, t_game *game, int i, int j)
 void	draw_2d_map(t_game *game)
 {
 	
-	int		i;
-	int		j;
+	int		row;
+	int		col;
 	char	**map;
+    //int map_size;
 
-	map = game->vars->game_map;
-	i = 0;
-	while (i < game->vars->map_rows)
+    // map_size = MINI_TILE * game->vars->map_rows;
+    // if (map_size > game->vars->screen_height)
+    //     return;
+    map = game->vars->game_map;
+	row = 0;
+	while (row < game->vars->map_rows)
 	{
-		j = 0;
-		while (j < game->vars->map_cols)
+		col = 0;
+		while (col < game->vars->map_cols)
 		{
-			draw_tile(map[i][j], game, i, j);
-			j++;
+			draw_tile(map[row][col], game, row, col);
+			col++;
 		}
-		i++;
+		row++;
 	}
 }
 
@@ -109,16 +128,22 @@ void fill_player_rect(t_conn *conn, int center_x, int center_y, int size, int co
     }
 }
 
-
+/*
+**  Player is half the size of a mini map tile
+*/
 void draw_player(t_conn *conn, t_player *player)
 {
     int center_x;
     int center_y;
     double size;
 
-    center_x = player->play_pos[1] * TILE_SIZE;
-    center_y = player->play_pos[0] * TILE_SIZE;
-    size = TILE_SIZE / 3;
+    //center_x = player->play_pos[1] * TILE_SIZE;
+    //center_y = player->play_pos[0] * TILE_SIZE;
+    //size = TILE_SIZE / 4;
+    center_x = player->play_pos[1] * MINI_TILE;
+    center_y = player->play_pos[0] * MINI_TILE;
+    size = MINI_TILE / 2;
+    player->display_size = (double)size;
 
     fill_player_rect(conn, center_x, center_y, size, 0xFF0000);
 }
@@ -134,7 +159,7 @@ void draw_player(t_conn *conn, t_player *player)
 ** temporal  function to debug if rotation working correctly
 */
 
-void draw_direction_line(t_conn *conn, t_player *player)
+/*void draw_direction_line(t_conn *conn, t_player *player)
 {
     int start_x;
     int start_y;
@@ -142,9 +167,13 @@ void draw_direction_line(t_conn *conn, t_player *player)
     int end_y;
     int line_length;
 
-    line_length = TILE_SIZE / 2;  // Length of direction indicator
-    start_x = player->play_pos[1] * TILE_SIZE;
-    start_y = player->play_pos[0] * TILE_SIZE;
+    // line_length = TILE_SIZE / 2;  // Length of direction indicator
+    // start_x = player->play_pos[1] * TILE_SIZE;
+    // start_y = player->play_pos[0] * TILE_SIZE;
+
+    line_length = MINI_TILE / 2;
+    start_x = player->play_pos[1] * MINI_TILE;
+    start_y = player->play_pos[0] * MINI_TILE;
 
     end_x = start_x + (cos(player->rotation_angle) * line_length);
     end_y = start_y + (sin(player->rotation_angle) * line_length);
@@ -162,7 +191,7 @@ void draw_direction_line(t_conn *conn, t_player *player)
         else if (start_y > end_y)
             start_y--;
     }
-}
+}*/
 
 /*
 ******************************************************************
@@ -174,10 +203,15 @@ void draw_direction_line(t_conn *conn, t_player *player)
 static void get_ray_coordinates(t_ray ray, t_player *player, int *line)
 {
 
-    line[0] = player->play_pos[1] * TILE_SIZE;
-    line[1] = player->play_pos[0] * TILE_SIZE;
-    line[2] = line[0] + (cos(ray.angle) * ray.distance * TILE_SIZE);
-    line[3] = line[1] + (sin(ray.angle) * ray.distance * TILE_SIZE);
+    // line[0] = player->play_pos[1] * TILE_SIZE;
+    // line[1] = player->play_pos[0] * TILE_SIZE;
+    // line[2] = line[0] + (cos(ray.angle) * ray.distance * TILE_SIZE);
+    // line[3] = line[1] + (sin(ray.angle) * ray.distance * TILE_SIZE);
+
+    line[0] = player->play_pos[1] * MINI_TILE;
+    line[1] = player->play_pos[0] * MINI_TILE;
+    line[2] = line[0] + (cos(ray.angle) * ray.distance * MINI_TILE);
+    line[3] = line[1] + (sin(ray.angle) * ray.distance * MINI_TILE);
 
 }
 
@@ -248,22 +282,56 @@ void draw_all_rays(t_game *game)
 
 }*/
 
-static int color_to_hex(t_color *color, char flag)
+/*
+**  Understanding bitwise operations:
+**  Translating to hex or decimal, it doesn't matter. But hex is more intuitive because
+**  hex is base 16, enabling each byte to be represented by 2 digits.
+**
+**  We start with three independent color ints, each one with 32 bits / 4 bytes. But each
+**  component only uses the least significant 8 bits (we could have used the char data
+**  type to hold the numbers?). First step is to switch those 8 bits to their appropriate
+**  position in our 0xRRGGBB number representation. Our pixel color will consist of 3 bytes,
+**  so it will be 0x00RRGGBB. Our red number needs to occupy the second byte in our
+**  new hex number, so it will have to switch its least significant byte with it's second 
+**  most significant byte "<< 16", green <<8 and blue as it is. 
+
+** Now that we have transformed our independent color all we need to do is combine
+**  their values via bitwise OR operator, discarding the NULL bytes and effectively creating
+**  a new int of type 0x00RRGGBB
+*/
+static int combine_rgb(t_color *color, char flag)
 {
     t_color *current;
-    int hex_color;
+    int res_color;
 
     current = color;
+    res_color = 0;
     while(current && current->cf != flag)
         current = current->next;
-        //understanding the bitwise or operation!!
-
-    return hex_color;
+    if (current)
+        res_color = current->r_color << 16 | current->g_color <<8 
+            | current->b_color;
+    return res_color;
 }
 
 void draw_floor(t_game *game)
 {
+    int x;
+    int y;
+    int color;
 
+    x = 0;
+    color = combine_rgb(game->color_root, 'F');
+    while (x < game->vars->screen_width)
+    {
+        y = game->vars->screen_height / 2;
+        while (y < game->vars->screen_height)
+        {
+            put_pixel_to_image(game->conn, x, y, color);
+            y++;
+        }
+        x++;
+    }
 }
 
 void draw_ceiling(t_game *game)
@@ -273,20 +341,17 @@ void draw_ceiling(t_game *game)
     int color;
 
     x = 0;
-    //function to get color from rgb linked list to hex
-    color = color_to_hex(game->color_root, 'C');
+    color = combine_rgb(game->color_root, 'C');
     while (x < game->vars->screen_width)
     {
         y = 0;
         while (y < game->vars->screen_height / 2)
         {
-
-            put_pixel_to_image();
+            put_pixel_to_image(game->conn, x, y, color);
             y++;
         }
         x++;
     }
-
 }
 
 /*
@@ -310,7 +375,7 @@ static void draw_3d_wall(int x, int y, double wall_size, t_game *game )
         tmp_y = y;
         while (tmp_y < end_y)
         {
-            put_pixel_to_image(game->conn, curr_x, y, 0xFFFFFF);
+            put_pixel_to_image(game->conn, curr_x, tmp_y, 0x00fdf0d5);
             tmp_y++;
         }
         curr_x++;

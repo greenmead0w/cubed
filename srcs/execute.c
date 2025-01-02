@@ -130,15 +130,19 @@ static int render_game(void *game)
 	// printf("get_color -> g_line is: %f\n", g->player->play_pos[0]);
 	// printf("get_color -> g_col is: %f\n", g->player->play_pos[1]);
 	//TODO: render / draw
-	//draw_ray_cast(g, 0) //passing var i as arg because no space in calling function
-	//draw_floor_ceiling()
+	draw_ceiling(g);
+
+	draw_floor(g);
+
+	draw_ray_cast(g, 0); //passing var i as arg because no space in calling function
+
 	draw_2d_map(g);
 
 	draw_all_rays(g);
 
 	draw_player(g->conn, g->player);
 
-	draw_direction_line(g->conn, g->player); //temporal function, to test the rotation
+	//draw_direction_line(g->conn, g->player); //temporal function, to test the rotation
 
 	//dump data from image to window
 	mlx_put_image_to_window(g->conn->mlx, g->conn->win, g->conn->image.img, 0, 0);

@@ -42,15 +42,19 @@ int     ft_close_conn(t_game *game);
 void	update(t_game *game);
 void	draw_2d_map(t_game *game);
 void	draw_player(t_conn *conn, t_player *player);
-void draw_direction_line(t_conn *conn, t_player *player);
+//void draw_direction_line(t_conn *conn, t_player *player);
+int is_collision(double x, double y, t_player *player, t_vars *vars);
 int ray_is_wall(int x, int y, t_vars *vars, t_ray *ray);
-int player_is_wall(int x, int y, t_vars *vars);
+int pos_is_wall(double x, double y, t_vars *vars);
 // int is_wall2(int x, int y, t_vars *vars, t_ray *ray);
 // int is_wall3(int x, int y, t_vars *vars, t_ray *ray);
 void vertical_border(t_ray *ray, t_player *player, t_vars *vars);
 void horizontal_border(t_ray *ray, t_player *player, t_vars *vars);
 void draw_all_rays(t_game *game);
-//void draw_ray_cast(t_game *game);
+void draw_ray_cast(t_game *game, int i);
+void draw_ceiling(t_game *game);
+void draw_floor(t_game *game);
+
 
 
 #endif //CUBED_H

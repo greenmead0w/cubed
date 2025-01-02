@@ -1,16 +1,6 @@
 #include "cubed.h"
 
 
-int player_is_wall(int x, int y, t_vars *vars)
-{
-	if (x > vars->map_cols || x < 0 || y < 0 || y > vars->map_rows)
-		return 1;
-	if (vars->game_map[y][x] == '1' )
-		return 1;
-	else
-		return 0;
-}
-
 /*
 ** function called in update_player_position() and when casting rays
 ** in the first case ray is passed as null, in the second one we prevent the ray
@@ -33,6 +23,65 @@ int ray_is_wall(int x, int y, t_vars *vars, t_ray *ray)
 	else
 		return 0;
 
+}
+
+int pos_is_wall(double x, double y, t_vars *vars)
+{
+	int ix;
+	int iy;
+
+	
+	ix = (int)x;
+	iy = (int)y;
+	if (ix > vars->map_cols || ix < 0 || iy < 0 || iy > vars->map_rows)
+		return 1;
+	if (vars->game_map[iy][ix] == '1' )
+		return 1;
+	else
+		return 0;
+}
+
+/*
+** Without this function only checking the center of the rectangle, not the edges
+**	Objective: check the 4 sides of the square as if the player is positioned on the
+**	edge of it, not the center
+** 
+*/
+int is_collision(double x, double y, t_player *player, t_vars *vars)
+{
+	//square sides
+	double left;
+	double right;
+	double top;
+	double base;
+
+	// left = x - (player->display_size / TILE_SIZE);
+	// right = x + (player->display_size / TILE_SIZE);
+	// top = y - (player->display_size / TILE_SIZE);
+	// base = y + (player->display_size / TILE_SIZE);
+
+	left = x - (player->display_size / 2 / TILE_SIZE);
+	right = x + (player->display_size / 2 / TILE_SIZE);
+	top = y - (player->display_size / 2 / TILE_SIZE);
+	base = y + (player->display_size / 2 / TILE_SIZE);
+
+
+	// printf("is_collision: x is %f\n", x);
+	// printf("is_collision: y is %f\n", y);
+	// printf("is_collision: left is %f\n", left);
+	// printf("is_collision: right is %f\n", right);
+	// printf("is_collision: top is %f\n", top);
+	// printf("is_collision: base is %f\n", base);
+
+	// printf("---------\n");
+	// printf("player->display_size  %f\n", player->display_size);
+
+	if (pos_is_wall(left, top, vars) || pos_is_wall(left, base, vars)
+		|| pos_is_wall(right, top, vars) || pos_is_wall(right, base, vars)
+		|| pos_is_wall(left, y, vars) || pos_is_wall(right, y, vars)
+		|| pos_is_wall(x, top, vars) || pos_is_wall(x, base, vars))
+			return 1;
+	return 0;
 }
 
 
@@ -69,7 +118,7 @@ static void update_play_pos(t_vars *vars, t_player *player)
 		new_y += sin(angle) * player->speed;
 	}
 	//check for walls
-	if (player_is_wall((int)new_x, (int)new_y, vars))
+	if (is_collision(new_x, new_y, player, vars))
 		return;
 	//printf("not a wall\n");
 	player->play_pos[0] = new_y; //check for cartesian confusion (lineas*columnas vs (x,y))

@@ -47,7 +47,7 @@
 #define XK_Escape                        0xff1b
 
 #define TILE_SIZE 64
-#define MINI_TILE (TILE_SIZE / 5) //minimap tile size
+#define MINI_TILE (TILE_SIZE / 4) //minimap tile size
 #define RAY_WIDTH 1 //width in pixels of "each ray"
 
 #endif //DEFINITIONS_H
