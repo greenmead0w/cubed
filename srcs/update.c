@@ -2,6 +2,51 @@
 
 
 /*
+** TODO: Function that returns the side of the wall the player is looking
+**  if wall is part of the edge of the map:
+**  1 -  ray hit row 0: player looking south texture
+**  2 - ray hit row max: north texture
+**  3 - ray hit col 0: east texture
+**  4 - ray hit col max: west texture
+**  for rays hitting walls not on edges:
+**  1 - if horizontal ray hit the wall:
+**      1.1 - player will see north or south texture. 
+**      NEED TO THINK HOW TO FLAG THIS
+**  2 - if vertical ray hit the wall:
+**      2.2 - player will see east or west texture
+**      NEED TO THINK HOW TO FLAG THIS
+
+** remember, x is col and y is line
+*/
+static char wall_side_hit(int x, int y, t_vars *vars, t_ray *ray)
+{
+	if (x == 0)
+		return 'E';
+	if (y == 0)
+		return 'S';
+	if (x == vars->map_cols)
+		return 'W';
+	if (y == vars->map_rows -1)
+		return 'N';
+	if (ray->border == 'H')
+	{
+		if (ray->angle >0 && ray->angle < M_PI) //ray going bottom (graphically)
+			return 'N';
+		else if (ray->angle > M_PI && ray->angle < 2 * M_PI)
+			return 'S';
+	}
+	if (ray->border == 'V')
+	{
+		if ((ray->angle > 3 * M_PI / 2 && ray->angle <= 2 * M_PI) 
+			|| (ray->angle >= 0 && ray->angle < M_PI / 2) ) //ray going east
+			return 'W';
+		else if (ray->angle > M_PI / 2 && ray->angle < 3 * M_PI / 2)
+			return 'E';
+	}
+	return 0;
+}
+
+/*
 ** function called in update_player_position() and when casting rays
 ** in the first case ray is passed as null, in the second one we prevent the ray
 ** from being chosen by setting its value high
@@ -17,9 +62,15 @@ int ray_is_wall(int x, int y, t_vars *vars, t_ray *ray)
 		return 1;
 	}
 	if (y == vars->map_rows) // last row of char ** is null, if doing game_map[last_row] then seg fault
+	{
+		ray->hit_side = 'N';
 		return 1;
+	}
 	if (vars->game_map[y][x] == '1' )
+	{
+		ray->hit_side = wall_side_hit(x, y, vars, ray);
 		return 1;
+	}
 	else
 		return 0;
 
@@ -30,7 +81,6 @@ int pos_is_wall(double x, double y, t_vars *vars)
 	int ix;
 	int iy;
 
-	
 	ix = (int)x;
 	iy = (int)y;
 	if (ix > vars->map_cols || ix < 0 || iy < 0 || iy > vars->map_rows)
@@ -42,10 +92,19 @@ int pos_is_wall(double x, double y, t_vars *vars)
 }
 
 /*
-** Without this function only checking the center of the rectangle, not the edges
-**	Objective: check the 4 sides of the square as if the player is positioned on the
-**	edge of it, not the center
-** 
+**	Without this function only checking the center of the rectangle, not the edges
+**	or sides, and in many cases the center is not in the wall, but the edges / sides
+**	are.
+**	
+**	collision_margin explanation:
+**	1 - x and y params are grid indexes, player->display_size is 8 pixels, so dividing by
+**		TILE_SIZE makes everything comparable in grid units
+**	2 - Dividing by 2 because it's a square and we get the corners / sides of the square
+**		
+**	Important note: MINI_TILE scale is only used for displaying purposes, the wall collision
+**	detection needs to work at the full TILE_SIZE scale, that's why we harmonize grid values
+**	by dividing by TILE_SIZE
+**
 */
 int is_collision(double x, double y, t_player *player, t_vars *vars)
 {
@@ -54,27 +113,13 @@ int is_collision(double x, double y, t_player *player, t_vars *vars)
 	double right;
 	double top;
 	double base;
+	double collision_margin;
 
-	// left = x - (player->display_size / TILE_SIZE);
-	// right = x + (player->display_size / TILE_SIZE);
-	// top = y - (player->display_size / TILE_SIZE);
-	// base = y + (player->display_size / TILE_SIZE);
-
-	left = x - (player->display_size / 2 / TILE_SIZE);
-	right = x + (player->display_size / 2 / TILE_SIZE);
-	top = y - (player->display_size / 2 / TILE_SIZE);
-	base = y + (player->display_size / 2 / TILE_SIZE);
-
-
-	// printf("is_collision: x is %f\n", x);
-	// printf("is_collision: y is %f\n", y);
-	// printf("is_collision: left is %f\n", left);
-	// printf("is_collision: right is %f\n", right);
-	// printf("is_collision: top is %f\n", top);
-	// printf("is_collision: base is %f\n", base);
-
-	// printf("---------\n");
-	// printf("player->display_size  %f\n", player->display_size);
+	collision_margin = (player->display_size / TILE_SIZE) / 2;
+	left = x - collision_margin;
+	right = x + collision_margin;
+	top = y - collision_margin;
+	base = y + collision_margin;
 
 	if (pos_is_wall(left, top, vars) || pos_is_wall(left, base, vars)
 		|| pos_is_wall(right, top, vars) || pos_is_wall(right, base, vars)
@@ -160,6 +205,8 @@ void ray_cast(t_ray *ray, t_player * player, t_vars *vars)
 	//printf("-----------------------\n");
     vert_ray.angle = angle;
     horz_ray.angle = angle;
+	vert_ray.border = 'V';
+	horz_ray.border = 'H';
     vertical_border(&vert_ray, player, vars);
     horizontal_border(&horz_ray, player, vars);
 	//printf("vert_ray.distance is: %f\n", vert_ray.distance);

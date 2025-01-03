@@ -58,13 +58,13 @@ static void	*init_player(t_game *game)
 	}
 	game->player->turn_direction = 0;
 	game->player->walk_direction = '0';
-	game->player->rotation_angle = M_PI / 2; //90 degrees in radians
 	game->player->rotation_speed = 2 *(M_PI / 180); //equivalent of 2 degrees in radians
 	game->player->speed = 10.0/64; //pixels per key_press
 	initial_player_data(game->vars->game_map, game->vars->map_rows, \
 			game->vars->map_cols, game->player);
 	game->player->field_of_view = 60 * (M_PI/180);
 	game->player->dist_to_plane = (game->vars->screen_width / 2) / (tan(game->player->field_of_view / 2));
+	game->player->display_size = MINI_TILE / 2.0;
 	
 
 	printf("turn_direction is: %c\n", game->player->turn_direction);
@@ -90,7 +90,7 @@ static void	*init_player(t_game *game)
 static int	init_game(t_game *game)
 {
 
-	get_textures(game->conn, game->vars->textures);
+	get_textures(game->conn, game->vars->textures);	
 	if (!init_player(game))
 		return -1;
 	game->vars->num_rays = game->vars->screen_width / RAY_WIDTH;
@@ -118,8 +118,8 @@ static int render_game(void *game)
 	t_game *g;
 
 	g = (t_game *)game;
-	g->conn->image.img = mlx_new_image(g->conn->mlx, g->vars->screen_width, g->vars->screen_height);
-	g->conn->image.addr = mlx_get_data_addr(g->conn->image.img, &g->conn->image.bpp, 
+	g->conn->image.ptr = mlx_new_image(g->conn->mlx, g->vars->screen_width, g->vars->screen_height);
+	g->conn->image.addr = mlx_get_data_addr(g->conn->image.ptr, &g->conn->image.bpp, 
 					&g->conn->image.line_length, &g->conn->image.endian);
 	
 	if (g->update) //only update if keypress event has been triggered
@@ -145,10 +145,10 @@ static int render_game(void *game)
 	//draw_direction_line(g->conn, g->player); //temporal function, to test the rotation
 
 	//dump data from image to window
-	mlx_put_image_to_window(g->conn->mlx, g->conn->win, g->conn->image.img, 0, 0);
+	mlx_put_image_to_window(g->conn->mlx, g->conn->win, g->conn->image.ptr, 0, 0);
 
 	//destroy image
-	mlx_destroy_image(g->conn->mlx, g->conn->image.img);
+	mlx_destroy_image(g->conn->mlx, g->conn->image.ptr);
 	
 	return 0;
 	

@@ -1,24 +1,5 @@
 #include "cubed.h"
 
-
-
-/*
-** TODO: Function that returns the side of the wall the player is looking
-**  if wall is part of the edge of the map:
-**  1 -  ray hit row 0: player looking south texture
-**  2 - ray hit row max: north texture
-**  3 - ray hit col 0: east texture
-**  4 - ray hit col max: west texture
-**  for rays hitting walls not on edges:
-**  1 - if horizontal ray hit the wall:
-**      1.1 - player will see north or south texture. 
-**      NEED TO THINK HOW TO FLAG THIS
-**  2 - if vertical ray hit the wall:
-**      2.2 - player will see east or west texture
-**      NEED TO THINK HOW TO FLAG THIS
-*/
-
-
 /*
 **  solving for the opposite
 **  find x,y coordinates of point a, which is first vertical border the ray hits

@@ -37,15 +37,16 @@ void	free_double_pointer(void **ptr)
 	}
 }
 
-static void	free_double_pointer_ep(void **ptr)
+static void	free_textures(t_texture **ptr)
 {
-	void	**run;
+	int i;
 
-	if (ptr)
+	i = 0;
+	while (i < 4)
 	{
-		run = ptr;
-		while (*run)
-			free_simple_pointer(*run++);
+		free(ptr[i]->path);
+		free(ptr[i]);
+		i++;
 	}
 }
 
@@ -76,7 +77,7 @@ void	free_all_game(t_game *game)
 {
 	if (game)
 	{
-		free_double_pointer_ep((void **)game->vars->textures);
+		free_textures(game->vars->textures);
 		free_color_list(game->color_root);
 		free_double_pointer((void **)game->vars->map);
 		free_double_pointer((void **)game->vars->game_map);

@@ -29,16 +29,34 @@ static char	generate_and_initialize_game(t_game **game, \
 	}
 	ft_bzero(*game, sizeof(t_game));
 	ft_bzero(*track_elements, sizeof(t_track_items));
-	(*game)->vars = malloc(sizeof(t_vars)); //AÑADIDO
+	(*game)->vars = malloc(sizeof(t_vars));
 	if (!(*game)->vars)
 	{
-		write(2, MEM_ALLOC, ft_strlen(MEM_ALLOC)); //AÑADIDO
-		free_simple_pointer((*game)->vars); //AÑADIDO
-		free_simple_pointer(*game); //AÑADIDO
-		free_simple_pointer(*track_elements); //AÑADIDO
+		write(2, MEM_ALLOC, ft_strlen(MEM_ALLOC));
+		free_simple_pointer((*game)->vars); 
+		free_simple_pointer(*game); 
+		free_simple_pointer(*track_elements);
 		return (-1);
 	}
-	ft_bzero((*game)->vars, sizeof(t_vars));//AÑADIDO
+	ft_bzero((*game)->vars, sizeof(t_vars));
+	return (0);
+}
+
+static char init_textures(t_vars *vars)
+{
+	int i;
+	i = 0;
+	while( i < 4)
+	{
+		vars->textures[i] = malloc(sizeof(t_texture));
+		if (!vars->textures[i])
+		{
+			//frees
+			return (-1);
+		}
+		ft_bzero(vars->textures[i], sizeof(t_texture));
+		i++;
+	}
 	return (0);
 }
 
@@ -48,11 +66,12 @@ static char	check_and_parse(char *file, t_game *game, \
 	if (check(file, game, track_elems))
 	{
 		free_simple_pointer(track_elems);
-		free_simple_pointer(game->vars); //AÑADIDO
+		free_simple_pointer(game->vars);
 		free_simple_pointer(game);
 		return (-1);
 	}
 	free_simple_pointer(track_elems);
+	init_textures(game->vars);
 	if (parse(file, game))
 	{
 		free_all_game(game);

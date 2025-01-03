@@ -12,15 +12,30 @@
 
 #include "cubed.h"
 
-void	get_textures(t_conn *con, void **textures)
+void	get_textures(t_conn *con, t_texture **textures)
 {
-	int	width;
-	int	height;
+	int i;
 
-	width = TILE_SIZE;
-	height = TILE_SIZE;
-	textures[WALL] = XPM_TO_IMAGE(con->mlx, NORTH_W, &width, &height);
-	textures[SPACE_T] = XPM_TO_IMAGE(con->mlx, SPACE_W, &width, &height);
-	textures[PLAYER_T] = XPM_TO_IMAGE(con->mlx, EAST_W, &width, &height);
-	textures[WEST] = XPM_TO_IMAGE(con->mlx, WEST_W, &width, &height);
+	i = 0;
+	while( i < 4)
+	{
+		textures[i]->width = TILE_SIZE;
+		textures[i]->height = TILE_SIZE;
+		i++;
+	}
+	textures[NORTH]->img.ptr = XPM_TO_IMAGE(con->mlx, NORTH_W,
+		 &textures[NORTH]->width, &textures[NORTH]->height);
+	textures[SOUTH]->img.ptr = XPM_TO_IMAGE(con->mlx, SOUTH_W, 
+		&textures[SOUTH]->width, &textures[SOUTH]->height);
+	textures[EAST]->img.ptr = XPM_TO_IMAGE(con->mlx, EAST_W, 
+		&textures[EAST]->width, &textures[EAST]->height);
+	textures[WEST]->img.ptr = XPM_TO_IMAGE(con->mlx, WEST_W, 
+		&textures[WEST]->width, &textures[WEST]->height);
+	i = 0;
+	while (i < 4)
+	{
+		textures[i]->img.addr = mlx_get_data_addr(textures[i]->img.ptr, 
+			&textures[i]->img.bpp, &textures[i]->img.line_length, &textures[i]->img.endian);
+		i++;
+	}
 }

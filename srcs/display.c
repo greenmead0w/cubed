@@ -143,7 +143,7 @@ void draw_player(t_conn *conn, t_player *player)
     center_x = player->play_pos[1] * MINI_TILE;
     center_y = player->play_pos[0] * MINI_TILE;
     size = MINI_TILE / 2;
-    player->display_size = (double)size;
+    //player->display_size = (double)size;
 
     fill_player_rect(conn, center_x, center_y, size, 0xFF0000);
 }
@@ -354,6 +354,19 @@ void draw_ceiling(t_game *game)
     }
 }
 
+/*static void everything_texture()
+{
+    //TODO
+    0 - get texture value for this ray (is it 'N', 'S', 'W' or 'E')
+    1 - Find wall_hit_position (as a fraction, as a pixel)
+    2 - Find that fractions equivalence in the texture image
+            it could be a rule of three (if 0.4 in wall, what col is at 0.4 width in texture)
+    3 - step and stuff
+    this_ray_texture();
+
+
+}*/
+
 /*
 **  if conditions protect code from writing pixels outside
 **  the window boundary
@@ -382,6 +395,33 @@ static void draw_3d_wall(int x, int y, double wall_size, t_game *game )
     }
 }
 
+static double solve_fisheye(t_ray ray, t_player *player)
+{
+    double fisheye;
+    double adjusted_distance;
+    double wall_size;
+
+    fisheye = cos(ray.angle - player->rotation_angle);
+    adjusted_distance = ray.distance * fisheye * TILE_SIZE;
+    wall_size = (TILE_SIZE / adjusted_distance) *player->dist_to_plane;
+    return wall_size;
+}
+
+static t_texture *get_ray_texture(t_game *game, t_ray ray)
+{
+    t_texture *texture;
+
+    if (ray.hit_side == 'N')
+            texture = game->vars->textures[NORTH];
+        else if (ray.hit_side == 'S')
+            texture = game->vars->textures[SOUTH];
+        else if (ray.hit_side == 'E')
+            texture = game->vars->textures[EAST];
+        else if (ray.hit_side == 'W')
+            texture = game->vars->textures[WEST];
+    return texture;
+}
+
 /*
 **  up until now ray.distance was measured in 2d_map tiles, 
 **  here we convert it to pixels by multiplying by TILE_SIZE
@@ -393,19 +433,23 @@ static void draw_3d_wall(int x, int y, double wall_size, t_game *game )
 void draw_ray_cast(t_game *game, int i)
 {
     double wall_size;
-    double fisheye;
-    double adjusted_distance;
+    t_texture *texture;
+    double wall_hit_pos;
     int x;
     int y;
 
     while (i < (game->vars->num_rays))
     {
-        fisheye = cos(game->rays[i].angle - game->player->rotation_angle);
-        adjusted_distance = game->rays[i].distance * fisheye * TILE_SIZE;
-        wall_size = (TILE_SIZE / adjusted_distance) *game->player->dist_to_plane;
+        wall_size = solve_fisheye(game->rays[i], game->player);
         x = i * RAY_WIDTH;
         y = (game->vars->screen_height - wall_size) / 2; //what happens if wall_size == screen_height or wall_size > screen_height?
-        //texture for this ray / wall?
+        texture = get_ray_texture(game, game->rays[i]);
+        (void)texture;
+        if (game->rays[i].border == 'H')
+            wall_hit_pos = game->rays[i].pos[0] - floor(game->rays[i].pos[0]);
+        else
+            wall_hit_pos = game->rays[i].pos[1] - floor(game->rays[i].pos[1]);      
+        (void)wall_hit_pos;  
         draw_3d_wall(x, y, wall_size, game);
         i++;
     }

@@ -33,7 +33,7 @@ char    fill_textures_matrix(char *line, t_vars *vars);
 char    fill_map(t_vars *vars, char *line);
 int		check_map(t_vars *vars);
 char    execute(t_game *game);
-void	get_textures(t_conn *con, void **textures);
+void	get_textures(t_conn *con, t_texture **textures);
 void	render_map(t_game *game);
 int     key_press(int keycode, t_game *game);
 int     key_release(int kc, t_game *game);

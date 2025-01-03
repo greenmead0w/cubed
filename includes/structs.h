@@ -35,7 +35,7 @@ typedef struct s_color
 
 //buffer to dump pixels to window
 typedef struct	s_image {
-	void	*img;
+	void	*ptr;
 	char	*addr;
 	int		bpp;
 	int		line_length;
@@ -50,9 +50,19 @@ typedef struct s_conn
 	t_image	image;
 }		t_conn;
 
+typedef struct s_textures 
+{
+	t_image img;
+	int width;
+	int height;
+	char *path;
+	char side; //which side of the wall texture corresponds to
+
+}	t_texture;
+
 typedef struct s_vars
 {
-	void	*textures[5];
+	t_texture	*textures[4];
 	char	**map;
 	char	**game_map; //rect map
 	int	map_rows;
@@ -67,22 +77,15 @@ typedef struct s_player
 {
 	int turn_direction; // 0 default, +1 right, -1 left
 	char walk_direction; // '0' default, 'w', 'a', 's', 'd'
-	double rotation_angle; //where is the player looking at, in radians
+	double rotation_angle; //where the player is looking at, in radians
 	double rotation_speed; //how many radians will the player rotate per frame / key_press
 	double speed; //how many pixels per frame / key press will player move in total (hypotenuse)
 	double	play_pos[2]; //player position in the map (tile based, not pixel based)
 	double dist_to_plane; //distance to projection plane, constant
 	double field_of_view;  
 	double display_size; // size in pixels of the player representation in the 2d mini_map
+
 }	t_player;
-
-// typedef struct s_plane
-// {
-// 	int screen_width;
-// 	int screen_height;
-
- 	
-// } t_plane;
 
 
 typedef struct s_ray 
@@ -90,6 +93,8 @@ typedef struct s_ray
 	double angle; 
 	double distance; //rays distance to the wall
 	double pos[2]; //(x, y) values for intersections
+	char hit_side; //the side of the wall that the ray has hit
+	char border; //'H' if ray hit horizontal intersection, 'V' if vertical
 
 } t_ray;
 

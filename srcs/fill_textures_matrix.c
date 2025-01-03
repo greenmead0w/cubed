@@ -12,37 +12,52 @@
 
 #include "cubed.h"
 
-static int	calculate_size(char *line)
-{
-	int	counter;
+// static int	calculate_size(char *line)
+// {
+// 	int	counter;
 
-	counter = 2;
-	line += 2;
-	while (*line == ' ')
-		line++;
-	while (*line != ' ' && *line != '\n')
-	{
-		counter++;
-		line++;
-	}
-	return (counter);
-}
+// 	counter = 2;
+// 	line += 2;
+// 	while (*line == ' ')
+// 		line++;
+// 	while (*line != ' ' && *line != '\n')
+// 	{
+// 		counter++;
+// 		line++;
+// 	}
+// 	return (counter);
+// }
 
-static void	copy_texture(char *dest, char *src)
+// static void	copy_texture(char *dest, char *src)
+// {
+// 	while (*src != ' ' && *src != '\n')
+// 		*dest++ = *src++;
+// 	while (*src == ' ')
+// 		src++;
+// 	while (*src != ' ' && *src != '\n')
+// 		*dest++ = *src++;
+// 	*dest = '\0';
+// }
+
+static char fill_textures_path(t_texture **ptr, int i)
 {
-	while (*src != ' ' && *src != '\n')
-		*dest++ = *src++;
-	while (*src == ' ')
-		src++;
-	while (*src != ' ' && *src != '\n')
-		*dest++ = *src++;
-	*dest = '\0';
+	if (i == 0)
+		ptr[i]->path = ft_strdup(NORTH_W);
+	else if (i == 1)
+		ptr[i]->path = ft_strdup(SOUTH_W);
+	else if (i == 2)
+		ptr[i]->path = ft_strdup(WEST_W);
+	else if (i == 3)
+		ptr[i]->path = ft_strdup(EAST_W);
+	if (!ptr[i]->path)
+		return -1;
+	return 0;
 }
 
 char	fill_textures_matrix(char *line, t_vars *vars)
 {
 	int	i;
-	int	size;
+	//int	size;
 
 	if (*line == 'N')
 		i = 0;
@@ -52,11 +67,8 @@ char	fill_textures_matrix(char *line, t_vars *vars)
 		i = 2;
 	if (*line == 'E')
 		i = 3;
-	size = calculate_size(line);
-	vars->textures[i] = malloc(sizeof(char) * (size + 1));
-	if (!vars->textures[i])
-		return (-1);
-	copy_texture(vars->textures[i], line);
-	vars->textures[4] = NULL;
+	vars->textures[i]->side = *line;
+	if (fill_textures_path(vars->textures, i))
+		return -1;
 	return (0);
 }
