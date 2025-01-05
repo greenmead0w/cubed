@@ -142,6 +142,15 @@ static int render_game(void *game)
 
 	draw_player(g->conn, g->player);
 
+	// int i = 0;
+	// int ray_num  = g->vars->num_rays / 2;
+	// while (i < 3)
+	// {
+	// 	printf("wall_height for ray_num[%d] is: %f\n", ray_num, g->rays[ray_num]. wall_height);
+	// 	i++;
+	// 	ray_num++;
+	// }
+
 	//draw_direction_line(g->conn, g->player); //temporal function, to test the rotation
 
 	//dump data from image to window

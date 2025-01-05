@@ -1,10 +1,10 @@
 F 40,54,24
 C 244,162,97
 
-NO textures/north.xpm
-SO textures/south.xpm
-WE textures/west.xpm
-EA textures/east.xpm
+NO textures/bricks.xpm
+SO textures/sand.xpm
+WE textures/ice.xpm
+EA textures/woolsnow.xpm
 
 
 1111111111111111111111111

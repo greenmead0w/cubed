@@ -92,9 +92,13 @@ typedef struct s_ray
 {
 	double angle; 
 	double distance; //rays distance to the wall
-	double pos[2]; //(x, y) values for intersections
+	double pos[2]; //(x, y) values for intersections (2d grid based, not pixel based)
 	char hit_side; //the side of the wall that the ray has hit
 	char border; //'H' if ray hit horizontal intersection, 'V' if vertical
+	double wall_height; //based on the adjusted ray distace to the wall
+	int x; //pixel coordinate values determining screen position where wall will be rendered
+	int y; // (pixel) starting position for the wall strip
+	t_texture tex; //texture that this ray has summoned
 
 } t_ray;
 

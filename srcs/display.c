@@ -371,31 +371,31 @@ void draw_ceiling(t_game *game)
 **  if conditions protect code from writing pixels outside
 **  the window boundary
 */
-static void draw_3d_wall(int x, int y, double wall_size, t_game *game )
-{
-    double end_y;
-    int curr_x;
-    int tmp_y;
+// static void draw_3d_wall(int x, int y, double wall_size, t_game *game )
+// {
+//     double end_y;
+//     int curr_x;
+//     int tmp_y;
 
-    end_y = y + wall_size;
-    if (y < 0)
-        y = 0;
-    if (end_y > game->vars->screen_height)
-        end_y = game->vars->screen_height - 1;
-    curr_x = x;
-    while (curr_x < x + RAY_WIDTH && curr_x < game->vars->screen_width)
-    {
-        tmp_y = y;
-        while (tmp_y < end_y)
-        {
-            put_pixel_to_image(game->conn, curr_x, tmp_y, 0x00fdf0d5);
-            tmp_y++;
-        }
-        curr_x++;
-    }
-}
+//     end_y = y + wall_size;
+//     if (y < 0)
+//         y = 0;
+//     if (end_y > game->vars->screen_height)
+//         end_y = game->vars->screen_height - 1;
+//     curr_x = x;
+//     while (curr_x < x + RAY_WIDTH && curr_x < game->vars->screen_width)
+//     {
+//         tmp_y = y;
+//         while (tmp_y < end_y)
+//         {
+//             put_pixel_to_image(game->conn, curr_x, tmp_y, 0x00fdf0d5);
+//             tmp_y++;
+//         }
+//         curr_x++;
+//     }
+// }
 
-static double solve_fisheye(t_ray ray, t_player *player)
+/*static double solve_fisheye(t_ray ray, t_player *player)
 {
     double fisheye;
     double adjusted_distance;
@@ -405,9 +405,9 @@ static double solve_fisheye(t_ray ray, t_player *player)
     adjusted_distance = ray.distance * fisheye * TILE_SIZE;
     wall_size = (TILE_SIZE / adjusted_distance) *player->dist_to_plane;
     return wall_size;
-}
+}*/
 
-static t_texture *get_ray_texture(t_game *game, t_ray ray)
+static t_texture get_ray_texture(t_game *game, t_ray ray)
 {
     t_texture *texture;
 
@@ -419,7 +419,7 @@ static t_texture *get_ray_texture(t_game *game, t_ray ray)
             texture = game->vars->textures[EAST];
         else if (ray.hit_side == 'W')
             texture = game->vars->textures[WEST];
-    return texture;
+    return *texture;
 }
 
 /*
@@ -430,27 +430,148 @@ static t_texture *get_ray_texture(t_game *game, t_ray ray)
 **  Triangle similarity theorem applied to get the projected wall size 
 **  in pixels
 */
-void draw_ray_cast(t_game *game, int i)
+// void draw_ray_cast(t_game *game, int i)
+// {
+//     double wall_size;
+//     t_texture *texture;
+//     double wall_hit_pos;
+//     int x;
+//     int y;
+
+//     while (i < (game->vars->num_rays))
+//     {
+//         wall_size = solve_fisheye(game->rays[i], game->player);
+//         x = i * RAY_WIDTH;
+//         y = (game->vars->screen_height - wall_size) / 2; //what happens if wall_size == screen_height or wall_size > screen_height?
+//         texture = get_ray_texture(game, game->rays[i]);
+//         (void)texture;
+//         if (game->rays[i].border == 'H')
+//             wall_hit_pos = game->rays[i].pos[0] - floor(game->rays[i].pos[0]);
+//         else
+//             wall_hit_pos = game->rays[i].pos[1] - floor(game->rays[i].pos[1]);      
+//         (void)wall_hit_pos;  
+//         draw_3d_wall(x, y, wall_size, game);
+//         i++;
+//     }
+// }
+
+static void adjusted_wall_height(t_ray *ray, t_player *player)
 {
+    double fisheye;
+    double adjusted_distance;
     double wall_size;
-    t_texture *texture;
-    double wall_hit_pos;
+
+    fisheye = cos(ray->angle - player->rotation_angle);
+    adjusted_distance = ray->distance * fisheye * TILE_SIZE;
+    wall_size = (TILE_SIZE / adjusted_distance) *player->dist_to_plane;
+    ray->wall_height = wall_size;
+
+}
+
+/*
+**  if condition avoids drawing out of screen bounds
+*/
+static void x_y_wall_rendering_coords(t_ray *ray, t_vars *vars, int i)
+{
     int x;
     int y;
 
-    while (i < (game->vars->num_rays))
+    x = i * RAY_WIDTH;
+    y = (vars->screen_height - ray->wall_height) / 2;
+    if (y < 0)
+        y = 0;
+    ray->x = x;
+    ray->y = y;
+
+}
+
+static double find_wall_hit_pos(t_ray ray)
+{
+    double wall_hit_pos;
+
+    if (ray.border == 'H')
+        wall_hit_pos = ray.pos[0] - floor(ray.pos[0]);
+    else
+        wall_hit_pos = ray.pos[1] - floor(ray.pos[1]);
+    return wall_hit_pos;
+}
+
+static int get_tex_pixel(t_ray ray, int x, int y)
+{
+    char * pixel;
+    printf("get_tex_pixel x is: %d\n", x);
+    printf("get_tex_pixel y is: %d\n", y);
+
+    pixel = ray.tex.img.addr + (y * ray.tex.img.line_length + 
+        x * (ray.tex.img.bpp / 8));
+    return (*( unsigned int *)pixel);
+
+}
+
+static void mapping_texture_pixels(t_vars *vars, t_ray ray, t_conn *conn, double wh_pos)
+{
+    /*
+    data I need:
+    1 - wall_hit_pos
+    2 - wall_height
+    3 - step
+    4 - img to dump on screen pointer
+    5 - x and y coordinates where the wall will be rendered at
+    6 - texture data address to find appropriate pixel
+    6 - 
+    */
+    double step;
+    int i;
+    int tex_col;
+    int tex_line;
+    int tex_color; //variable holding the pixel that needs to be put 
+    
+    printf("wall_hit_position: %f\n", wh_pos);
+    step = ray.tex.height / ray.wall_height;
+    printf("step: %f\n", step);
+    i = 0;
+    tex_col = wh_pos * ray.tex.width;
+    printf("tex_col(mapping): %d\n", tex_col);
+    
+    tex_line = 0;
+
+    while (i < ray.wall_height  && i < vars->screen_height)
     {
-        wall_size = solve_fisheye(game->rays[i], game->player);
-        x = i * RAY_WIDTH;
-        y = (game->vars->screen_height - wall_size) / 2; //what happens if wall_size == screen_height or wall_size > screen_height?
-        texture = get_ray_texture(game, game->rays[i]);
-        (void)texture;
-        if (game->rays[i].border == 'H')
-            wall_hit_pos = game->rays[i].pos[0] - floor(game->rays[i].pos[0]);
-        else
-            wall_hit_pos = game->rays[i].pos[1] - floor(game->rays[i].pos[1]);      
-        (void)wall_hit_pos;  
-        draw_3d_wall(x, y, wall_size, game);
+        tex_color = get_tex_pixel(ray, tex_col, tex_line);
+        //printf("mapping - tex_color is: %d\n", tex_color);
+        put_pixel_to_image(conn, ray.x, ray.y + i, tex_color);
+        i++;
+        tex_line += step;
+        /*I THINK ISSUE MIGHT BE STEP IS A SMALL FRACTION
+        AND TEX_LINE IS AN INT, SO IT'S LIKE ADDING 0? */
+    }
+    printf("-----------------\n");
+}
+
+void draw_ray_cast(t_game *game, int i)
+{
+    /*
+    for every ray
+    1 - get wall height
+    2 - (x, y) coordinates where the strip will be rendered
+    3 - TEXTURES
+        3.1 - texture to be rendered
+        3.2 - wall_hit_position
+        3.3 - texture_to_wall_ratio (step)
+        3.4 - find appropriate pixel in texture and write to appropriate pixel in image
+    
+    */
+    double wall_hit_pos;
+    while (i < game->vars->num_rays)
+    {
+        adjusted_wall_height(&game->rays[i], game->player);
+        x_y_wall_rendering_coords(&game->rays[i], game->vars, i);
+        game->rays[i].tex = get_ray_texture(game, game->rays[i]);
+        wall_hit_pos = find_wall_hit_pos(game->rays[i]);
+        printf("ray[%d]:\n", i);
+        mapping_texture_pixels(game->vars, game->rays[i], game->conn, wall_hit_pos);
         i++;
     }
+
+
 }
