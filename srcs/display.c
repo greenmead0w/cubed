@@ -496,56 +496,85 @@ static double find_wall_hit_pos(t_ray ray)
     return wall_hit_pos;
 }
 
-static int get_tex_pixel(t_ray ray, int x, int y)
+static unsigned int get_tex_pixel(t_ray ray, int x, int y)
 {
     char * pixel;
-    printf("get_tex_pixel x is: %d\n", x);
-    printf("get_tex_pixel y is: %d\n", y);
+    unsigned int color;
+    
+    pixel = ray.tex.img.addr + (y * ray.tex.img.line_length + x * (ray.tex.img.bpp / 8));
+    color = *(unsigned int *)pixel;
 
-    pixel = ray.tex.img.addr + (y * ray.tex.img.line_length + 
-        x * (ray.tex.img.bpp / 8));
-    return (*( unsigned int *)pixel);
-
+    return color;
 }
+
+
+/*
+**  made tex_line a double because when it was an int adding step < 1 made it stuck
+**  at the same value all the time
+*/
+// static void mapping_texture_pixels(t_vars *vars, t_ray ray, t_conn *conn, double wh_pos)
+// {
+//     double step;
+//     int i;
+//     int tex_col;
+//     double tex_line;
+//     unsigned int tex_color; //variable holding the pixel that needs to be put 
+    
+//     //printf("wall_hit_position: %f\n", wh_pos);
+//     step = ray.tex.height / ray.wall_height;
+//     //printf("step: %f\n", step);
+//     i = 0;
+//    // tex_col = wh_pos * ray.tex.width;
+//     tex_col = ((int)(wh_pos * ray.tex.width)) % ray.tex.width;
+//     //printf("tex_col(mapping): %d\n", tex_col);
+//     //printf("ray.wall_height is %f\n", ray.wall_height);
+    
+//     tex_line = 0.0;
+
+//     while (i < ray.wall_height  && i < vars->screen_height)
+//     {
+//         tex_line = fmod(tex_line, ray.tex.height);
+//         tex_color = get_tex_pixel(ray, tex_col, tex_line);
+//         //printf("mapping - tex_color is: %d\n", tex_color);
+//         put_pixel_to_image(conn, ray.x, ray.y + i, tex_color);
+//         i++;
+//         tex_line+=step;
+//         //printf("tex_line is: %f\n", tex_line);
+//     }
+//     //printf("-----------------\n");
+// }
 
 static void mapping_texture_pixels(t_vars *vars, t_ray ray, t_conn *conn, double wh_pos)
 {
-    /*
-    data I need:
-    1 - wall_hit_pos
-    2 - wall_height
-    3 - step
-    4 - img to dump on screen pointer
-    5 - x and y coordinates where the wall will be rendered at
-    6 - texture data address to find appropriate pixel
-    6 - 
-    */
     double step;
     int i;
     int tex_col;
-    int tex_line;
-    int tex_color; //variable holding the pixel that needs to be put 
-    
-    printf("wall_hit_position: %f\n", wh_pos);
-    step = ray.tex.height / ray.wall_height;
-    printf("step: %f\n", step);
+    double tex_line;
+    unsigned int tex_color;
+
+    // Calculate where in the texture we should start sampling from
+    double wall_offset = 0;
+    if (ray.wall_height > vars->screen_height) {
+        // If wall is taller than screen, calculate starting position in texture
+        wall_offset = (ray.wall_height - vars->screen_height) / 2.0;
+        step = ray.tex.height / ray.wall_height;
+        tex_line = wall_offset * step;  // Start from this offset in texture
+    } else {
+        step = ray.tex.height / ray.wall_height;
+        tex_line = 0;
+    }
+
     i = 0;
     tex_col = wh_pos * ray.tex.width;
-    printf("tex_col(mapping): %d\n", tex_col);
-    
-    tex_line = 0;
 
-    while (i < ray.wall_height  && i < vars->screen_height)
+    while (i < ray.wall_height && i < vars->screen_height)
     {
+        tex_line = fmod(tex_line, ray.tex.height);
         tex_color = get_tex_pixel(ray, tex_col, tex_line);
-        //printf("mapping - tex_color is: %d\n", tex_color);
         put_pixel_to_image(conn, ray.x, ray.y + i, tex_color);
         i++;
         tex_line += step;
-        /*I THINK ISSUE MIGHT BE STEP IS A SMALL FRACTION
-        AND TEX_LINE IS AN INT, SO IT'S LIKE ADDING 0? */
     }
-    printf("-----------------\n");
 }
 
 void draw_ray_cast(t_game *game, int i)
@@ -568,7 +597,7 @@ void draw_ray_cast(t_game *game, int i)
         x_y_wall_rendering_coords(&game->rays[i], game->vars, i);
         game->rays[i].tex = get_ray_texture(game, game->rays[i]);
         wall_hit_pos = find_wall_hit_pos(game->rays[i]);
-        printf("ray[%d]:\n", i);
+        //printf("ray[%d]:\n", i);
         mapping_texture_pixels(game->vars, game->rays[i], game->conn, wall_hit_pos);
         i++;
     }
