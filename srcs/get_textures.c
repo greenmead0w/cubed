@@ -11,31 +11,47 @@
 /* ************************************************************************** */
 
 #include "cubed.h"
+#include <string.h>
 
-void	get_textures(t_conn *con, t_texture **textures)
+void	get_textures(t_conn *con, t_texture **tex)
 {
 	int i;
 
 	i = 0;
+	printf("%ld\n", strlen(NORTH_W));
+	printf("%ld\n", strlen(tex[i]->path));
 	while( i < 4)
 	{
-		textures[i]->width = TILE_SIZE;
-		textures[i]->height = TILE_SIZE;
+		printf("[%d]->path is:%s\n", i, tex[i]->path);
+		tex[i]->width = TILE_SIZE;
+		tex[i]->height = TILE_SIZE;
 		i++;
 	}
-	textures[NORTH]->img.ptr = XPM_TO_IMAGE(con->mlx, NORTH_W,
-		 &textures[NORTH]->width, &textures[NORTH]->height);
-	textures[SOUTH]->img.ptr = XPM_TO_IMAGE(con->mlx, SOUTH_W, 
-		&textures[SOUTH]->width, &textures[SOUTH]->height);
-	textures[EAST]->img.ptr = XPM_TO_IMAGE(con->mlx, EAST_W, 
-		&textures[EAST]->width, &textures[EAST]->height);
-	textures[WEST]->img.ptr = XPM_TO_IMAGE(con->mlx, WEST_W, 
-		&textures[WEST]->width, &textures[WEST]->height);
+	tex[NORTH]->img.ptr = XPM_TO_IMAGE(con->mlx, tex[NORTH]->path,
+		 &tex[NORTH]->width, &tex[NORTH]->height);
+	tex[SOUTH]->img.ptr = XPM_TO_IMAGE(con->mlx, tex[SOUTH]->path, 
+		&tex[SOUTH]->width, &tex[SOUTH]->height);
+	tex[EAST]->img.ptr = XPM_TO_IMAGE(con->mlx, tex[EAST]->path, 
+		&tex[EAST]->width, &tex[EAST]->height);
+	tex[WEST]->img.ptr = XPM_TO_IMAGE(con->mlx, tex[WEST]->path, 
+		&tex[WEST]->width, &tex[WEST]->height);
 	i = 0;
+	if (!tex[NORTH]->img.ptr)
+	{
+		printf("null - 1\n");
+		if (!tex[SOUTH]->img.ptr)
+		{
+			printf("null - 2\n");
+			if (!tex[EAST]->img.ptr)
+			{
+				printf("null - 3\n");
+			}
+		}		
+	}
 	while (i < 4)
 	{
-		textures[i]->img.addr = mlx_get_data_addr(textures[i]->img.ptr, 
-			&textures[i]->img.bpp, &textures[i]->img.line_length, &textures[i]->img.endian);
+		tex[i]->img.addr = mlx_get_data_addr(tex[i]->img.ptr, 
+			&tex[i]->img.bpp, &tex[i]->img.line_length, &tex[i]->img.endian);
 		i++;
 	}
 }

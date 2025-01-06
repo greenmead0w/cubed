@@ -102,15 +102,6 @@ typedef struct s_ray
 
 } t_ray;
 
-//DRAW
-typedef struct s_line
-{
-	int x_0; //initial x coordinate
-	int y_0;
-	int x_1; //final x coordinate
-	int y_1;
-
-} t_line;
 
 //General struct for the game
 typedef struct s_game

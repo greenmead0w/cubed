@@ -13,6 +13,9 @@
 #include "utils.h"
 #include "definitions.h"
 
+/*
+** Angles in computer graphics increase clockwise
+*/
 static void initial_player_angle(t_player *player, char letter)
 {
 	if (letter == 'S')
@@ -26,6 +29,9 @@ static void initial_player_angle(t_player *player, char letter)
 
 }
 
+/*
+**+ 0.5 to center in the tile
+*/
 int	initial_player_data(char **map, int rows, int columns, t_player *player)
 {
 	int	i;

@@ -32,12 +32,11 @@ static void draw_row(int y, int start_x, char value, t_game *game, int start_y)
     int remaining;
 
     curr_x = start_x;
-    //remaining = TILE_SIZE;
     remaining = MINI_TILE;
 
     while (remaining > 0)
     {
-        if (is_border_map(curr_x, y, start_x, start_y, /*TILE_SIZE*/MINI_TILE))
+        if (is_border_map(curr_x, y, start_x, start_y, MINI_TILE))
 			put_pixel_to_image(game->conn, curr_x, y, 0xFFA500);
 		else if (value == '1' || value == ' ')
         	put_pixel_to_image(game->conn, curr_x, y, 0x000000);
@@ -55,10 +54,6 @@ static void draw_tile(char value, t_game *game, int row, int col)
     int start_x;
     int start_y;
 
-    /*start_y = row * TILE_SIZE;
-    start_x = col * TILE_SIZE;
-    curr_y = start_y;
-    remaining = TILE_SIZE;*/
     start_y = row * MINI_TILE;
     start_x = col * MINI_TILE;
     curr_y = start_y;
@@ -72,18 +67,13 @@ static void draw_tile(char value, t_game *game, int row, int col)
     }
 }
 
-
 void	draw_2d_map(t_game *game)
 {
-	
+
+	char	**map;
 	int		row;
 	int		col;
-	char	**map;
-    //int map_size;
 
-    // map_size = MINI_TILE * game->vars->map_rows;
-    // if (map_size > game->vars->screen_height)
-    //     return;
     map = game->vars->game_map;
 	row = 0;
 	while (row < game->vars->map_rows)
@@ -98,10 +88,9 @@ void	draw_2d_map(t_game *game)
 	}
 }
 
-
 /*
 **********************************************************
-******************PLAYER LAYER****************************
+******************DRAW PLAYER LAYER****************************
 **********************************************************/
 void fill_player_rect(t_conn *conn, int center_x, int center_y, int size, int color)
 {
@@ -129,6 +118,7 @@ void fill_player_rect(t_conn *conn, int center_x, int center_y, int size, int co
 }
 
 /*
+**  Multiplying by MINI_TILE to find the scaled down player position
 **  Player is half the size of a mini map tile
 */
 void draw_player(t_conn *conn, t_player *player)
@@ -137,61 +127,12 @@ void draw_player(t_conn *conn, t_player *player)
     int center_y;
     double size;
 
-    //center_x = player->play_pos[1] * TILE_SIZE;
-    //center_y = player->play_pos[0] * TILE_SIZE;
-    //size = TILE_SIZE / 4;
     center_x = player->play_pos[1] * MINI_TILE;
     center_y = player->play_pos[0] * MINI_TILE;
     size = MINI_TILE / 2;
-    //player->display_size = (double)size;
-
     fill_player_rect(conn, center_x, center_y, size, 0xFF0000);
 }
 
-
-
-/*
-*******************************************************
-**************DIRECTION LINE LAYER*********************
-*******************************************************
-*/
-/*
-** temporal  function to debug if rotation working correctly
-*/
-
-/*void draw_direction_line(t_conn *conn, t_player *player)
-{
-    int start_x;
-    int start_y;
-    int end_x;
-    int end_y;
-    int line_length;
-
-    // line_length = TILE_SIZE / 2;  // Length of direction indicator
-    // start_x = player->play_pos[1] * TILE_SIZE;
-    // start_y = player->play_pos[0] * TILE_SIZE;
-
-    line_length = MINI_TILE / 2;
-    start_x = player->play_pos[1] * MINI_TILE;
-    start_y = player->play_pos[0] * MINI_TILE;
-
-    end_x = start_x + (cos(player->rotation_angle) * line_length);
-    end_y = start_y + (sin(player->rotation_angle) * line_length);
-
-    // Drawing line pixel by pixel
-    while (start_x != end_x || start_y != end_y)
-    {
-        put_pixel_to_image(conn, start_x, start_y, 0x00FF00);
-        if (start_x < end_x)
-            start_x++;
-        else if (start_x > end_x)
-            start_x--;
-        if(start_y < end_y)
-            start_y++;
-        else if (start_y > end_y)
-            start_y--;
-    }
-}*/
 
 /*
 ******************************************************************
@@ -199,14 +140,12 @@ void draw_player(t_conn *conn, t_player *player)
 ******************************************************************
 */
 
-
+/*
+**  0 - initial "x" value; 1 - initial "y" value; 2 - final "x" value; 3 - final "y" value
+**  Notice cartesian confusion (line, col == y, x)
+*/
 static void get_ray_coordinates(t_ray ray, t_player *player, int *line)
 {
-
-    // line[0] = player->play_pos[1] * TILE_SIZE;
-    // line[1] = player->play_pos[0] * TILE_SIZE;
-    // line[2] = line[0] + (cos(ray.angle) * ray.distance * TILE_SIZE);
-    // line[3] = line[1] + (sin(ray.angle) * ray.distance * TILE_SIZE);
 
     line[0] = player->play_pos[1] * MINI_TILE;
     line[1] = player->play_pos[0] * MINI_TILE;
@@ -215,6 +154,12 @@ static void get_ray_coordinates(t_ray ray, t_player *player, int *line)
 
 }
 
+/*
+**  the adjacent and opposite variables serve 2 purposes:
+**  first they represent differences in x and y coordinates
+**  and then are used as unit vectors
+**  this is not clean code but capped by max number of variables per function
+*/
 static void draw_ray(int *line, t_conn *conn)
 {
     double adjacent;
@@ -237,21 +182,19 @@ static void draw_ray(int *line, t_conn *conn)
 		curr_y += opposite;
 		hypotenuse--;
     }
-
 }
 
 
 /* for each ray:
-    1 - get starting position of ray(x,y) at the pixel level
-    2 - get ending position of ray(x, y)
-    3 - calculate adjacent, opposite, hypotenuse
+    1 - get starting and ending position of ray(x,y) at the pixel level
+    2 - calculate adjacent, opposite, hypotenuse
     4 - calculate increment in x and y position of line per pixel
     5 - store data on img, pixel by pixel, up to hypotenuse pixel
     */
 void draw_all_rays(t_game *game)
 {
     
-    int line[4]; //x_0, y_0, x_1, y_1
+    int line[4];
     int i;
 
     i = 0;
@@ -269,35 +212,10 @@ void draw_all_rays(t_game *game)
 *********************DRAW 3D  WALLS******************************
 ******************************************************************
 */
-/*double wall_3d_size(t_game *game, t_ray ray)
-{
-    double size;
-    double fisheye;
-    double adjusted_distance;
-
-    fisheye = cos(ray.angle - game->player->rotation_angle);
-    adjusted_distance = ray.distance * fisheye * TILE_SIZE;
-    size = (TILE_SIZE / adjusted_distance) *game->player->dist_to_plane;
-    return size;
-
-}*/
 
 /*
-**  Understanding bitwise operations:
-**  Translating to hex or decimal, it doesn't matter. But hex is more intuitive because
-**  hex is base 16, enabling each byte to be represented by 2 digits.
-**
-**  We start with three independent color ints, each one with 32 bits / 4 bytes. But each
-**  component only uses the least significant 8 bits (we could have used the char data
-**  type to hold the numbers?). First step is to switch those 8 bits to their appropriate
-**  position in our 0xRRGGBB number representation. Our pixel color will consist of 3 bytes,
-**  so it will be 0x00RRGGBB. Our red number needs to occupy the second byte in our
-**  new hex number, so it will have to switch its least significant byte with it's second 
-**  most significant byte "<< 16", green <<8 and blue as it is. 
-
-** Now that we have transformed our independent color all we need to do is combine
-**  their values via bitwise OR operator, discarding the NULL bytes and effectively creating
-**  a new int of type 0x00RRGGBB
+**  Using bitwise operations to go from 3 independent color 1-char-ints 
+**  to 1 0x00RRGGBB color
 */
 static int combine_rgb(t_color *color, char flag)
 {
@@ -354,59 +272,6 @@ void draw_ceiling(t_game *game)
     }
 }
 
-/*static void everything_texture()
-{
-    //TODO
-    0 - get texture value for this ray (is it 'N', 'S', 'W' or 'E')
-    1 - Find wall_hit_position (as a fraction, as a pixel)
-    2 - Find that fractions equivalence in the texture image
-            it could be a rule of three (if 0.4 in wall, what col is at 0.4 width in texture)
-    3 - step and stuff
-    this_ray_texture();
-
-
-}*/
-
-/*
-**  if conditions protect code from writing pixels outside
-**  the window boundary
-*/
-// static void draw_3d_wall(int x, int y, double wall_size, t_game *game )
-// {
-//     double end_y;
-//     int curr_x;
-//     int tmp_y;
-
-//     end_y = y + wall_size;
-//     if (y < 0)
-//         y = 0;
-//     if (end_y > game->vars->screen_height)
-//         end_y = game->vars->screen_height - 1;
-//     curr_x = x;
-//     while (curr_x < x + RAY_WIDTH && curr_x < game->vars->screen_width)
-//     {
-//         tmp_y = y;
-//         while (tmp_y < end_y)
-//         {
-//             put_pixel_to_image(game->conn, curr_x, tmp_y, 0x00fdf0d5);
-//             tmp_y++;
-//         }
-//         curr_x++;
-//     }
-// }
-
-/*static double solve_fisheye(t_ray ray, t_player *player)
-{
-    double fisheye;
-    double adjusted_distance;
-    double wall_size;
-
-    fisheye = cos(ray.angle - player->rotation_angle);
-    adjusted_distance = ray.distance * fisheye * TILE_SIZE;
-    wall_size = (TILE_SIZE / adjusted_distance) *player->dist_to_plane;
-    return wall_size;
-}*/
-
 static t_texture get_ray_texture(t_game *game, t_ray ray)
 {
     t_texture *texture;
@@ -423,38 +288,11 @@ static t_texture get_ray_texture(t_game *game, t_ray ray)
 }
 
 /*
-**  up until now ray.distance was measured in 2d_map tiles, 
-**  here we convert it to pixels by multiplying by TILE_SIZE
-**   and adjust it to avoid the fisheye distortion
+**  multiplying ray->distance by TILE_SIZE to go from grid-values distance
+**  to pixels
 **
-**  Triangle similarity theorem applied to get the projected wall size 
-**  in pixels
+**  wall size is calculated via triangle similarity theorem
 */
-// void draw_ray_cast(t_game *game, int i)
-// {
-//     double wall_size;
-//     t_texture *texture;
-//     double wall_hit_pos;
-//     int x;
-//     int y;
-
-//     while (i < (game->vars->num_rays))
-//     {
-//         wall_size = solve_fisheye(game->rays[i], game->player);
-//         x = i * RAY_WIDTH;
-//         y = (game->vars->screen_height - wall_size) / 2; //what happens if wall_size == screen_height or wall_size > screen_height?
-//         texture = get_ray_texture(game, game->rays[i]);
-//         (void)texture;
-//         if (game->rays[i].border == 'H')
-//             wall_hit_pos = game->rays[i].pos[0] - floor(game->rays[i].pos[0]);
-//         else
-//             wall_hit_pos = game->rays[i].pos[1] - floor(game->rays[i].pos[1]);      
-//         (void)wall_hit_pos;  
-//         draw_3d_wall(x, y, wall_size, game);
-//         i++;
-//     }
-// }
-
 static void adjusted_wall_height(t_ray *ray, t_player *player)
 {
     double fisheye;
@@ -469,7 +307,9 @@ static void adjusted_wall_height(t_ray *ray, t_player *player)
 }
 
 /*
-**  if condition avoids drawing out of screen bounds
+**  the if condition prevents from drawing out of screen bounds
+**  it means that when wall_height > screen_height then start drawing
+**  at top y coordinate
 */
 static void x_y_wall_rendering_coords(t_ray *ray, t_vars *vars, int i)
 {
@@ -496,6 +336,10 @@ static double find_wall_hit_pos(t_ray ray)
     return wall_hit_pos;
 }
 
+/*
+**  finds the byte at x,y position on the texture image
+**  casting to (unsigned int *) makes it return next 4 bytes (1 pixel)
+*/
 static unsigned int get_tex_pixel(t_ray ray, int x, int y)
 {
     char * pixel;
@@ -507,66 +351,33 @@ static unsigned int get_tex_pixel(t_ray ray, int x, int y)
     return color;
 }
 
-
 /*
-**  made tex_line a double because when it was an int adding step < 1 made it stuck
+**  wall_offset -> if wall_height > screen_height we're only displaying part of the wall and 
+**  therefore should be displaying part of the texture too. example: if we display 80% of
+**  wall, we need to display 80% of texture. 
+**  
+**  step -> ratio to determine which texture pixel to sample for each wall pixel
+**
+**  without the second condition in the while loop program seg-faults when wall_height
+**  > screen_height
+**
+**  tex_line is a double because when it was an int adding step < 1 made it stuck
 **  at the same value all the time
 */
-// static void mapping_texture_pixels(t_vars *vars, t_ray ray, t_conn *conn, double wh_pos)
-// {
-//     double step;
-//     int i;
-//     int tex_col;
-//     double tex_line;
-//     unsigned int tex_color; //variable holding the pixel that needs to be put 
-    
-//     //printf("wall_hit_position: %f\n", wh_pos);
-//     step = ray.tex.height / ray.wall_height;
-//     //printf("step: %f\n", step);
-//     i = 0;
-//    // tex_col = wh_pos * ray.tex.width;
-//     tex_col = ((int)(wh_pos * ray.tex.width)) % ray.tex.width;
-//     //printf("tex_col(mapping): %d\n", tex_col);
-//     //printf("ray.wall_height is %f\n", ray.wall_height);
-    
-//     tex_line = 0.0;
-
-//     while (i < ray.wall_height  && i < vars->screen_height)
-//     {
-//         tex_line = fmod(tex_line, ray.tex.height);
-//         tex_color = get_tex_pixel(ray, tex_col, tex_line);
-//         //printf("mapping - tex_color is: %d\n", tex_color);
-//         put_pixel_to_image(conn, ray.x, ray.y + i, tex_color);
-//         i++;
-//         tex_line+=step;
-//         //printf("tex_line is: %f\n", tex_line);
-//     }
-//     //printf("-----------------\n");
-// }
-
-static void mapping_texture_pixels(t_vars *vars, t_ray ray, t_conn *conn, double wh_pos)
+static void mapping_texture_pixels(t_vars *vars, t_ray ray, t_conn *conn, double wh_pos, int i)
 {
     double step;
-    int i;
+    double wall_offset;
     int tex_col;
     double tex_line;
     unsigned int tex_color;
 
-    // Calculate where in the texture we should start sampling from
-    double wall_offset = 0;
-    if (ray.wall_height > vars->screen_height) {
-        // If wall is taller than screen, calculate starting position in texture
+    wall_offset = 0;
+    if (ray.wall_height > vars->screen_height)
         wall_offset = (ray.wall_height - vars->screen_height) / 2.0;
-        step = ray.tex.height / ray.wall_height;
-        tex_line = wall_offset * step;  // Start from this offset in texture
-    } else {
-        step = ray.tex.height / ray.wall_height;
-        tex_line = 0;
-    }
-
-    i = 0;
+    step = ray.tex.height / ray.wall_height;
+    tex_line = wall_offset * step;
     tex_col = wh_pos * ray.tex.width;
-
     while (i < ray.wall_height && i < vars->screen_height)
     {
         tex_line = fmod(tex_line, ray.tex.height);
@@ -577,19 +388,17 @@ static void mapping_texture_pixels(t_vars *vars, t_ray ray, t_conn *conn, double
     }
 }
 
+ /*
+**  for every ray
+**  1 - get wall height
+**  2 - (x, y) coordinates where the strip will be rendered
+**  3 - TEXTURES
+**      3.1 - get texture to be rendered
+**      3.2 - find where in the wall has the ray impacted
+**      3.3 - find appropriate pixel in texture and write to appropriate pixel in screen image
+*/
 void draw_ray_cast(t_game *game, int i)
 {
-    /*
-    for every ray
-    1 - get wall height
-    2 - (x, y) coordinates where the strip will be rendered
-    3 - TEXTURES
-        3.1 - texture to be rendered
-        3.2 - wall_hit_position
-        3.3 - texture_to_wall_ratio (step)
-        3.4 - find appropriate pixel in texture and write to appropriate pixel in image
-    
-    */
     double wall_hit_pos;
     while (i < game->vars->num_rays)
     {
@@ -597,10 +406,7 @@ void draw_ray_cast(t_game *game, int i)
         x_y_wall_rendering_coords(&game->rays[i], game->vars, i);
         game->rays[i].tex = get_ray_texture(game, game->rays[i]);
         wall_hit_pos = find_wall_hit_pos(game->rays[i]);
-        //printf("ray[%d]:\n", i);
-        mapping_texture_pixels(game->vars, game->rays[i], game->conn, wall_hit_pos);
+        mapping_texture_pixels(game->vars, game->rays[i], game->conn, wall_hit_pos, 0);
         i++;
     }
-
-
 }

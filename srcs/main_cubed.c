@@ -42,19 +42,21 @@ static char	generate_and_initialize_game(t_game **game, \
 	return (0);
 }
 
-static char init_textures(t_vars *vars)
+static char init_textures(t_game *game)
 {
 	int i;
 	i = 0;
 	while( i < 4)
 	{
-		vars->textures[i] = malloc(sizeof(t_texture));
-		if (!vars->textures[i])
+		game->vars->textures[i] = malloc(sizeof(t_texture));
+		if (!game->vars->textures[i])
 		{
-			//frees
+			free_textures(NULL, game->vars->textures, i);
+			free(game->vars);
+			free(game);
 			return (-1);
 		}
-		ft_bzero(vars->textures[i], sizeof(t_texture));
+		ft_bzero(game->vars->textures[i], sizeof(t_texture));
 		i++;
 	}
 	return (0);
@@ -71,7 +73,8 @@ static char	check_and_parse(char *file, t_game *game, \
 		return (-1);
 	}
 	free_simple_pointer(track_elems);
-	init_textures(game->vars);
+	if (init_textures(game))
+		return (-1);
 	if (parse(file, game))
 	{
 		free_all_game(game);
@@ -96,30 +99,6 @@ static char	play_game(char *file)
 		return (-1);
 	if (check_and_parse(file, game, track_elements))
 		return (-1);
-
-	// char **temp_text = game->vars->textures;
-	// int i = 0;
-	// while(temp_text[i] != NULL)
-	// {
-	// 	printf("texture[%d]: %s\n", i, temp_text[i]);
-	// 	i++;
-	// }
-	// t_color *temp = game->color_root;
-	// while(temp != NULL)
-	// {
-	// 	printf("ceiling or roof: %c\n", temp->cf);
-	// 	printf("R_color: %d\n", temp->r_color);
-	// 	printf("G_color: %d\n", temp->g_color);
-	// 	printf("B_color: %d\n", temp->b_color);
-	// 	temp = temp->next;
-	// }
-	// char **temp_map = game->vars->game_map;
-	// i = 0;
-	// while(temp_map[i] != NULL)
-	// {
-	// 	printf("map line[%d]: line_len: %ld || line: %s\n", i, ft_strlen(temp_map[i]), temp_map[i]);
-	// 	i++;
-	// }
 	if (execute(game))
 		return (-1);
 	free_all_game(game);
@@ -138,8 +117,6 @@ int	main(int argc, char **argv)
 		write(2, ARG_NUM, ft_strlen(ARG_NUM));
 		return (-1);
 	}
-
-
 	return (0);
 }
 

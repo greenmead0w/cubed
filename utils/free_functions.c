@@ -37,14 +37,22 @@ void	free_double_pointer(void **ptr)
 	}
 }
 
-static void	free_textures(t_texture **ptr)
+void	free_textures(t_conn *conn, t_texture **ptr, int counter)
 {
 	int i;
 
 	i = 0;
-	while (i < 4)
+	while (i < counter)
 	{
-		free(ptr[i]->path);
+		if (ptr[i]->path)
+			free(ptr[i]->path);
+		if (ptr[i]->img.ptr)
+		{
+			if (conn)
+				mlx_destroy_image(conn->mlx, ptr[i]->img.ptr);
+			else
+				free(ptr[i]->img.ptr); //dudas de si esto tiene sentido
+		}
 		free(ptr[i]);
 		i++;
 	}
@@ -70,6 +78,8 @@ static void	free_color_list(t_color *color_root)
 void free_mlx(t_conn *conn)
 {
 	mlx_destroy_window(conn->mlx, conn->win);
+	mlx_destroy_display(conn->mlx);
+	free(conn->mlx);
 	free(conn);
 }
 
@@ -77,13 +87,14 @@ void	free_all_game(t_game *game)
 {
 	if (game)
 	{
-		free_textures(game->vars->textures);
+		free_textures(game->conn, game->vars->textures, 4);
 		free_color_list(game->color_root);
 		free_double_pointer((void **)game->vars->map);
 		free_double_pointer((void **)game->vars->game_map);
 		free(game->vars);
 		free_mlx(game->conn);
 		free(game->player);
+		free(game->rays);
 		free(game);
 	}
 }

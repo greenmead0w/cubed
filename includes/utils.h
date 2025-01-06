@@ -37,6 +37,7 @@ char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strdup(const char *src);
 char	*get_next_line(int fd);
 char    texture_extension(char *line, char *start, int fd);
+char	**ft_split(char *s, char c);
 
 
 t_color	*ft_lstnew(void);
@@ -46,5 +47,7 @@ void	free_simple_pointer(void *ptr);
 void	free_double_pointer(void **ptr);
 void    free_mlx(t_conn *conn);
 void	free_all_game(t_game *game);
+//void	free_textures(t_texture **ptr, int counter);
+void	free_textures(t_conn *conn, t_texture **ptr, int counter);
 
 #endif //UTILS_H

@@ -32,8 +32,8 @@
 
 # define NORTH_W "textures/bricks.xpm"
 # define SOUTH_W "textures/sand.xpm"
-# define EAST_W "textures/ice.xpm"
-# define WEST_W "textures/woolsnow.xpm"
+# define EAST_W "textures/woolsnow.xpm"
+# define WEST_W "textures/ice.xpm"
 //# define SPACE_W "textures/space.xpm"
 
 //source: keysym def for XSERVER: https://www.cl.cam.ac.uk/~mgk25/ucs/keysymdef.h 

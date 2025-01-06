@@ -17,7 +17,7 @@ static void	*open_connection(t_conn *conn, t_vars *vars)
 	
 	conn->mlx = mlx_init();
 	if (!conn->mlx)
-		return ((void *) 0);
+		return ((void *) 1);
 	vars->screen_width = vars->map_cols * TILE_SIZE;
 	vars->screen_height = vars->map_rows * TILE_SIZE;
 	conn->win = mlx_new_window(conn->mlx, vars->screen_width, vars->screen_height, "cubed");
@@ -25,9 +25,9 @@ static void	*open_connection(t_conn *conn, t_vars *vars)
 	{
 		free(conn->mlx);
 		conn->mlx = 0;
-		return ((void *) 0);
+		return ((void *) 1);
 	}
-	return ((void *) 1);
+	return ((void *) 0);
 }
 
 static void	*create_connection(t_game *game)
@@ -36,15 +36,15 @@ static void	*create_connection(t_game *game)
 	if (!game->conn)
 	{
 		free_all_game(game);
-		return ((void *)0);
+		return ((void *)1);
 	}
 	ft_bzero(game->conn, sizeof(t_conn));
-	if (!open_connection(game->conn, game->vars))
+	if (open_connection(game->conn, game->vars))
 	{
 		free_all_game(game);
-		return ((void *)0);
+		return ((void *)1);
 	}
-	return ((void *)1);
+	return ((void *)0);
 
 }
 
@@ -54,7 +54,7 @@ static void	*init_player(t_game *game)
 	if (!game->player)
 	{
 		free_all_game(game);
-		return ((void *)0);
+		return ((void *)1);
 	}
 	game->player->turn_direction = 0;
 	game->player->walk_direction = '0';
@@ -83,7 +83,15 @@ static void	*init_player(t_game *game)
 	printf("rows(y) is: %d\n", game->vars->map_rows);
 	printf("cols(y) is: %d\n", game->vars->map_cols);
 
-	return ((void *)1);
+	printf("----------------\n");
+	int i = 0;
+	while (i < 4)
+	{
+		printf("game->vars->textures[%d]->path is: %s\n", i, game->vars->textures[i]->path);
+		i++;
+	}
+
+	return ((void *)0);
 
 }
 
@@ -91,19 +99,21 @@ static int	init_game(t_game *game)
 {
 
 	get_textures(game->conn, game->vars->textures);	
-	if (!init_player(game))
+	if (init_player(game))
 		return -1;
 	game->vars->num_rays = game->vars->screen_width / RAY_WIDTH;
 	game->rays = malloc(game->vars->num_rays * sizeof(t_ray));
 	if (!game->rays)
-		return -1;
+	{
+		free_all_game(game);
+		return (1);
+	}
 	ft_bzero(game->rays, sizeof(t_ray));
 	game->update = 1;
 	printf("num_rays is: %d\n", game->vars->num_rays);
 	return 0;
 
 }
-
 
 /*
 ** called many times per second (imitating frames per second) to:
@@ -112,6 +122,8 @@ static int	init_game(t_game *game)
 ** 3 - fill image with updated data
 ** 4 - dump image data onto window
 ** 5 - clear image
+
+** NOT CHECKING IF MLX_NEW_IMAGE() OR MLX_GET_DATA_ADDR ERROR
 */
 static int render_game(void *game) 
 {
@@ -121,59 +133,33 @@ static int render_game(void *game)
 	g->conn->image.ptr = mlx_new_image(g->conn->mlx, g->vars->screen_width, g->vars->screen_height);
 	g->conn->image.addr = mlx_get_data_addr(g->conn->image.ptr, &g->conn->image.bpp, 
 					&g->conn->image.line_length, &g->conn->image.endian);
-	
 	if (g->update) //only update if keypress event has been triggered
 	{
 		update(g);
 		g->update = 0;
 	}
-	// printf("get_color -> g_line is: %f\n", g->player->play_pos[0]);
-	// printf("get_color -> g_col is: %f\n", g->player->play_pos[1]);
-	//TODO: render / draw
 	draw_ceiling(g);
-
 	draw_floor(g);
-
-	draw_ray_cast(g, 0); //passing var i as arg because no space in calling function
-
+	draw_ray_cast(g, 0);
 	draw_2d_map(g);
-
 	draw_all_rays(g);
-
 	draw_player(g->conn, g->player);
-
-	int i = 0;
-	int ray_num  = g->vars->num_rays / 2;
-	while (i < 3)
-	{
-		printf("wall_height for ray_num[%d] is: %f\n", ray_num, g->rays[ray_num]. wall_height);
-		i++;
-		ray_num++;
-	}
-
-	//draw_direction_line(g->conn, g->player); //temporal function, to test the rotation
-
 	//dump data from image to window
 	mlx_put_image_to_window(g->conn->mlx, g->conn->win, g->conn->image.ptr, 0, 0);
-
 	//destroy image
 	mlx_destroy_image(g->conn->mlx, g->conn->image.ptr);
-	
 	return 0;
-	
 }
 
 
 char	execute(t_game *game)
 {
-	if (!create_connection(game) || init_game(game) == -1)
+	if (create_connection(game) || init_game(game))
 		return -1;
 	mlx_hook(game->conn->win, 2, 1L<<0, key_press, game); 
 	mlx_hook(game->conn->win, 3, 1L<<1, key_release, game);
 	mlx_hook(game->conn->win, 17, 0, ft_close_conn, game);
 	mlx_loop_hook(game->conn->mlx, render_game, game);
-	// if (!mlx_loop_hook(game->conn->mlx, render_game, game)) //constant running function
-	// 	return -1;
 	mlx_loop(game->conn->mlx);
 
 	return (0);

@@ -2,21 +2,7 @@
 
 
 /*
-** TODO: Function that returns the side of the wall the player is looking
-**  if wall is part of the edge of the map:
-**  1 -  ray hit row 0: player looking south texture
-**  2 - ray hit row max: north texture
-**  3 - ray hit col 0: east texture
-**  4 - ray hit col max: west texture
-**  for rays hitting walls not on edges:
-**  1 - if horizontal ray hit the wall:
-**      1.1 - player will see north or south texture. 
-**      NEED TO THINK HOW TO FLAG THIS
-**  2 - if vertical ray hit the wall:
-**      2.2 - player will see east or west texture
-**      NEED TO THINK HOW TO FLAG THIS
 
-** remember, x is col and y is line
 */
 static char wall_side_hit(int x, int y, t_vars *vars, t_ray *ray)
 {
@@ -53,9 +39,6 @@ static char wall_side_hit(int x, int y, t_vars *vars, t_ray *ray)
 */
 int ray_is_wall(int x, int y, t_vars *vars, t_ray *ray)
 {
-	// printf("is_wall: ray_angle is %f, x is %d and y is: %d\n", ray->angle * 180 / M_PI, x, y);
-	// printf("vars->map_rows is: %d\n", vars->map_rows);
-	// printf("vars->map_cols is: %d\n", vars->map_cols);
 	if (x > vars->map_cols || x < 0 || y < 0 || y > vars->map_rows)
 	{
 		ray->distance = INT_MAX;
@@ -199,24 +182,17 @@ void ray_cast(t_ray *ray, t_player * player, t_vars *vars)
     t_ray horz_ray;
     double angle;
 
-	//printf("before standard angle[%d] is: %d | ", i, (int)(ray->angle * 180 / M_PI));
     angle = standardize_angle(ray->angle);
-	//printf("standard angle[%d] is: %d\n", i, (int)(angle * 180 / M_PI));
-	//printf("-----------------------\n");
     vert_ray.angle = angle;
     horz_ray.angle = angle;
 	vert_ray.border = 'V';
 	horz_ray.border = 'H';
     vertical_border(&vert_ray, player, vars);
     horizontal_border(&horz_ray, player, vars);
-	//printf("vert_ray.distance is: %f\n", vert_ray.distance);
-	//printf("horz_ray.distance is: %f\n", horz_ray.distance);
 	if (vert_ray.distance < horz_ray.distance)
 		*ray = vert_ray;
 	else
 		*ray = horz_ray;
-	// printf("ray.distance is: %f\n", ray->distance);
-
 }
 
 void cast_all_rays(t_game *game)
