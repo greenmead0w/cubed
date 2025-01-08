@@ -6,7 +6,7 @@
 #    By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/15 01:31:40 by dpinedo-          #+#    #+#              #
-#    Updated: 2024/12/27 08:22:09 by mzuloaga         ###   ########.fr        #
+#    Updated: 2025/01/08 20:54:01 by dpinedo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,8 +40,9 @@ SRCS =	main_cubed.c\
 	key_hook.c\
 	initial_player_data.c\
 	ft_close_conn.c\
-	execute.c \
-	update.c \
+	execute.c\
+	open_connection.c\
+	update.c\
 	display.c\
 	vertical_border.c\
 	horizontal_border.c

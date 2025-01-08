@@ -1,6 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   display.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dpinedo- <dpinedo-@student.42urduliz.      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/08 21:46:25 by dpinedo-          #+#    #+#             */
+/*   Updated: 2025/01/08 21:47:52 by dpinedo-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "cubed.h"
-
 
 static	void	put_pixel_to_image(t_conn *conn, int x, int y, int color)
 {
@@ -10,8 +20,6 @@ static	void	put_pixel_to_image(t_conn *conn, int x, int y, int color)
 		+ (y * conn->image.line_length + x * (conn->image.bpp / 8));
 	*(unsigned int *)dst = color;
 }
-
-
 /*
 ************************** 2D MAP LAYER ********************
 ************************************************************
@@ -36,7 +44,6 @@ static	void	draw_row(int y, int start_x, char value,
 
 	curr_x = start_x;
 	remaining = MINI_TILE;
-
 	while (remaining > 0)
 	{
 		if (is_border_map(curr_x, y, start_x, start_y))
@@ -61,7 +68,6 @@ static void	draw_tile(char value, t_game *game, int row, int col)
 	start_x = col * MINI_TILE;
 	curr_y = start_y;
 	remaining = MINI_TILE;
-
 	while (remaining > 0)
 	{
 		draw_row(curr_y, start_x, value, game, start_y);
@@ -94,7 +100,7 @@ void	draw_2d_map(t_game *game)
 **********************************************************
 ******************DRAW PLAYER LAYER****************************
 **********************************************************/
-void fill_player_rect(t_conn *conn, int center_x, int center_y,
+void	fill_player_rect(t_conn *conn, int center_x, int center_y,
 	int size, int color)
 {
 	int	x_start;
@@ -107,7 +113,6 @@ void fill_player_rect(t_conn *conn, int center_x, int center_y,
 	x_end = center_x + (size / 2);
 	y_start = center_y - (size / 2);
 	y_end = center_y + (size / 2);
-
 	while (y_start <= y_end)
 	{
 		current_x = x_start;
@@ -136,24 +141,21 @@ void	draw_player(t_conn *conn, t_player *player)
 	fill_player_rect(conn, center_x, center_y, size, 0xFF0000);
 }
 
-
 /*
 ******************************************************************
 ************************DRAW RAYS*********************************
 ******************************************************************
 */
-
 /*
 **  0 - initial "x"; 1 - initial "y"; 2 - final "x"; 3 - final "y"
 **  Notice cartesian confusion (line, col == y, x)
 */
-static	void get_ray_coordinates(t_ray ray, t_player *player, int *line)
+static void	get_ray_coordinates(t_ray ray, t_player *player, int *line)
 {
 	line[0] = player->play_pos[1] * MINI_TILE;
 	line[1] = player->play_pos[0] * MINI_TILE;
 	line[2] = line[0] + (cos(ray.angle) * ray.distance * MINI_TILE);
 	line[3] = line[1] + (sin(ray.angle) * ray.distance * MINI_TILE);
-
 }
 
 /*
@@ -186,7 +188,6 @@ static	void	draw_ray(int *line, t_conn *conn)
 	}
 }
 
-
 /* for each ray:
     1 - get starting and ending position of ray(x,y) at the pixel level
     2 - calculate adjacent, opposite, hypotenuse
@@ -206,7 +207,6 @@ void	draw_all_rays(t_game *game)
 		i++;
 	}
 }
-
 
 /*
 ******************************************************************
@@ -253,7 +253,7 @@ void	draw_floor(t_game *game)
 	}
 }
 
-void draw_ceiling(t_game *game)
+void	draw_ceiling(t_game *game)
 {
 	int	x;
 	int	y;
@@ -277,6 +277,7 @@ static	t_texture	get_ray_texture(t_game *game, t_ray ray)
 {
 	t_texture	*texture;
 
+	texture = (void *) 0;
 	if (ray.hit_side == 'N')
 		texture = game->vars->textures[NORTH];
 	else if (ray.hit_side == 'S')
@@ -304,7 +305,6 @@ static	void	adjusted_wall_height(t_ray *ray, t_player *player)
 	adjusted_distance = ray->distance * fisheye * TILE_SIZE;
 	wall_size = (TILE_SIZE / adjusted_distance) * player->dist_to_plane;
 	ray->wall_height = wall_size;
-
 }
 
 /*
@@ -323,7 +323,6 @@ static	void	x_y_wall_rendering_coords(t_ray *ray, t_vars *vars, int i)
 		y = 0;
 	ray->x = x;
 	ray->y = y;
-
 }
 
 static	double	find_wall_hit_pos(t_ray ray)

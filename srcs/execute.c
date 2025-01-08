@@ -6,47 +6,11 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 20:05:12 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/08 19:22:17 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/08 20:55:14 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
-
-static void	*open_connection(t_conn *conn, t_vars *vars)
-{
-	conn->mlx = mlx_init();
-	if (!conn->mlx)
-		return ((void *) 1);
-	vars->screen_width = vars->map_cols * TILE_SIZE;
-	vars->screen_height = vars->map_rows * TILE_SIZE;
-	conn->win = mlx_new_window(conn->mlx, vars->screen_width,
-			vars->screen_height, "cubed");
-	if (!conn->win)
-	{
-		free(conn->mlx);
-		conn->mlx = 0;
-		return ((void *) 1);
-	}
-	return ((void *) 0);
-}
-
-static void	*create_connection(t_game *game)
-{
-	game->conn = malloc(sizeof(t_conn));
-	if (!game->conn)
-	{
-		free_all_game(game);
-		return ((void *)1);
-	}
-	ft_bzero(game->conn, sizeof(t_conn));
-	if (open_connection(game->conn, game->vars))
-	{
-		free_all_game(game);
-		return ((void *)1);
-	}
-	return ((void *)0);
-
-}
 
 /*
 **	game->player->speed = 10.0/64; --> pixels per key_press
@@ -69,8 +33,6 @@ static void	*init_player(t_game *game)
 	game->player->dist_to_plane = (game->vars->screen_width / 2)
 		/ (tan(game->player->field_of_view / 2));
 	game->player->display_size = MINI_TILE / 2.0;
-	
-
 	printf("turn_direction is: %c\n", game->player->turn_direction);
 	printf("walk_direction is: %c\n", game->player->walk_direction);
 	printf("rotation_angle is: %f\n", game->player->rotation_angle);
@@ -79,16 +41,13 @@ static void	*init_player(t_game *game)
 	printf("pos_line is: %f\n", game->player->play_pos[0]);
 	printf("pos_col is: %f\n", game->player->play_pos[1]);
 	printf("distance to projection plane is: %f\n", game->player->dist_to_plane);
-
 	printf("----------------\n");
 	printf("SCREEN_WIDTH is: %d\n", game->vars->screen_width);
 	printf("SCREEN_HEIGHT is: %d\n", game->vars->screen_height);
 	printf("%d\n", MINI_TILE);
 	printf("rows(y) is: %d\n", game->vars->map_rows);
 	printf("cols(y) is: %d\n", game->vars->map_cols);
-
 	return ((void *)0);
-
 }
 
 static int	init_game(t_game *game)
@@ -107,7 +66,6 @@ static int	init_game(t_game *game)
 	game->update = 1;
 	printf("num_rays is: %d\n", game->vars->num_rays);
 	return (0);
-
 }
 
 /*
@@ -147,7 +105,6 @@ static int	render_game(void *game)
 	return (0);
 }
 
-
 char	execute(t_game *game)
 {
 	if (create_connection(game) || init_game(game))
@@ -157,6 +114,5 @@ char	execute(t_game *game)
 	mlx_hook(game->conn->win, 17, 0, ft_close_conn, game);
 	mlx_loop_hook(game->conn->mlx, render_game, game);
 	mlx_loop(game->conn->mlx);
-
 	return (0);
 }

@@ -1,16 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   update.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dpinedo- <dpinedo-@student.42urduliz.      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/08 21:26:38 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/08 21:39:08 by dpinedo-         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "cubed.h"
+
+line 140 is_collision changed
 
 static char	wall_side_hit(int x, int y, t_vars *vars, t_ray *ray)
 {
@@ -32,7 +22,7 @@ static char	wall_side_hit(int x, int y, t_vars *vars, t_ray *ray)
 	if (ray->border == 'V')
 	{
 		if ((ray->angle > 3 * M_PI / 2 && ray->angle <= 2 * M_PI)
-			|| (ray->angle >= 0 && ray->angle < M_PI / 2)) //ray going east
+		     || (ray->angle >= 0 && ray->angle < M_PI / 2)) //ray going east
 			return ('W');
 		else if (ray->angle > M_PI / 2 && ray->angle < 3 * M_PI / 2)
 			return ('E');
@@ -64,6 +54,7 @@ int	ray_is_wall(int x, int y, t_vars *vars, t_ray *ray)
 	}
 	else
 		return (0);
+
 }
 
 int	pos_is_wall(double x, double y, t_vars *vars)
@@ -80,7 +71,6 @@ int	pos_is_wall(double x, double y, t_vars *vars)
 	else
 		return (0);
 }
-
 /*
 **	Without this function only checking the center of the rectangle, not the edges
 **	or sides, and in many cases the center is not in the wall, but the edges / sides
@@ -110,9 +100,9 @@ int	is_collision(double x, double y, t_player *player, t_vars *vars)
 	top = y - collision_margin;
 	base = y + collision_margin;
 	if (pos_is_wall(left, top, vars) || pos_is_wall(left, base, vars)
-		|| pos_is_wall(right, top, vars) || pos_is_wall(right, base, vars)
-		|| pos_is_wall(left, y, vars) || pos_is_wall(right, y, vars)
-		|| pos_is_wall(x, top, vars) || pos_is_wall(x, base, vars))
+	    || pos_is_wall(right, top, vars) || pos_is_wall(right, base, vars)
+            || pos_is_wall(left, y, vars) || pos_is_wall(right, y, vars)
+	    || pos_is_wall(x, top, vars) || pos_is_wall(x, base, vars))
 		return (1);
 	return (0);
 }
@@ -149,12 +139,12 @@ static void	update_play_pos(t_vars *vars, t_player *player)
 		new_y += sin(angle) * player->speed;
 	}
 	//check for walls
-	if (!is_collision(new_x, new_y, player, vars))
-	{
-		player->play_pos[0] = new_y; //check for cartesian confusion (lineas*columnas vs (x,y))
-		player->play_pos[1] = new_x;
-	}
+	if (is_collision(new_x, new_y, player, vars))
+		return;
 	//printf("not a wall\n");
+	player->play_pos[0] = new_y; //check for cartesian confusion (lineas*columnas vs (x,y))
+	player->play_pos[1] = new_x;
+
 	//printf("new position is: map[%f][%f]\n", player->play_pos[0], player->play_pos[1]);
 }
 
@@ -162,45 +152,46 @@ static void	update_play_pos(t_vars *vars, t_player *player)
 **  cap rotations to 1 full circle, so radian between 0 and 2 pi
 **  fmod is "%" but for floating point numbers
 */
-static double	standardize_angle(double angle)
+static double standardize_angle(double angle)
 {
-	double	circle_in_rad;
+   double circle_in_rad;
 
-	circle_in_rad = 2 * M_PI;
-	angle = fmod(angle, circle_in_rad);
-	if (angle < 0)
-		angle += circle_in_rad;
-	return (angle);
+   circle_in_rad =  2 * M_PI;
+   angle = fmod(angle, circle_in_rad);
+   if (angle < 0)
+        angle +=circle_in_rad;
+
+   return angle;
 }
 
 /*
 **  get horizontal and vertical hit wall distance and compare both to store 
 **  smallest distance
 */
-void	ray_cast(t_ray *ray, t_player *player, t_vars *vars)
+void ray_cast(t_ray *ray, t_player * player, t_vars *vars)
 {
-	t_ray	vert_ray;
-	t_ray	horz_ray;
-	double	angle;
+    t_ray vert_ray;
+    t_ray horz_ray;
+    double angle;
 
-	angle = standardize_angle(ray->angle);
-	vert_ray.angle = angle;
-	horz_ray.angle = angle;
+    angle = standardize_angle(ray->angle);
+    vert_ray.angle = angle;
+    horz_ray.angle = angle;
 	vert_ray.border = 'V';
 	horz_ray.border = 'H';
-	vertical_border(&vert_ray, player, vars);
-	horizontal_border(&horz_ray, player, vars);
+    vertical_border(&vert_ray, player, vars);
+    horizontal_border(&horz_ray, player, vars);
 	if (vert_ray.distance < horz_ray.distance)
 		*ray = vert_ray;
 	else
 		*ray = horz_ray;
 }
 
-void	cast_all_rays(t_game *game)
+void cast_all_rays(t_game *game)
 {
-	double	angle;
-	int	i;
-
+	double angle; 
+	int i;
+	//initial angle for ray 0
 	angle = game->player->rotation_angle - (game->player->field_of_view / 2);
 	i = 0;
 	while (i < game->vars->num_rays)
@@ -211,6 +202,7 @@ void	cast_all_rays(t_game *game)
 		angle += game->player->field_of_view / game->vars->screen_width;
 		//printf("ray[%d].distance: %f\n", i, (game->rays[i].distance));
 		i++;
+		
 	}
 }
 
@@ -221,11 +213,14 @@ void	cast_all_rays(t_game *game)
 **	3 - cast all rays
 **	
 */
-void	update(t_game *game)
+void update(t_game *game)
 {
 	update_play_pos(game->vars, game->player);
 	if (game->player->turn_direction != 0) //updates player angle
-		game->player->rotation_angle +=
+		game->player->rotation_angle += 
 		game->player->speed * game->player->turn_direction;
 	cast_all_rays(game);
+
 }
+
+

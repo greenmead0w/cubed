@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 21:16:14 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/12/09 21:41:47 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/08 21:42:28 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@
 // 	}
 // 	return (0);
 // }
-
 
 //alternativa a check_texture:
 static char	alternative_check_texture(char *line)
