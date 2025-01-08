@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 20:05:12 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/12/30 11:48:00 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/08 19:22:17 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static void	*open_connection(t_conn *conn, t_vars *vars)
 {
-	
 	conn->mlx = mlx_init();
 	if (!conn->mlx)
 		return ((void *) 1);
 	vars->screen_width = vars->map_cols * TILE_SIZE;
 	vars->screen_height = vars->map_rows * TILE_SIZE;
-	conn->win = mlx_new_window(conn->mlx, vars->screen_width, vars->screen_height, "cubed");
+	conn->win = mlx_new_window(conn->mlx, vars->screen_width,
+			vars->screen_height, "cubed");
 	if (!conn->win)
 	{
 		free(conn->mlx);
@@ -48,6 +48,9 @@ static void	*create_connection(t_game *game)
 
 }
 
+/*
+**	game->player->speed = 10.0/64; --> pixels per key_press
+*/
 static void	*init_player(t_game *game)
 {
 	game->player = malloc(sizeof(t_player));
@@ -58,12 +61,13 @@ static void	*init_player(t_game *game)
 	}
 	game->player->turn_direction = 0;
 	game->player->walk_direction = '0';
-	game->player->rotation_speed = 2 *(M_PI / 180); //equivalent of 2 degrees in radians
-	game->player->speed = 10.0/64; //pixels per key_press
+	game->player->rotation_speed = 2 *(M_PI / 180);
+	game->player->speed = 10.0 / 64;
 	initial_player_data(game->vars->game_map, game->vars->map_rows, \
 			game->vars->map_cols, game->player);
-	game->player->field_of_view = 60 * (M_PI/180);
-	game->player->dist_to_plane = (game->vars->screen_width / 2) / (tan(game->player->field_of_view / 2));
+	game->player->field_of_view = 60 * (M_PI / 180);
+	game->player->dist_to_plane = (game->vars->screen_width / 2)
+		/ (tan(game->player->field_of_view / 2));
 	game->player->display_size = MINI_TILE / 2.0;
 	
 
@@ -83,24 +87,15 @@ static void	*init_player(t_game *game)
 	printf("rows(y) is: %d\n", game->vars->map_rows);
 	printf("cols(y) is: %d\n", game->vars->map_cols);
 
-	printf("----------------\n");
-	int i = 0;
-	while (i < 4)
-	{
-		printf("game->vars->textures[%d]->path is: %s\n", i, game->vars->textures[i]->path);
-		i++;
-	}
-
 	return ((void *)0);
 
 }
 
 static int	init_game(t_game *game)
 {
-
-	get_textures(game->conn, game->vars->textures);	
+	get_textures(game->conn, game->vars->textures);
 	if (init_player(game))
-		return -1;
+		return (-1);
 	game->vars->num_rays = game->vars->screen_width / RAY_WIDTH;
 	game->rays = malloc(game->vars->num_rays * sizeof(t_ray));
 	if (!game->rays)
@@ -111,29 +106,31 @@ static int	init_game(t_game *game)
 	ft_bzero(game->rays, sizeof(t_ray));
 	game->update = 1;
 	printf("num_rays is: %d\n", game->vars->num_rays);
-	return 0;
+	return (0);
 
 }
 
 /*
 ** called many times per second (imitating frames per second) to:
 ** 1 - create an image
-** 2 - update game data (if player pos has changed)
+** 2 - update game data (if player pos has changed / keyPressed)
 ** 3 - fill image with updated data
 ** 4 - dump image data onto window
 ** 5 - clear image
 
 ** NOT CHECKING IF MLX_NEW_IMAGE() OR MLX_GET_DATA_ADDR ERROR
 */
-static int render_game(void *game) 
+static int	render_game(void *game)
 {
-	t_game *g;
+	t_game	*g;
 
 	g = (t_game *)game;
-	g->conn->image.ptr = mlx_new_image(g->conn->mlx, g->vars->screen_width, g->vars->screen_height);
-	g->conn->image.addr = mlx_get_data_addr(g->conn->image.ptr, &g->conn->image.bpp, 
-					&g->conn->image.line_length, &g->conn->image.endian);
-	if (g->update) //only update if keypress event has been triggered
+	g->conn->image.ptr = mlx_new_image(g->conn->mlx,
+			g->vars->screen_width, g->vars->screen_height);
+	g->conn->image.addr = mlx_get_data_addr(g->conn->image.ptr,
+			&g->conn->image.bpp, &g->conn->image.line_length,
+			&g->conn->image.endian);
+	if (g->update)
 	{
 		update(g);
 		g->update = 0;
@@ -144,20 +141,19 @@ static int render_game(void *game)
 	draw_2d_map(g);
 	draw_all_rays(g);
 	draw_player(g->conn, g->player);
-	//dump data from image to window
-	mlx_put_image_to_window(g->conn->mlx, g->conn->win, g->conn->image.ptr, 0, 0);
-	//destroy image
+	mlx_put_image_to_window(g->conn->mlx, g->conn->win,
+		g->conn->image.ptr, 0, 0);
 	mlx_destroy_image(g->conn->mlx, g->conn->image.ptr);
-	return 0;
+	return (0);
 }
 
 
 char	execute(t_game *game)
 {
 	if (create_connection(game) || init_game(game))
-		return -1;
-	mlx_hook(game->conn->win, 2, 1L<<0, key_press, game); 
-	mlx_hook(game->conn->win, 3, 1L<<1, key_release, game);
+		return (-1);
+	mlx_hook(game->conn->win, 2, 1L << 0, key_press, game);
+	mlx_hook(game->conn->win, 3, 1L << 1, key_release, game);
 	mlx_hook(game->conn->win, 17, 0, ft_close_conn, game);
 	mlx_loop_hook(game->conn->mlx, render_game, game);
 	mlx_loop(game->conn->mlx);

@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 21:58:14 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/12/09 22:15:55 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/08 17:57:50 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ void	free_all_game(t_game *game)
 		free_double_pointer((void **)game->vars->map);
 		free_double_pointer((void **)game->vars->game_map);
 		free(game->vars);
-		free_mlx(game->conn);
+		if (game->conn)
+			free_mlx(game->conn);
 		free(game->player);
 		free(game->rays);
 		free(game);

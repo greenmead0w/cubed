@@ -6,19 +6,19 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 21:26:35 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/12/09 22:24:44 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/08 18:52:46 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
 
-//retorna 1 si el mapa contiene caracteres válidos, -1 en caso contrario y 0 si el mapa es nulo (por si acaso)
+//returns 1 if valid chars, -1 if not and 0 if map == NULL
 static int	map_valid_chars(char **map)
 {
 	const char	*valid_chars = "01 NSEW";
-	int 		i;
-	int 		j;
+	int			i;
+	int			j;
 
 	i = 0;
 	if (map == NULL)
@@ -66,57 +66,17 @@ static int	map_start_position(char **map)
 	return (pos_counter);
 }
 
-/* crea una matriz rectangular
-si linea < max_linea --> caracteres adicionales de linea hasta max_linea rellenos con ' '. ejemplo:
-"
-map[0][24]: 1
-map[0][25]:  // último caracter, salto de linea
-
-map[0][26]:  // espacios adicionales para hacer que sea matriz rectangular
-map[0][27]:  
-"
-*/
-
-// static char	**make_rectangular_map(char **map, int lines, int max_len)
-// {
-// 	int		i;
-// 	char	**rect;
-
-// 	i = 0;
-// 	rect = malloc(sizeof(char *) * (lines + 1));
-// 	if (rect == NULL)
-// 		return (rect);
-// 	while (i < lines)
-// 	{
-// 		rect[i] = malloc(max_len + 1);
-// 		ft_bzero(rect[i], max_len + 1);
-// 		if (rect[i] == NULL)
-// 		{
-// 			free_double_pointer((void **)rect);
-// 			return (NULL);
-// 		}
-// 		ft_strlcpy(rect[i], map[i], ft_strlen(map[i]) + 1); //antes: ft_strlen(map[i]) +1
-// 		if (i + 1 != lines) //ultima linea del mapa no tiene \n
-// 			rect[i][ft_strlen(rect[i]) - 1] = ' ';
-// 		ft_memset(rect[i] + ft_strlen(map[i]), ' ', /*\*/
-// 			max_len - ft_strlen(map[i])); //antes en la linea de arriba: ft_strlen(map[i])
-// 		rect[i][max_len] = '\0';
-// 		i++;
-// 	}
-// 	rect[lines] = NULL;
-// 	return (rect);
-// }
-
+// linea 8 - ultima linea no va a tener break of line
 static char	*create_rectangular_line(char *line, int max_len)
 {
 	char	*rect_line;
-	
+
 	rect_line = malloc(max_len + 1);
 	if (rect_line == NULL)
 		return (NULL);
 	ft_bzero(rect_line, max_len + 1);
 	ft_strlcpy(rect_line, line, ft_strlen(line) + 1);
-	if (ft_strlen(line) > 0 && line[ft_strlen(line) - 1] == '\n') //ultima linea no va a tener break of line
+	if (ft_strlen(line) > 0 && line[ft_strlen(line) - 1] == '\n')
 		rect_line[ft_strlen(rect_line) - 1] = ' ';
 	ft_memset(rect_line + ft_strlen(line), ' ', max_len - ft_strlen(line));
 	rect_line[max_len] = '\0';
@@ -127,7 +87,7 @@ static char	**make_rectangular_map(char **map, int lines, int max_len)
 {
 	int		i;
 	char	**rect;
-	
+
 	rect = malloc(sizeof(char *) * (lines + 1));
 	if (rect == NULL)
 		return (rect);
@@ -165,11 +125,12 @@ static int	not_sealed_map(char **map, int lines, int max_len)
 		{
 			if (map[i][j] != '1' && map[i][j] != ' ' && map[i][j] != '\n')
 			{
-				if (i == 0 || i == lines -1 || j == 0||j == max_len -2)
+				if (i == 0 || i == lines -1 || j == 0 || j == max_len -2)
 					return (write(2, WALLS, ft_strlen(WALLS)));
-				if (map[i - 1][j - 1] == ' ' || map[i - 1][j] == ' ' || map[i - 1][j + 1] == ' '
-				 	|| map[i][j - 1] == ' ' || map[i][j + 1] == ' '
-					|| map[i + 1][j - 1] == ' ' || map[i + 1][j] == ' ' || map[i + 1][j + 1] == ' ')
+				if (map[i - 1][j - 1] == ' ' || map[i - 1][j] == ' '
+					|| map[i - 1][j + 1] == ' ' || map[i][j - 1] == ' '
+					|| map[i][j + 1] == ' ' || map[i + 1][j - 1] == ' '
+					|| map[i + 1][j] == ' ' || map[i + 1][j + 1] == ' ')
 					return (write(2, SPACE, ft_strlen(SPACE)));
 			}
 			j++;

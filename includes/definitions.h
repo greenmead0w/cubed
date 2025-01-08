@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 22:16:56 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/12/30 11:02:33 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/08 18:35:54 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,20 @@
 # define WEST_W "textures/ice.xpm"
 //# define SPACE_W "textures/space.xpm"
 
-//source: keysym def for XSERVER: https://www.cl.cam.ac.uk/~mgk25/ucs/keysymdef.h 
-//keycode is local to hardware or OS, keysym is global to all devices using XProtocol / XSERVER
-#define XK_Left                          0xff51 // left arrow
-#define XK_Right                         0xff53  // right arrow
-#define XK_w                             0x0077
-#define XK_a                             0x0061
-#define XK_s                            0x0073
-#define XK_d                             0x0064
-#define XK_Escape                        0xff1b
+//source: keysym def for XSERVER: 
+//	https://www.cl.cam.ac.uk/~mgk25/ucs/keysymdef.h 
+//keycode is local to hardware or OS, 
+//keysym is global to all devices using XProtocol / XSERVER
+# define XK_LEFT 0xff51
+# define XK_RIGHT 0xff53
+# define XK_W 0x0077
+# define XK_A 0x0061
+# define XK_S 0x0073
+# define XK_D 0x0064
+# define XK_ESCAPE 0xff1b
 
-#define TILE_SIZE 64
-#define MINI_TILE (TILE_SIZE / 4) //minimap tile size
-#define RAY_WIDTH 1 //width in pixels of "each ray"
+# define TILE_SIZE 64
+# define MINI_TILE 16 //minimap tile size
+# define RAY_WIDTH 1 //width in pixels of "each ray"
 
 #endif //DEFINITIONS_H

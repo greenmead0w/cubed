@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 10:24:24 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/12/30 11:42:07 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/08 18:34:30 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,19 @@
 int	key_press(int keycode, t_game *game)
 {
 	//printf("key press called \n");
-	if (keycode == XK_Escape)
+	if (keycode == XK_ESCAPE)
 		ft_close_conn(game);
-	if (keycode ==  XK_w)
+	if (keycode ==  XK_W)
 		game->player->walk_direction = 'w';
-	else if (keycode ==  XK_s)
+	else if (keycode ==  XK_S)
 		game->player->walk_direction = 's';
-	else if (keycode ==  XK_a)
+	else if (keycode ==  XK_A)
 		game->player->walk_direction = 'a';
-	else if (keycode ==  XK_d)
+	else if (keycode ==  XK_D)
 		game->player->walk_direction = 'd';
-	else if (keycode ==  XK_Left)
+	else if (keycode ==  XK_LEFT)
 		game->player->turn_direction = -1;
-	else if (keycode ==  XK_Right)
+	else if (keycode ==  XK_RIGHT)
 		game->player->turn_direction = 1;
 	if (game->player->walk_direction != '0'
 		|| game->player->turn_direction != 0)
@@ -58,9 +58,9 @@ int	key_press(int keycode, t_game *game)
 int	key_release(int kc, t_game *game)
 {
 	//printf("key release called \n");
-	if (kc ==  XK_w || kc == XK_s || kc == XK_a || kc == XK_d)
+	if (kc ==  XK_W || kc == XK_S || kc == XK_A || kc == XK_D)
 		game->player->walk_direction = '0';
-	else if (kc == XK_Left || kc == XK_Right)
+	else if (kc == XK_LEFT || kc == XK_RIGHT)
 		game->player->turn_direction = 0;
 	return (0);
 }

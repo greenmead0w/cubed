@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpinedo- <dpinedo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 14:34:24 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/12/09 21:34:23 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/08 18:53:18 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 static char	read_lines(int fd, char *line, t_game *game, \
 		t_track_items *track_elements)
 {
-	int line_counter;
+	int	line_counter;
 
 	line_counter = 0;
 	while (line)
 	{
-		line = get_next_line(fd); // no estamos diferenciando si gnl devuelve nulo for EOF o por problemas de read() no?
+		line = get_next_line(fd);
 		if (line)
 		{
 			if (examine_line(line, game, track_elements))
@@ -49,7 +49,7 @@ static char	open_and_read_file_check(char *file, t_game *game, \
 	int		fd;
 
 	line = (char *) 1;
-	fd = open(file, O_RDONLY, 0111); //parece que O_RDONLY no requiere 3er argumento, O_CREAT sí
+	fd = open(file, O_RDONLY, 0111);
 	if (fd == -1)
 	{
 		write(2, OPEN_FILE, ft_strlen(OPEN_FILE));

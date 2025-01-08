@@ -6,15 +6,15 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 14:28:07 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/25 20:36:22 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/08 18:48:12 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
-#include <stddef.h>
-#include "cubed.h"
+# include <stddef.h>
+# include "cubed.h"
 
 size_t	ft_strlen(const char *str);
 void	ft_bzero(void *s, size_t n);
