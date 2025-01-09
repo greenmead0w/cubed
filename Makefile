@@ -6,7 +6,7 @@
 #    By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/15 01:31:40 by dpinedo-          #+#    #+#              #
-#    Updated: 2025/01/08 20:54:01 by dpinedo-         ###   ########.fr        #
+#    Updated: 2025/01/09 21:24:27 by dpinedo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS =	main_cubed.c\
 	parse.c\
 	examine_line.c\
 	fill_map.c\
+	make_rectangular_map.c\
 	check_map.c\
 	get_textures.c\
 	key_hook.c\

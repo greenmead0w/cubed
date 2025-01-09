@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dpinedo- <dpinedo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:26:50 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/08 18:47:47 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/09 20:38:04 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_image
 	int		bpp;
 	int		line_length;
 	int		endian;
-}				t_image;
+}		t_image;
 
 //Connection
 typedef struct s_conn
@@ -58,8 +58,7 @@ typedef struct s_textures
 	int		height;
 	char	*path;
 	char	side; //which side of the wall texture corresponds to
-
-}	t_texture;
+}		t_texture;
 
 typedef struct s_vars
 {
@@ -85,9 +84,7 @@ typedef struct s_player
 	double	dist_to_plane; //distance to projection plane, constant
 	double	field_of_view;
 	double	display_size; //size (pixels) of the player figure in the 2d miniMap
-
-}	t_player;
-
+}		t_player;
 
 typedef struct s_ray
 {
@@ -100,9 +97,7 @@ typedef struct s_ray
 	int			x;//pixel coord values where wall will be rendered
 	int			y; // (pixel) starting position for the wall strip
 	t_texture	tex; //texture that this ray has summoned
-
-}	t_ray;
-
+}		t_ray;
 
 //General struct for the game
 typedef struct s_game
@@ -113,7 +108,6 @@ typedef struct s_game
 	t_player	*player;
 	t_ray		*rays;
 	int			update; //"dirty flag", 1 if image should be updated, else 0
-
-}		t_game;
+}	t_game;
 
 #endif //STRUCTS_H

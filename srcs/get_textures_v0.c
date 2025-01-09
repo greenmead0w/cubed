@@ -6,14 +6,14 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 20:05:12 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/09 20:26:24 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/09 19:43:42 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 #include <string.h>
 
-char	get_textures(t_conn *con, t_texture **tex)
+void	get_textures(t_conn *con, t_texture **tex)
 {
 	int	i;
 
@@ -25,18 +25,34 @@ char	get_textures(t_conn *con, t_texture **tex)
 		printf("[%d]->path is:%s\n", i, tex[i]->path);
 		tex[i]->width = TILE_SIZE;
 		tex[i]->height = TILE_SIZE;
-		tex[i]->img.ptr = XPM_TO_IMAGE(con->mlx, tex[i]->path, \
-			&tex[i]->width, &tex[i]->height);
+		i++;
+	}
+	tex[NORTH]->img.ptr = XPM_TO_IMAGE(con->mlx, tex[NORTH]->path, \
+		&tex[NORTH]->width, &tex[NORTH]->height);
+	tex[SOUTH]->img.ptr = XPM_TO_IMAGE(con->mlx, tex[SOUTH]->path, \
+		&tex[SOUTH]->width, &tex[SOUTH]->height);
+	tex[EAST]->img.ptr = XPM_TO_IMAGE(con->mlx, tex[EAST]->path, \
+		&tex[EAST]->width, &tex[EAST]->height);
+	tex[WEST]->img.ptr = XPM_TO_IMAGE(con->mlx, tex[WEST]->path, \
+		&tex[WEST]->width, &tex[WEST]->height);
+	i = 0;
+	if (!tex[NORTH]->img.ptr)
+	{
+		printf("null - 1\n");
+		if (!tex[SOUTH]->img.ptr)
+		{
+			printf("null - 2\n");
+			if (!tex[EAST]->img.ptr)
+			{
+				printf("null - 3\n");
+			}
+		}
+	}
+	while (i < 4)
+	{
 		tex[i]->img.addr = mlx_get_data_addr(tex[i]->img.ptr, \
 			&tex[i]->img.bpp, &tex[i]->img.line_length, \
 			&tex[i]->img.endian);
-		if (!tex[i]->img.ptr || !tex[i]->img.addr)
-		{
-			//liberar
-			//ver dónde se une para controlar el return
-			return (-1);
-		}
 		i++;
 	}
-	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dpinedo- <dpinedo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 14:28:07 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/08 18:48:12 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/09 20:41:11 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ size_t	ft_strlen(const char *str);
 void	ft_bzero(void *s, size_t n);
 int	ft_strcmp(const char *s1, const char *s2);
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
-int     ft_isalnum(int c);
+int	ft_isalnum(int c);
 char	*ft_strcpy(char *dest, char *src);
 char	compare_to_all_textures(char *line);
-char    cmp_to_one_text(char *line, int i);
-char    *ft_strchr(const char *s, int c);
-size_t  ft_strlcpy(char *dest, char *src, size_t size);
-void    *ft_memset(void *s, int c, size_t n);
+char	cmp_to_one_text(char *line, int i);
+char	*ft_strchr(const char *s, int c);
+size_t	ft_strlcpy(char *dest, char *src, size_t size);
+void	*ft_memset(void *s, int c, size_t n);
 int	ft_atoi(const char *str);
 void	define_set(char **set);
 int	map_max_length(char **map);
@@ -36,18 +36,14 @@ char	*create_string(char **line, int size);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strdup(const char *src);
 char	*get_next_line(int fd);
-char    texture_extension(char *line, char *start, int fd);
+char	texture_extension(char *line, char *start, int fd);
 char	**ft_split(char *s, char c);
-
-
 t_color	*ft_lstnew(void);
 void	ft_lstadd_back(t_color **alst, t_color *new);
-
 void	free_simple_pointer(void *ptr);
 void	free_double_pointer(void **ptr);
-void    free_mlx(t_conn *conn);
+void	free_mlx(t_conn *conn);
 void	free_all_game(t_game *game);
-//void	free_textures(t_texture **ptr, int counter);
 void	free_textures(t_conn *conn, t_texture **ptr, int counter);
 
 #endif //UTILS_H

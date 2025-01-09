@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 19:39:26 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/29 18:24:19 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/09 19:25:08 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static int	take_partial_color(char **line)
 		return (-2);
 	return (partial_color);
 }
-
 
 char	fill_colors_list(char *line, t_game *game)
 {

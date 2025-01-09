@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:59:47 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/08 19:24:19 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/09 19:27:37 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char	fill_textures_path(t_texture *ptr, char *line)
 	if (!ptr->path)
 	{
 		free_double_pointer((void **)split);
-		return -1;
+		return (-1);
 	}
 	i = 0;
 	while (split[1][i] && split[1][i] != '\n')
@@ -36,7 +36,7 @@ static char	fill_textures_path(t_texture *ptr, char *line)
 	}
 	ptr->path[i] = '\0';
 	free_double_pointer((void **)split);
-	return 0;
+	return (0);
 }
 
 char	fill_textures_matrix(char *line, t_vars *vars)
@@ -53,6 +53,6 @@ char	fill_textures_matrix(char *line, t_vars *vars)
 		i = 3;
 	vars->textures[i]->side = *line;
 	if (fill_textures_path(vars->textures[i], line))
-		return -1;
+		return (-1);
 	return (0);
 }

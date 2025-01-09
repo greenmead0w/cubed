@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_player_pos.c                                  :+:      :+:    :+:   */
+/*   initial_player_data.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpinedo- <dpinedo-@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:33:36 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/12/10 21:37:43 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/09 19:30:39 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /*
 ** Angles in computer graphics increase clockwise
 */
-static void initial_player_angle(t_player *player, char letter)
+static void	initial_player_angle(t_player *player, char letter)
 {
 	if (letter == 'S')
 		player->rotation_angle = 90 * M_PI / 180;
@@ -26,7 +26,6 @@ static void initial_player_angle(t_player *player, char letter)
 		player->rotation_angle = 270 * M_PI / 180;
 	else if (letter == 'E')
 		player->rotation_angle = 360 * M_PI / 180;
-
 }
 
 /*

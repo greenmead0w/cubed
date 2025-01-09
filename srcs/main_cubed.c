@@ -6,21 +6,19 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:25:06 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/12/10 21:27:33 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/09 19:36:14 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 #include <stdio.h> //para debuggear (printf)
 
-
 static char	generate_and_initialize_game(t_game **game, \
 		t_track_items **track_elements)
 {
 	*game = malloc(sizeof(t_game));
 	*track_elements = malloc(sizeof(t_track_items));
-
-	if (!*game || !*track_elements) 
+	if (!*game || !*track_elements)
 	{
 		write(2, MEM_ALLOC, ft_strlen(MEM_ALLOC));
 		free_simple_pointer(*game);
@@ -33,8 +31,8 @@ static char	generate_and_initialize_game(t_game **game, \
 	if (!(*game)->vars)
 	{
 		write(2, MEM_ALLOC, ft_strlen(MEM_ALLOC));
-		free_simple_pointer((*game)->vars); 
-		free_simple_pointer(*game); 
+		free_simple_pointer((*game)->vars);
+		free_simple_pointer(*game);
 		free_simple_pointer(*track_elements);
 		return (-1);
 	}
@@ -42,11 +40,12 @@ static char	generate_and_initialize_game(t_game **game, \
 	return (0);
 }
 
-static char init_textures(t_game *game)
+static char	init_textures(t_game *game)
 {
-	int i;
+	int	i;
+
 	i = 0;
-	while( i < 4)
+	while (i < 4)
 	{
 		game->vars->textures[i] = malloc(sizeof(t_texture));
 		if (!game->vars->textures[i])
