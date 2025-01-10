@@ -6,19 +6,14 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 21:16:14 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/10 12:09:46 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/10 18:00:26 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 #include <fcntl.h>
 
-/*
-**	temp = *line --> añade caracter nulo temporalmente para q path termine ahí
-**	*line = temp; --> restablecer ' ' ó '\n'
-**	
-*/
-static char	alternative_check_texture(char *line)
+static char	check_texture(char *line)
 {
 	int		fd;
 	char	*start;
@@ -53,7 +48,7 @@ static char	examine_texture(char *line, t_track_items *track_elems)
 	{
 		if (cmp_to_one_text(line, i) && !track_elems->textures_ok[i])
 		{
-			if (alternative_check_texture(line + 2))
+			if (check_texture(line + 2))
 				return (-1);
 			track_elems->textures_ok[i] = 1;
 			track_elems->item_counter++;
@@ -70,15 +65,6 @@ static char	examine_texture(char *line, t_track_items *track_elems)
 	return (0);
 }
 
-/*
-**	primera lectura del .cub. 
-**	se validan colores, texturas y se cuentan las lineas del mapa
-**
-**	daba errores. he modificado:
-**	inicializar result = 0 (antes -1 daba error cuando se leía la primera l
-**	inea del mapa y no se actualizaba result)
-**	devuelve directamente result
-*/
 char	examine_line(char *line, t_game *game, t_track_items *track_elems)
 {
 	char	result;
@@ -90,7 +76,7 @@ char	examine_line(char *line, t_game *game, t_track_items *track_elems)
 		return (0);
 	while (*line == ' ')
 		line++;
-	if (*line == 'F' || (*line == 'C' && track_elems->map_flag != 1))
+	if ((*line == 'F' || *line == 'C') && track_elems->map_flag != 1)
 		result = examine_color(line, track_elems);
 	else if (!compare_to_all_textures(line) && track_elems->map_flag != 1)
 		result = examine_texture(line, track_elems);
@@ -102,11 +88,6 @@ char	examine_line(char *line, t_game *game, t_track_items *track_elems)
 		result = 0;
 	}
 	else
-	{
-		if (track_elems->map_flag != 1)
-			write(2, WRONG_FILE, ft_strlen(WRONG_FILE));
-		else
-			write(2, WALLS, ft_strlen(WALLS));
-	}
+		write(2, WRONG_FILE, ft_strlen(WRONG_FILE));
 	return (result);
 }

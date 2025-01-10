@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 21:26:38 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/10 12:34:30 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/10 17:19:21 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	update(t_game *game)
 {
 	update_play_pos(game->vars, game->player);
 	if (game->player->turn_direction != 0)
-		game->player->rotation_angle
-			+= game->player->speed * game->player->turn_direction;
+		game->player->rotation_angle += \
+			game->player->speed * game->player->turn_direction;
 	cast_all_rays(game);
 }

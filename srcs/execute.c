@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 20:05:12 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/10 11:14:45 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/10 18:18:09 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ static void	*init_player(t_game *game)
 {
 	game->player = malloc(sizeof(t_player));
 	if (!game->player)
-	{
-		free_all_game(game);
-		return ((void *)1);
-	}
+		return ((void *) 1);
 	game->player->turn_direction = 0;
 	game->player->walk_direction = '0';
 	game->player->rotation_speed = 2 *(M_PI / 180);
@@ -33,7 +30,7 @@ static void	*init_player(t_game *game)
 	game->player->dist_to_plane = (game->vars->screen_width / 2)
 		/ (tan(game->player->field_of_view / 2));
 	game->player->display_size = game->vars->min_tile / 2.0;
-	return ((void *)0);
+	return ((void *) 0);
 }
 
 static int	init_game(t_game *game)
@@ -45,10 +42,7 @@ static int	init_game(t_game *game)
 	game->vars->num_rays = game->vars->screen_width / RAY_WIDTH;
 	game->rays = malloc(game->vars->num_rays * sizeof(t_ray));
 	if (!game->rays)
-	{
-		free_all_game(game);
-		return (1);
-	}
+		return (-1);
 	ft_bzero(game->rays, sizeof(t_ray));
 	game->update = 1;
 	printf("num_rays is: %d\n", game->vars->num_rays);
@@ -95,7 +89,10 @@ static int	render_game(void *game)
 char	execute(t_game *game)
 {
 	if (create_connection(game) || init_game(game))
+	{
+		free_all_game(game);
 		return (-1);
+	}
 	mlx_hook(game->conn->win, 2, 1L << 0, key_press, game);
 	mlx_hook(game->conn->win, 3, 1L << 1, key_release, game);
 	mlx_hook(game->conn->win, 17, 0, ft_close_conn, game);

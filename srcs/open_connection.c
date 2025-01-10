@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 20:48:39 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/10 12:25:09 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/10 18:25:48 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,7 @@ static void	*open_connection(t_conn *conn, t_vars *vars)
 	conn->win = mlx_new_window(conn->mlx, vars->screen_width,
 			vars->screen_height, "cubed");
 	if (!conn->win)
-	{
-		free(conn->mlx);
-		conn->mlx = 0;
 		return ((void *) 1);
-	}
 	return ((void *) 0);
 }
 
@@ -89,15 +85,9 @@ void	*create_connection(t_game *game)
 {
 	game->conn = malloc(sizeof(t_conn));
 	if (!game->conn)
-	{
-		free_all_game(game);
-		return ((void *)1);
-	}
+		return ((void *) 1);
 	ft_bzero(game->conn, sizeof(t_conn));
 	if (open_connection(game->conn, game->vars))
-	{
-		free_all_game(game);
-		return ((void *)1);
-	}
+		return ((void *) 1);
 	return ((void *) 0);
 }

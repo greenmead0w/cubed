@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 20:05:12 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/10 10:27:42 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/10 18:18:12 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,7 @@ char	get_textures(t_conn *con, t_texture **tex, t_vars *vars)
 			&tex[i]->img.bpp, &tex[i]->img.line_length, \
 			&tex[i]->img.endian);
 		if (!tex[i]->img.ptr || !tex[i]->img.addr)
-		{
-			//liberar
-			//ver dónde se une para controlar el return
 			return (-1);
-		}
 		i++;
 	}
 	return (0);
