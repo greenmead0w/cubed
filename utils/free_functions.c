@@ -6,12 +6,12 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 21:58:14 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/08 17:57:50 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/10 12:45:50 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "utils.h"
-# include <stdlib.h>
+#include "utils.h"
+#include <stdlib.h>
 
 //Igual hay que añadir una función que se llama cuando hay un error y exiteamos?
 void	free_simple_pointer(void *ptr)
@@ -37,27 +37,6 @@ void	free_double_pointer(void **ptr)
 	}
 }
 
-void	free_textures(t_conn *conn, t_texture **ptr, int counter)
-{
-	int i;
-
-	i = 0;
-	while (i < counter)
-	{
-		if (ptr[i]->path)
-			free(ptr[i]->path);
-		if (ptr[i]->img.ptr)
-		{
-			if (conn)
-				mlx_destroy_image(conn->mlx, ptr[i]->img.ptr);
-			else
-				free(ptr[i]->img.ptr); //dudas de si esto tiene sentido
-		}
-		free(ptr[i]);
-		i++;
-	}
-}
-
 static void	free_color_list(t_color *color_root)
 {
 	t_color	*run;
@@ -75,7 +54,7 @@ static void	free_color_list(t_color *color_root)
 	}
 }
 
-void free_mlx(t_conn *conn)
+void	free_mlx(t_conn *conn)
 {
 	mlx_destroy_window(conn->mlx, conn->win);
 	mlx_destroy_display(conn->mlx);

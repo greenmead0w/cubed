@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 20:05:12 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/08 20:55:14 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/10 11:14:45 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,27 +32,14 @@ static void	*init_player(t_game *game)
 	game->player->field_of_view = 60 * (M_PI / 180);
 	game->player->dist_to_plane = (game->vars->screen_width / 2)
 		/ (tan(game->player->field_of_view / 2));
-	game->player->display_size = MINI_TILE / 2.0;
-	printf("turn_direction is: %c\n", game->player->turn_direction);
-	printf("walk_direction is: %c\n", game->player->walk_direction);
-	printf("rotation_angle is: %f\n", game->player->rotation_angle);
-	printf("rotation_speed is: %f\n", game->player->rotation_speed);
-	printf("speed is: %f\n", game->player->speed);
-	printf("pos_line is: %f\n", game->player->play_pos[0]);
-	printf("pos_col is: %f\n", game->player->play_pos[1]);
-	printf("distance to projection plane is: %f\n", game->player->dist_to_plane);
-	printf("----------------\n");
-	printf("SCREEN_WIDTH is: %d\n", game->vars->screen_width);
-	printf("SCREEN_HEIGHT is: %d\n", game->vars->screen_height);
-	printf("%d\n", MINI_TILE);
-	printf("rows(y) is: %d\n", game->vars->map_rows);
-	printf("cols(y) is: %d\n", game->vars->map_cols);
+	game->player->display_size = game->vars->min_tile / 2.0;
 	return ((void *)0);
 }
 
 static int	init_game(t_game *game)
 {
-	get_textures(game->conn, game->vars->textures);
+	if (get_textures(game->conn, game->vars->textures, game->vars))
+		return (-1);
 	if (init_player(game))
 		return (-1);
 	game->vars->num_rays = game->vars->screen_width / RAY_WIDTH;
@@ -98,7 +85,7 @@ static int	render_game(void *game)
 	draw_ray_cast(g, 0);
 	draw_2d_map(g);
 	draw_all_rays(g);
-	draw_player(g->conn, g->player);
+	draw_player(g->conn, g->player, g->vars);
 	mlx_put_image_to_window(g->conn->mlx, g->conn->win,
 		g->conn->image.ptr, 0, 0);
 	mlx_destroy_image(g->conn->mlx, g->conn->image.ptr);

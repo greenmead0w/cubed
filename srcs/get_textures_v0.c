@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_textures.c                                     :+:      :+:    :+:   */
+/*   get_textures_v0.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 20:05:12 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/09 19:43:42 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/10 10:22:33 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 #include <string.h>
 
-void	get_textures(t_conn *con, t_texture **tex)
+void	get_textures(t_conn *con, t_texture **tex, t_vars *vars)
 {
 	int	i;
 
@@ -23,8 +23,10 @@ void	get_textures(t_conn *con, t_texture **tex)
 	while (i < 4)
 	{
 		printf("[%d]->path is:%s\n", i, tex[i]->path);
-		tex[i]->width = TILE_SIZE;
-		tex[i]->height = TILE_SIZE;
+		// tex[i]->width = TILE_SIZE;
+		// tex[i]->height = TILE_SIZE;
+		tex[i]->width = vars->big_tile;
+		tex[i]->height = vars->big_tile;
 		i++;
 	}
 	tex[NORTH]->img.ptr = XPM_TO_IMAGE(con->mlx, tex[NORTH]->path, \

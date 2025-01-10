@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 21:16:14 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/08 21:42:28 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/10 12:09:46 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,10 @@
 #include <fcntl.h>
 
 /*
-** dudas:
-** 1- el fichero puede tener caracteres no alfanuméricos ("-" o "_" o "+")?
-** 2 - la función valida la sintaxis, pero no si el fichero existe
-**		por ejemplo daría como bueno a "./no./.existe./"
-** alternativa por si no funciona: hacer un open(line) y si da error retornar -1
+**	temp = *line --> añade caracter nulo temporalmente para q path termine ahí
+**	*line = temp; --> restablecer ' ' ó '\n'
+**	
 */
-// static char	check_texture(char *line)
-// {
-// 	while (*line == ' ')
-// 		line++;
-// 	if (*line != '.' || *(line + 1) != '/' || !ft_isalnum(*(line + 2)))
-// 	{
-// 		write(2, PATH, ft_strlen(PATH));
-// 		return (-1);
-// 	}
-// 	while (*line != ' ' && *line != '\n' && *line)
-// 		line++;
-// 	while (*line == ' ')
-// 		line++;
-// 	if (*line != '\n')
-// 	{
-// 		write(2, PATH, ft_strlen(PATH));
-// 		return (-1);
-// 	}
-// 	return (0);
-// }
-
-//alternativa a check_texture:
 static char	alternative_check_texture(char *line)
 {
 	int		fd;
@@ -53,10 +29,10 @@ static char	alternative_check_texture(char *line)
 	start = line;
 	while (*line != '\n' && *line)
 		line++;
-	temp = *line; //añadir caracter nulo temporalmente, para que el path termine ahí
+	temp = *line;
 	*line = '\0';
 	fd = open(start, O_RDONLY);
-	*line = temp; //restablecer ' ' ó '\n'
+	*line = temp;
 	if (fd == -1 || texture_extension(line, start, fd))
 	{
 		write(2, PATH, ft_strlen(PATH));
@@ -77,7 +53,7 @@ static char	examine_texture(char *line, t_track_items *track_elems)
 	{
 		if (cmp_to_one_text(line, i) && !track_elems->textures_ok[i])
 		{
-			if (alternative_check_texture(line + 2)) //modificado
+			if (alternative_check_texture(line + 2))
 				return (-1);
 			track_elems->textures_ok[i] = 1;
 			track_elems->item_counter++;
@@ -99,7 +75,8 @@ static char	examine_texture(char *line, t_track_items *track_elems)
 **	se validan colores, texturas y se cuentan las lineas del mapa
 **
 **	daba errores. he modificado:
-**	inicializar result = 0 (antes -1 daba error cuando se leía la primera linea del mapa y no se actualizaba result)
+**	inicializar result = 0 (antes -1 daba error cuando se leía la primera l
+**	inea del mapa y no se actualizaba result)
 **	devuelve directamente result
 */
 char	examine_line(char *line, t_game *game, t_track_items *track_elems)
@@ -125,7 +102,6 @@ char	examine_line(char *line, t_game *game, t_track_items *track_elems)
 		result = 0;
 	}
 	else
-		// write(2, WRONG_FILE, ft_strlen(WRONG_FILE));
 	{
 		if (track_elems->map_flag != 1)
 			write(2, WRONG_FILE, ft_strlen(WRONG_FILE));

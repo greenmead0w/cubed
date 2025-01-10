@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 22:16:56 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/08 18:35:54 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/10 09:51:55 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@
 # define XK_S 0x0073
 # define XK_D 0x0064
 # define XK_ESCAPE 0xff1b
+
+# define MAX_SCREEN_WIDTH 3712 //58 cols
+# define MAX_SCREEN_HEIGHT 1920 //32 lines size 64 pixels
 
 # define TILE_SIZE 64
 # define MINI_TILE 16 //minimap tile size

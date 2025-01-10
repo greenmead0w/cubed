@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpinedo- <dpinedo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:26:50 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/09 20:38:04 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/10 09:32:16 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,16 @@ typedef struct s_conn
 	t_image	image;
 }		t_conn;
 
+//used for the 2d map rendering because norminette constraints
+typedef struct s_draw_2d
+{
+	int		curr_x;
+	int		curr_y;
+	int		start_x;
+	int		start_y;
+	char	value;
+}	t_draw_2d;
+
 typedef struct s_textures
 {
 	t_image	img;
@@ -70,6 +80,8 @@ typedef struct s_vars
 	int			screen_width;
 	int			screen_height;
 	int			num_rays;
+	int			big_tile;
+	int			min_tile;
 }		t_vars;
 
 //player data 

@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:49:39 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/11/25 20:21:31 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/10 12:49:11 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_strcmp(const char *s1, const char *s2)
 {
-	size_t		i;
+	size_t			i;
 	unsigned char	*us1;
 	unsigned char	*us2;
 

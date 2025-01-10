@@ -1,43 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   compare_textures_functions.c                       :+:      :+:    :+:   */
+/*   angle_ops.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/13 21:37:19 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/10 12:41:16 by mzuloaga         ###   ########.fr       */
+/*   Created: 2025/01/10 12:26:26 by mzuloaga          #+#    #+#             */
+/*   Updated: 2025/01/10 12:40:57 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-char	cmp_to_one_text(char *line, int i)
-{
-	char	*set[4];
-
-	define_set(set);
-	if (!ft_strncmp(line, set[i], 2))
-		return (1);
-	else
-		return (0);
-}
-
 /*
-** retorna 0 si empieza como textura
+**  cap rotations to 1 full circle, so radian between 0 and 2 pi
+**  fmod is "%" but for floating point numbers
 */
-char	compare_to_all_textures(char *line)
+double	standardize_angle(double angle)
 {
-	char	*set[5];
-	int		i;
+	double	circle_in_rad;
 
-	define_set(set);
-	i = 0;
-	while (set[i])
-	{
-		if (!ft_strncmp(line, set[i], 2))
-			return (0);
-		i++;
-	}
-	return (-1);
+	circle_in_rad = 2 * M_PI;
+	angle = fmod(angle, circle_in_rad);
+	if (angle < 0)
+		angle += circle_in_rad;
+	return (angle);
 }

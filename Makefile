@@ -6,7 +6,7 @@
 #    By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/15 01:31:40 by dpinedo-          #+#    #+#              #
-#    Updated: 2025/01/09 21:24:27 by dpinedo-         ###   ########.fr        #
+#    Updated: 2025/01/10 12:32:29 by mzuloaga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,8 +45,11 @@ SRCS =	main_cubed.c\
 	open_connection.c\
 	update.c\
 	display.c\
+	mini_map.c\
+	mini_map_rays.c\
 	vertical_border.c\
-	horizontal_border.c
+	horizontal_border.c\
+	update2.c
 
 #SRCS_BONUS = main_bonus.c\
 

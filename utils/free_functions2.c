@@ -1,43 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   compare_textures_functions.c                       :+:      :+:    :+:   */
+/*   free_functions2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/13 21:37:19 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/10 12:41:16 by mzuloaga         ###   ########.fr       */
+/*   Created: 2025/01/10 12:46:10 by mzuloaga          #+#    #+#             */
+/*   Updated: 2025/01/10 12:46:51 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-char	cmp_to_one_text(char *line, int i)
+void	free_textures(t_conn *conn, t_texture **ptr, int counter)
 {
-	char	*set[4];
+	int	i;
 
-	define_set(set);
-	if (!ft_strncmp(line, set[i], 2))
-		return (1);
-	else
-		return (0);
-}
-
-/*
-** retorna 0 si empieza como textura
-*/
-char	compare_to_all_textures(char *line)
-{
-	char	*set[5];
-	int		i;
-
-	define_set(set);
 	i = 0;
-	while (set[i])
+	while (i < counter)
 	{
-		if (!ft_strncmp(line, set[i], 2))
-			return (0);
+		if (ptr[i]->path)
+			free(ptr[i]->path);
+		if (ptr[i]->img.ptr)
+		{
+			if (conn)
+				mlx_destroy_image(conn->mlx, ptr[i]->img.ptr);
+			else
+				free(ptr[i]->img.ptr);
+		}
+		free(ptr[i]);
 		i++;
 	}
-	return (-1);
 }

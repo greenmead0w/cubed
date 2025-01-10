@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:54:08 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/12/09 21:43:16 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/10 12:25:21 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	parse(char *file, t_game *game)
 	if (initialize_map_matrix(game))
 		return (-1);
 	line = (char *) 1;
-	fd = open(file, O_RDONLY, 0111); //no hace falta tercer argumento creo
+	fd = open(file, O_RDONLY, 0111);
 	if (fd == -1)
 	{
 		write(2, OPEN_FILE, ft_strlen(OPEN_FILE));

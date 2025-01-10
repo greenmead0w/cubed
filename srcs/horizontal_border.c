@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   horizontal_border.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpinedo- <dpinedo-@student.42urduliz.      +#+  +:+       +#+        */
+/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 22:01:58 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/08 22:11:30 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/10 12:21:26 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
 /*
-** solving for the adjacent
+**	solving for the adjacent
+**	opposite = y - player->play_pos[0] --> opposite is negative when upwards
+**	adjacent = opposite / tan(ray->angle) -->if tan(ray->angle) is almost 0?
 */
 static void	horz_find_point_a(t_ray *ray, t_player *player, char flag)
 {
@@ -26,10 +28,8 @@ static void	horz_find_point_a(t_ray *ray, t_player *player, char flag)
 		y = (int)player->play_pos[0];
 	else
 		y = (int)(player->play_pos[0] +1);
-	opposite = y - player->play_pos[0]; //opposite is negative when upwards
-	// if (fabs(tan(ray->angle)) < EPSILON)
-	//     adjacent
-	adjacent = opposite / tan(ray->angle); //what happens if tan(ray->angle) is almost 0?
+	opposite = y - player->play_pos[0];
+	adjacent = opposite / tan(ray->angle);
 	x = player->play_pos[1] + adjacent;
 	ray->pos[0] = x;
 	ray->pos[1] = y;
@@ -37,16 +37,15 @@ static void	horz_find_point_a(t_ray *ray, t_player *player, char flag)
 }
 
 /*  delta_x; //adjacent
-** delta_y; //opposite
+** delta_y; //opposite, tile_size decrease in horz borders
 */
-
 static void	upwards_facing_ray(t_ray *ray, t_player *player, t_vars *vars)
 {
 	double	delta_x;
 	double	delta_y;
 	double	tile_increment;
 
-	delta_y = -1; //TILE_SIZE decrease in horz borders
+	delta_y = -1;
 	horz_find_point_a(ray, player, 'u');
 	if (ray_is_wall(ray->pos[0], ray->pos[1] - 1, vars, ray))
 		return ;
@@ -58,12 +57,10 @@ static void	upwards_facing_ray(t_ray *ray, t_player *player, t_vars *vars)
 		ray->pos[1] += delta_y;
 		ray->distance += tile_increment;
 	}
-	// printf("horz_ray-pos[0] is %f\n", ray->pos[0]);
-	// printf("horz_ray-pos[1] is %f\n", ray->pos[1]);
 }
 
 /*  delta_x; //adjacent
-** delta_y; //opposite
+** delta_y; //opposite TILE_SIZE increase in horz borders
 */
 
 static void	downwards_facing_ray(t_ray *ray, t_player *player, t_vars *vars)
@@ -72,7 +69,7 @@ static void	downwards_facing_ray(t_ray *ray, t_player *player, t_vars *vars)
 	double	delta_y;
 	double	tile_increment;
 
-	delta_y = 1; //TILE_SIZE increase in horz borders
+	delta_y = 1;
 	horz_find_point_a(ray, player, 'd');
 	if (ray_is_wall(ray->pos[0], ray->pos[1], vars, ray))
 		return ;
@@ -80,8 +77,6 @@ static void	downwards_facing_ray(t_ray *ray, t_player *player, t_vars *vars)
 	tile_increment = sqrt(pow(delta_x, 2) + pow(delta_y, 2));
 	while (!ray_is_wall(ray->pos[0], ray->pos[1], vars, ray))
 	{
-		// printf("d.ray->pos[0] is %f\n", ray->pos[0]);
-		// printf("d.ray->pos[1] is %f\n", ray->pos[1]);
 		ray->pos[0] += delta_x;
 		ray->pos[1] += delta_y;
 		ray->distance += tile_increment;
@@ -95,13 +90,12 @@ static void	downwards_facing_ray(t_ray *ray, t_player *player, t_vars *vars)
 */
 void	horizontal_border(t_ray *ray, t_player *player, t_vars *vars)
 {
-	//printf("ray->angle is: %d\n", (int)(ray->angle * 180 / M_PI));
 	if (ray->angle < EPSILON || fmod(ray->angle, M_PI) < EPSILON)
 	{
 		ray->distance = INT_MAX;
 		return ;
 	}
-	if (ray->angle > M_PI) //!!
+	if (ray->angle > M_PI)
 		upwards_facing_ray(ray, player, vars);
 	else
 		downwards_facing_ray(ray, player, vars);

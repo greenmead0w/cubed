@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 19:39:26 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/09 19:25:08 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/10 12:11:35 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ static t_color	*generate_and_add_node(t_game *game)
 }
 
 /*
-** he modificado -->  count_digits recibia parametro char **, por lo que a pesar de utilizar una temporal
-** se estaba modificando line despues de contar digitos
+**	he modificado -->  count_digits recibia parametro char **,
+**	por lo que a pesar de utilizar una temporal
+**	se estaba modificando line despues de contar digitos
 */
 static int	take_partial_color(char **line)
 {
@@ -32,10 +33,10 @@ static int	take_partial_color(char **line)
 	int		size;
 	char	*partial_color_str;
 
-	size = count_digits(*line); //modificado
+	size = count_digits(*line);
 	partial_color_str = create_string(line, size);
 	if (!partial_color_str)
-		return (-1); //printear malloc error antes de salir?
+		return (-1);
 	partial_color = ft_atoi(partial_color_str);
 	free(partial_color_str);
 	if (partial_color > 255)

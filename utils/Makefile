@@ -42,7 +42,11 @@ SRCS =  ft_strcmp.c\
 	ft_strcpy.c\
 	map_max_length.c\
 	texture_extension.c\
-	ft_split.c
+	ft_split.c\
+	draw_others.c\
+	draw_3d.c\
+	angle_ops.c\
+	free_functions2.c
 
 
 OBJS = $(SRCS:.c=.o)

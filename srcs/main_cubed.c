@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:25:06 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/09 19:36:14 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/10 12:23:32 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,8 @@ char **temp_text = game->vars->textures;
 	i = 0;
 	while(temp_map[i] != NULL)
 	{
-		printf("map line[%d]: line_len: %ld || line: %s\n", i, ft_strlen(temp_map[i]), temp_map[i]);
+		printf("map line[%d]: line_len: %ld || line: %s\n", i,
+			ft_strlen(temp_map[i]), temp_map[i]);
 		i++;
 	}
 

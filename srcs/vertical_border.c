@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vertical_border.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpinedo- <dpinedo-@student.42urduliz.      +#+  +:+       +#+        */
+/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 21:55:43 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/08 22:01:31 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/10 12:39:24 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	vert_find_point_a(t_ray *ray, t_player *player, char flag)
 	ray->distance = sqrt(pow(adjacent, 2) + pow(opposite, 2));
 }
 
-/* delta_x; //adjacent
+/* delta_x; //adjacent tile_size increment in borders
 ** delta_y; //opposite
 */
 
@@ -46,7 +46,7 @@ static void	right_facing_ray(t_ray *ray, t_player *player, t_vars *vars)
 	double	delta_y;
 	double	tile_increment;
 
-	delta_x = 1; //TILE_SIZE increment in vertical borders
+	delta_x = 1;
 	vert_find_point_a(ray, player, 'r');
 	if (ray_is_wall(ray->pos[0], ray->pos[1], vars, ray))
 		return ;
@@ -58,8 +58,6 @@ static void	right_facing_ray(t_ray *ray, t_player *player, t_vars *vars)
 		ray->pos[1] += delta_y;
 		ray->distance += tile_increment;
 	}
-	// printf("vert_ray->pos[0] is %f\n",  ray->pos[0]);
-	// printf("vert_ray->pos[1] is %f\n",  ray->pos[1]);
 }
 
 /*
@@ -67,7 +65,7 @@ static void	right_facing_ray(t_ray *ray, t_player *player, t_vars *vars)
 **  1 - how to find point a
 **  2 - adjacent is negative
 **  3 - the border is part of which tile?
-**  delta_x; //adjacent
+**  delta_x; //adjacent TILE_SIZE decrease in vertical borders
 **  delta_y; //opposite
 */
 static void	left_facing_ray(t_ray *ray, t_player *player, t_vars *vars)
@@ -76,7 +74,7 @@ static void	left_facing_ray(t_ray *ray, t_player *player, t_vars *vars)
 	double	delta_y;
 	double	tile_increment;
 
-	delta_x = -1; //TILE_SIZE decrease in vertical borders
+	delta_x = -1;
 	vert_find_point_a(ray, player, 'l');
 	if (ray_is_wall(ray->pos[0] -1, ray->pos[1], vars, ray))
 		return ;
