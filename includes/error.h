@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 21:24:20 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/09 20:28:52 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/13 19:37:47 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@
 # define WRONG_EXT "File extension is invalid\n"
 # define WRONG_FILE "File content not valid\n"
 # define ARG_NUM "Wrong argument number\n"
+# define OPEN_CONN "Error generating graphical framework\n"
 
 //TEXTURES
 # define PATH "The path to the texture does not exist or is incorrect\n"
 # define TEXTURES_X_2 "Duplicity in texture\n"
+# define TEXT_LOAD "Texture load error\n"
 
 //FLOOR-CEILING COLOR
 # define COLOR "Error in floor/ceiling definition\n"

@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 20:05:12 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/10 18:18:09 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/13 19:42:49 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@ static void	*init_player(t_game *game)
 {
 	game->player = malloc(sizeof(t_player));
 	if (!game->player)
+	{
+		write(2, MEM_ALLOC, ft_strlen(MEM_ALLOC));
 		return ((void *) 1);
+	}
 	game->player->turn_direction = 0;
-	game->player->walk_direction = '0';
+	game->player->walk_direction = 0;
 	game->player->rotation_speed = 2 *(M_PI / 180);
 	game->player->speed = 10.0 / 64;
 	initial_player_data(game->vars->game_map, game->vars->map_rows, \
@@ -42,7 +45,10 @@ static int	init_game(t_game *game)
 	game->vars->num_rays = game->vars->screen_width / RAY_WIDTH;
 	game->rays = malloc(game->vars->num_rays * sizeof(t_ray));
 	if (!game->rays)
+	{
+		write(2, MEM_ALLOC, ft_strlen(MEM_ALLOC));
 		return (-1);
+	}
 	ft_bzero(game->rays, sizeof(t_ray));
 	game->update = 1;
 	printf("num_rays is: %d\n", game->vars->num_rays);

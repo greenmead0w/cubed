@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 22:16:56 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/13 12:42:55 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/13 19:31:28 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # define EPSILON 0.000001
 
 # define XPM_TO_IMAGE mlx_xpm_file_to_image
-# define IMAGE_TO_WINDOW mlx_put_image_to_window
+//# define IMAGE_TO_WINDOW mlx_put_image_to_window
 
 # define COLORS_NUM 2
 # define TEXTURES_NUM 4

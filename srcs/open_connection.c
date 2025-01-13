@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 20:48:39 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/13 12:12:04 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/13 19:39:37 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,15 @@ void	*create_connection(t_game *game)
 {
 	game->conn = malloc(sizeof(t_conn));
 	if (!game->conn)
+	{
+		write(2, MEM_ALLOC, ft_strlen(MEM_ALLOC));
 		return ((void *) 1);
+	}
 	ft_bzero(game->conn, sizeof(t_conn));
 	if (open_connection(game->conn, game->vars))
+	{
+		write(2, OPEN_CONN, ft_strlen(OPEN_CONN));
 		return ((void *) 1);
+	}
 	return ((void *) 0);
 }

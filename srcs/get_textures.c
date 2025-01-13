@@ -6,12 +6,11 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 20:05:12 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/13 12:11:29 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/13 19:40:01 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
-#include <string.h>
 
 char	get_textures(t_conn *con, t_texture **tex, t_vars *vars)
 {
@@ -28,7 +27,10 @@ char	get_textures(t_conn *con, t_texture **tex, t_vars *vars)
 			&tex[i]->img.bpp, &tex[i]->img.line_length, \
 			&tex[i]->img.endian);
 		if (!tex[i]->img.ptr || !tex[i]->img.addr)
+		{
+			write(2, TEXT_LOAD, ft_strlen(TEXT_LOAD));
 			return (-1);
+		}
 		i++;
 	}
 	return (0);
