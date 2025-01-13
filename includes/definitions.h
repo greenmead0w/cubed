@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 22:16:56 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/10 09:51:55 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/13 12:42:55 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,8 @@
 
 # define NORTH 0
 # define SOUTH 1
-# define EAST 2
-# define WEST 3
-
-# define NORTH_W "textures/bricks.xpm"
-# define SOUTH_W "textures/sand.xpm"
-# define EAST_W "textures/woolsnow.xpm"
-# define WEST_W "textures/ice.xpm"
-//# define SPACE_W "textures/space.xpm"
+# define WEST 2
+# define EAST 3
 
 //source: keysym def for XSERVER: 
 //	https://www.cl.cam.ac.uk/~mgk25/ucs/keysymdef.h 
