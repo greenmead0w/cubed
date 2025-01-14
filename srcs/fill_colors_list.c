@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 19:39:26 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/10 12:11:35 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/14 20:25:42 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static t_color	*generate_and_add_node(t_game *game)
 	color = ft_lstnew();
 	if (color)
 		ft_lstadd_back(&game->color_root, color);
+	else
+		write(2, MEM_ALLOC, ft_strlen(MEM_ALLOC));
 	return (color);
 }
 
@@ -38,9 +40,12 @@ static int	take_partial_color(char **line)
 	if (!partial_color_str)
 		return (-1);
 	partial_color = ft_atoi(partial_color_str);
-	free(partial_color_str);
+	free_simple_pointer(partial_color_str);
 	if (partial_color > 255)
-		return (-2);
+	{
+		write(2, COLOR, ft_strlen(COLOR));
+		return (-1);
+	}
 	return (partial_color);
 }
 
@@ -56,7 +61,7 @@ char	fill_colors_list(char *line, t_game *game)
 	while (*line == ' ')
 		line++;
 	color->r_color = take_partial_color(&line);
-	if (color->r_color <= -1)
+	if (color->r_color == -1)
 		return (-1);
 	color->g_color = take_partial_color(&line);
 	if (color->g_color == -1)

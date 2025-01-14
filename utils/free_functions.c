@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 21:58:14 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/13 19:50:22 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/14 21:32:13 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,18 @@ void	free_all_game(t_game *game)
 {
 	if (game)
 	{
-		free_textures(game->conn, game->vars->textures, 4);
 		free_color_list(game->color_root);
-		free_double_pointer((void **)game->vars->map);
-		free_double_pointer((void **)game->vars->game_map);
-		free(game->vars);
+		if (game->vars)
+		{
+			free_textures(game->conn, game->vars->textures, 4);
+			free_double_pointer((void **)game->vars->map);
+			free_double_pointer((void **)game->vars->game_map);
+		}
+		free_simple_pointer(game->vars);
 		if (game->conn)
 			free_mlx(game->conn);
-		free(game->player);
-		free(game->rays);
-		free(game);
+		free_simple_pointer(game->player);
+		free_simple_pointer(game->rays);
+		free_simple_pointer(game);
 	}
 }

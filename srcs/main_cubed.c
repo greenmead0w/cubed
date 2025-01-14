@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:25:06 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/10 12:23:32 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/14 21:43:54 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,32 +118,3 @@ int	main(int argc, char **argv)
 	}
 	return (0);
 }
-
-/*
-PRINT PARSED DATA
-char **temp_text = game->vars->textures;
-	int i = 0;
-	while(temp_text[i] != NULL)
-	{
-		printf("texture[%d]: %s\n", i, temp_text[i]);
-		i++;
-	}
-	t_color *temp = game->color_root;
-	while(temp != NULL)
-	{
-		printf("ceiling or roof: %c\n", temp->cf);
-		printf("R_color: %d\n", temp->r_color);
-		printf("G_color: %d\n", temp->g_color);
-		printf("B_color: %d\n", temp->b_color);
-		temp = temp->next;
-	}
-	char **temp_map = game->vars->game_map;
-	i = 0;
-	while(temp_map[i] != NULL)
-	{
-		printf("map line[%d]: line_len: %ld || line: %s\n", i,
-			ft_strlen(temp_map[i]), temp_map[i]);
-		i++;
-	}
-
-*/

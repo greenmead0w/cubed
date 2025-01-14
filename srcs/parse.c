@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:54:08 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/10 12:25:21 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/14 20:17:01 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ static char	parse_items(char *line, t_game *game)
 	while (*run == ' ')
 		run++;
 	if (*run == 'F' || *run == 'C')
-	{
 		result = fill_colors_list(run, game);
-	}
 	else if (!compare_to_all_textures(run))
 		result = fill_textures_matrix(run, game->vars);
 	else if (*run == '1')
@@ -62,7 +60,6 @@ static char	read_lines(int fd, char *line, t_game *game)
 			{
 				close(fd);
 				free_simple_pointer(line);
-				write(2, MEM_ALLOC, ft_strlen(MEM_ALLOC));
 				return (-1);
 			}
 			free_simple_pointer(line);
