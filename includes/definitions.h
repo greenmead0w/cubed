@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 22:16:56 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/13 19:31:28 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/15 21:08:01 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,9 @@
 # define TEXTURES_NUM 4
 # define SET "FC"
 # define SET_2 "NSEW"
-
-# define NORTH 0
-# define SOUTH 1
-# define WEST 2
-# define EAST 3
+# ifndef SPEED
+#  define SPEED 0
+# endif //SPEED
 
 //source: keysym def for XSERVER: 
 //	https://www.cl.cam.ac.uk/~mgk25/ucs/keysymdef.h 

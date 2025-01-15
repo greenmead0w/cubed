@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_connection.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dpinedo- <dpinedo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 20:48:39 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/13 19:39:37 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/15 21:06:28 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,6 @@ static void	*open_connection(t_conn *conn, t_vars *vars)
 	if (!conn->mlx)
 		return ((void *) 1);
 	get_window_size(vars, 0);
-	printf("vars->screen_width is %d\n", vars->screen_width);
-	printf("vars->screen_height is %d\n", vars->screen_height);
-	printf("vars->big_tile is %d\n", vars->big_tile);
-	printf("vars->min_tile is %d\n", vars->min_tile);
 	conn->win = mlx_new_window(conn->mlx, vars->screen_width,
 			vars->screen_height, "cubed");
 	if (!conn->win)

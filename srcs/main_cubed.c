@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main_cubed.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dpinedo- <dpinedo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:25:06 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/14 21:43:54 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/15 21:06:37 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
-#include <stdio.h> //para debuggear (printf)
 
 static char	generate_and_initialize_game(t_game **game, \
 		t_track_items **track_elements)
@@ -51,8 +50,8 @@ static char	init_textures(t_game *game)
 		if (!game->vars->textures[i])
 		{
 			free_textures(NULL, game->vars->textures, i);
-			free(game->vars);
-			free(game);
+			free_simple_pointer(game->vars);
+			free_simple_pointer(game);
 			return (-1);
 		}
 		ft_bzero(game->vars->textures[i], sizeof(t_texture));

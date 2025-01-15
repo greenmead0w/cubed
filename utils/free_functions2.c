@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 12:46:10 by mzuloaga          #+#    #+#             */
-/*   Updated: 2025/01/13 19:56:22 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/15 19:28:33 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	free_textures(t_conn *conn, t_texture **ptr, int counter)
 			if (conn)
 				mlx_destroy_image(conn->mlx, ptr[i]->img.ptr);
 			else
-				free(ptr[i]->img.ptr);
+				free_simple_pointer(ptr[i]->img.ptr);
 		}
-		free(ptr[i]);
+		free_simple_pointer(ptr[i]);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:59:47 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/09 19:27:37 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/15 20:05:25 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ char	fill_textures_matrix(char *line, t_vars *vars)
 		i = 0;
 	if (*line == 'S')
 		i = 1;
-	if (*line == 'W')
-		i = 2;
 	if (*line == 'E')
+		i = 2;
+	if (*line == 'W')
 		i = 3;
 	vars->textures[i]->side = *line;
 	if (fill_textures_path(vars->textures[i], line))

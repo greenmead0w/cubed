@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dpinedo- <dpinedo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 20:05:12 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/13 19:42:49 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/15 21:05:58 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ static int	init_game(t_game *game)
 	}
 	ft_bzero(game->rays, sizeof(t_ray));
 	game->update = 1;
-	printf("num_rays is: %d\n", game->vars->num_rays);
 	return (0);
 }
 
@@ -78,7 +77,8 @@ static int	render_game(void *game)
 	if (g->update)
 	{
 		update(g);
-		g->update = 0;
+		if (!SPEED)
+			g->update = 0;
 	}
 	draw_ceiling(g);
 	draw_floor(g);

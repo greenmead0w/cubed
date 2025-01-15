@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 12:43:39 by mzuloaga          #+#    #+#             */
-/*   Updated: 2025/01/10 12:44:08 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/15 20:24:07 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 t_texture	get_ray_texture(t_game *game, t_ray ray)
 {
 	t_texture	*texture;
+	int		i;
 
-	if (ray.hit_side == 'N')
-		texture = game->vars->textures[NORTH];
-	else if (ray.hit_side == 'S')
-		texture = game->vars->textures[SOUTH];
-	else if (ray.hit_side == 'E')
-		texture = game->vars->textures[EAST];
-	else
-		texture = game->vars->textures[WEST];
+	i = 0;
+	while (i < 4)
+	{
+		if (ray.hit_side == SET_2[i])
+			texture = game->vars->textures[i];
+		i++;
+	}
 	return (*texture);
 }
 
