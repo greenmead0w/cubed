@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 21:26:38 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/16 20:35:33 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/16 20:34:35 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,19 @@ static void	new_pos(t_player *player, double *new_x,
 	else if (player->walk_direction == 'a')
 	{
 		angle -= 90 * (M_PI / 180);
-		*new_x += cos(angle) * player->speed;
-		*new_y += sin(angle) * player->speed;
+		*new_x += cos(angle) * player->speed * USAIN;
+		*new_y += sin(angle) * player->speed * USAIN;
 	}
 	else if (player->walk_direction == 's')
 	{
-		*new_x += cos(angle) * (player->speed * -1);
-		*new_y += sin(angle) * (player->speed * -1);
+		*new_x += cos(angle) * (player->speed * USAIN * -1);
+		*new_y += sin(angle) * (player->speed * USAIN * -1);
 	}
 	else if (player->walk_direction == 'd')
 	{
 		angle += 90 * (M_PI / 180);
-		*new_x += cos(angle) * player->speed;
-		*new_y += sin(angle) * player->speed;
+		*new_x += cos(angle) * player->speed * USAIN;
+		*new_y += sin(angle) * player->speed * USAIN;
 	}
 }
 
