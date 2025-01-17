@@ -96,6 +96,7 @@ typedef struct s_player
 	double	dist_to_plane; //distance to projection plane, constant
 	double	field_of_view;
 	double	display_size; //size (pixels) of the player figure in the 2d miniMap
+	double	health;
 }		t_player;
 
 typedef struct s_ray

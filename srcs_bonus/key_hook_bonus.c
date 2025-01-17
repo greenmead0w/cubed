@@ -43,3 +43,25 @@ int	key_release(int kc, t_game *game)
 		game->player->turn_direction = 0;
 	return (0);
 }
+
+int mouse_press(int key_code, int x, int y, t_game *game)
+{
+    printf("key_code is: %d\n", key_code);
+    (void)x;
+    (void)y;
+    if (key_code == 1)
+        game->player->turn_direction = -1;
+    else
+        game->player->turn_direction = 1;
+    return (0);
+}
+
+int mouse_release(int key_code, int x, int y, t_game *game)
+{
+    (void)x;
+    (void)y;    
+    (void)key_code;
+    game->player->turn_direction = 0;
+    return (0);
+
+}

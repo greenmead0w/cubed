@@ -39,6 +39,8 @@ char	get_textures(t_conn *con, t_texture **tex, t_vars *vars);
 void	render_map(t_game *game);
 int		key_press(int keycode, t_game *game);
 int		key_release(int kc, t_game *game);
+int		mouse_press(int key_code, int x, int y, t_game *game);
+int		mouse_release(int key_code, int x, int y, t_game *game);
 int		initial_player_data(char **map, int rows,
 			int columns, t_player *player);
 int		ft_close_conn(t_game *game);

@@ -54,4 +54,6 @@
 # define MINI_TILE 16 //minimap tile size
 # define RAY_WIDTH 1 //width in pixels of "each ray"
 
+# define DAMAGE 5
+
 #endif //DEFINITIONS_H

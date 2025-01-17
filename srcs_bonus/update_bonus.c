@@ -53,7 +53,12 @@ static void	update_play_pos(t_vars *vars, t_player *player)
 	new_y = player->play_pos[0];
 	new_pos(player, &new_x, &new_y, angle);
 	if (is_collision(new_x, new_y, player, vars))
-		return ;
+	{
+		if (player->health)
+			player->health-=5;
+		printf("player->health is: %f\n", player->health);
+		return;
+	}
 	player->play_pos[0] = new_y;
 	player->play_pos[1] = new_x;
 }

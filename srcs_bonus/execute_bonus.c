@@ -33,6 +33,7 @@ static void	*init_player(t_game *game)
 	game->player->dist_to_plane = (game->vars->screen_width / 2)
 		/ (tan(game->player->field_of_view / 2));
 	game->player->display_size = game->vars->min_tile / 2.0;
+	game->player->health = 100;
 	return ((void *) 0);
 }
 
@@ -84,6 +85,7 @@ static int	render_game(void *game)
 	draw_2d_map(g);
 	draw_all_rays(g);
 	draw_player(g->conn, g->player, g->vars);
+	draw_health(g);
 	mlx_put_image_to_window(g->conn->mlx, g->conn->win,
 		g->conn->image.ptr, 0, 0);
 	mlx_destroy_image(g->conn->mlx, g->conn->image.ptr);
@@ -100,6 +102,8 @@ char	execute(t_game *game)
 	mlx_hook(game->conn->win, 2, 1L << 0, key_press, game);
 	mlx_hook(game->conn->win, 3, 1L << 1, key_release, game);
 	mlx_hook(game->conn->win, 17, 0, ft_close_conn, game);
+	mlx_hook(game->conn->win, 4, 1L << 2, mouse_press, game);
+    mlx_hook(game->conn->win, 5, 1L << 3, mouse_release, game);
 	mlx_loop_hook(game->conn->mlx, render_game, game);
 	mlx_loop(game->conn->mlx);
 	return (0);
