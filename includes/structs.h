@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:26:50 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/10 09:32:16 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/17 18:52:32 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,21 @@ typedef struct s_draw_2d
 	int		start_y;
 	char	value;
 }	t_draw_2d;
+
+//used for drawing the health bar
+typedef struct s_health
+{
+	int	width;
+	int	height;
+	int	start_x;
+	int	start_y;
+	int	end_x;
+	int	end_y;
+	int	border_width;
+	int	border_c;
+	int	life_c;
+	int	damage_c;
+}	t_health;
 
 typedef struct s_textures
 {

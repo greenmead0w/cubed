@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 21:24:20 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/13 19:37:47 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/17 18:10:37 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,8 @@
 # define CHARACTER "Map contains invalid characters\n"
 # define PLAYER "No players or more than one\n"
 # define SPACE "Invalid space in map\n"
+
+//HEALTH
+# define HEALTH "Player refuses to play until you learn how to avoid walls\n"
 
 #endif //ERROR_H

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_close_conn.c                                    :+:      :+:    :+:   */
+/*   ft_close_conn_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpinedo- <dpinedo-@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:52:38 by dpinedo-          #+#    #+#             */
-/*   Updated: 2024/12/10 20:38:33 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/17 18:02:40 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 int	ft_close_conn(t_game *game)
 {
 	free_all_game(game);
+	if (game->player->health <= 0)
+		write(1, HEALTH, ft_strlen(HEALTH));
 	exit (0);
 	return (0);
 }

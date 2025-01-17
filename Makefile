@@ -6,7 +6,7 @@
 #    By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/15 01:31:40 by dpinedo-          #+#    #+#              #
-#    Updated: 2025/01/16 20:44:51 by dpinedo-         ###   ########.fr        #
+#    Updated: 2025/01/17 17:53:06 by mzuloaga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,7 +73,8 @@ SRCS_BONUS = main_cubed_bonus.c\
 	mini_map_rays_bonus.c\
 	vertical_border_bonus.c\
 	horizontal_border_bonus.c\
-	update2_bonus.c
+	update2_bonus.c\
+	draw_health_bonus.c
 
 LIBS =  libmlx.a libutils.a
 LIBS_PATH = $(patsubst %.a,$(LIBS_DIR)/%.a,$(LIBS))

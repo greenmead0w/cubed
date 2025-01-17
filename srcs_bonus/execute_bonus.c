@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpinedo- <dpinedo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 20:05:12 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/16 22:22:04 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/17 17:57:16 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char	execute(t_game *game)
 	mlx_hook(game->conn->win, 3, 1L << 1, key_release, game);
 	mlx_hook(game->conn->win, 17, 0, ft_close_conn, game);
 	mlx_hook(game->conn->win, 4, 1L << 2, mouse_press, game);
-    mlx_hook(game->conn->win, 5, 1L << 3, mouse_release, game);
+	mlx_hook(game->conn->win, 5, 1L << 3, mouse_release, game);
 	mlx_loop_hook(game->conn->mlx, render_game, game);
 	mlx_loop(game->conn->mlx);
 	return (0);
