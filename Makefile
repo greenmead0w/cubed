@@ -6,7 +6,7 @@
 #    By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/15 01:31:40 by dpinedo-          #+#    #+#              #
-#    Updated: 2025/01/17 17:53:06 by mzuloaga         ###   ########.fr        #
+#    Updated: 2025/01/20 19:14:05 by mzuloaga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ NAME = cub3D
 BONUS_NAME = cub3D_bonus
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -D SPEED=1 -D USAIN=2
+CFLAGS = -Wall -Wextra -Werror -D SPEED=1 -D USAIN=1
 CPPFLAGS = -iquote $(HEADS_DIR) -I$(MLX_DIR)
 LDLFLAGS = -L$(LIBS_DIR) -L$(MLX_DIR)
 RM = -f
@@ -62,7 +62,7 @@ SRCS_BONUS = main_cubed_bonus.c\
 	make_rectangular_map_bonus.c\
 	check_map_bonus.c\
 	get_textures_bonus.c\
-	key_hook_bonus.c\
+	events_bonus.c\
 	initial_player_data_bonus.c\
 	ft_close_conn_bonus.c\
 	execute_bonus.c\

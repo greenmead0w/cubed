@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_map.c                                        :+:      :+:    :+:   */
+/*   check_map_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 21:26:35 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/09 20:53:29 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/20 19:36:04 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
 //returns 1 if valid chars, -1 if not and 0 if map == NULL
-static int	map_valid_chars(char **map)
+static int	map_valid_chars(t_vars *vars, char **map)
 {
-	const char	*valid_chars = "01 NSEW";
+	const char	*valid_chars = "01 NSEWD";
 	int			i;
 	int			j;
 
@@ -32,6 +32,8 @@ static int	map_valid_chars(char **map)
 				write(2, CHARACTER, ft_strlen(CHARACTER));
 				return (-1);
 			}
+			if (map[i][j] == 'D')
+				vars->door_count++;
 			j++;
 		}
 		i++;
@@ -98,6 +100,11 @@ static int	not_sealed_map(char **map, int lines, int max_len)
 	return (0);
 }
 
+char	fill_doors()
+{
+
+}
+
 /*
 **  suponiendo que:
 **  1- no se me pasa como parametro la cantidad de lineas
@@ -110,8 +117,10 @@ int	check_map(t_vars *vars)
 	char	**rect_map;
 
 	vars->map_cols = map_max_length(vars->map);
-	if (map_valid_chars(vars->map) || map_start_position(vars->map) != 1)
+	vars->door_count = 0;
+	if (map_valid_chars(vars, vars->map) || map_start_position(vars->map) != 1)
 		return (-1);
+	printf("vars->doors is %d\n", vars->door_count);
 	rect_map = make_rectangular_map(vars->map, vars->map_rows, \
 		vars->map_cols);
 	if (rect_map == NULL)
@@ -125,5 +134,6 @@ int	check_map(t_vars *vars)
 		return (-1);
 	}
 	vars->game_map = rect_map;
+	fill_doors();
 	return (0);
 }

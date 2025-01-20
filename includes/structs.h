@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:26:50 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/17 18:52:32 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/20 19:37:26 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,16 @@ typedef struct s_textures
 	char	side; //which side of the wall texture corresponds to
 }		t_texture;
 
+typedef struct	s_doors
+{
+	int			door_pos[2]; //dudas si poner double o no [CHECKEAR CÓMO ESTÁ HECHO CON LOS RAYS]
+	char		is_open; //flag para saber qué textura renderizar
+	t_texture	open;
+	t_texture	close;
+	double		cooldown; //para no spammear el cambio de textura
+
+}	t_doors
+
 typedef struct s_vars
 {
 	t_texture	*textures[4];
@@ -97,6 +107,8 @@ typedef struct s_vars
 	int			num_rays;
 	int			big_tile;
 	int			min_tile;
+	int			door_count;
+	t_doors		door;
 }		t_vars;
 
 //player data 

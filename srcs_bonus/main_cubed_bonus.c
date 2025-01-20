@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_cubed.c                                       :+:      :+:    :+:   */
+/*   main_cubed_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpinedo- <dpinedo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:25:06 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/15 21:06:37 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/20 19:22:32 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ static char	check_and_parse(char *file, t_game *game, \
 		free_all_game(game);
 		return (-1);
 	}
+	printf("exit\n");
+	exit(1);
 	return (0);
 }
 
