@@ -1,0 +1,185 @@
+# define WALLS_NUM 4
+# define ANIMATE_NUM 2
+
+para structs.h
+
+typedef struct s_timers (en game)
+{
+	time_t	delay_1;
+	time_t	delay_2;
+	time_t	delay_3;
+	time_t	delay_4;
+	time_t	reference_time;
+}	t_timers;
+
+(en vars)
+{
+	t_texture	*walls[4];
+	t_texture	*animate[2];
+}	t_images;
+
+
+typedef enum e_mode (revisar la norma)
+{
+	animate_empty_stadium;
+	animate_spectators_up;
+	spectators_relaxed;
+}
+	
+
+char	get_wall_images(t_conn *con, t_vars *vars)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		vars->walls[i]->width = vars->big_tile;
+		vars->walls[i]->height = vars->big_tile;
+		vars->walls[i]->img.ptr = XPM_TO_IMAGE(con->mlx, vars->walls[i]->path, \
+			&vars->walls[i]->width, &vars->walls[i]->height);
+		
+		if (!vars->wall[i]->img.ptr)
+		{
+			write(2, TEXT_LOAD, ft_strlen(TEXT_LOAD));
+			return (-1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+void	get_animation_images(t_conn *con, t_vars *vars)
+{
+	int	i;
+
+	i = 0;
+	while (i < 2)
+	{
+		vars->animate[i]->width = vars->big_tile;
+		vars->animate[i]->height = vars->big_tile;
+		vars->animate[i]->img.ptr = XPM_TO_IMAGE(con->mlx, vars->animate[i]->path, \
+			&vars->animate[i]->width, &vars->animate[i]->height);
+		
+		if (!vars->animate[i]->img.ptr)
+		{
+			write(2, TEXT_LOAD, ft_strlen(TEXT_LOAD));
+			return (-1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+char	get_xml_images_from_xpm(t_conn *con, t_texture **type, t_vars *vars, int n)
+{
+	int	i;
+
+	i = 0;
+	while (i < n)
+	{
+		type[i]->width = vars->big_tile;
+		type[i]->height = vars->big_tile;
+		type[i]->img.ptr = XPM_TO_IMAGE(con->mlx, type[i]->path, \
+			&type[i]->width, &type[i]->height);
+		
+		if (!type[i]->img.ptr)
+		{
+			write(2, TEXT_LOAD, ft_strlen(TEXT_LOAD));
+			return (-1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+void	init_textures(t_texture **tex, t_texture **type, s_mode mode)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+
+	if (mode == animate_empty_stadium)
+	{
+		while (i < 4)
+			tex[i++]->img.ptr = type[0]->img.ptr;
+	}
+	else if (mode == animate_spectators_up)
+	{
+		while (i < 4)
+			tex[i++]->img.ptr = type[1]->img.ptr;
+	}	
+	else if (mode == spectators_relaxed)
+	{
+		while (i < 4)
+			tex[i++]->img.ptr = type[j++]->img.ptr;
+	}
+//	while (i < 4)
+//		tex[i++]->img.ptr = type[i]->img.ptr;
+}
+
+char	get_textures(t_conn *con, t_texture **tex, t_vars *vars)
+{
+//	get_wall_images(con, vars);
+//	get_animation_images(con, vars);
+	if (get_xml_images_from_xpm(con, vars->walls, vars, WALLS_NUM))
+		return (-1);
+	if (get_xml_images_from_xpm(con, vars->animate, vars, ANIMATE_NUM))
+		return (-1);
+	init_textures(tex, vars->animate, animate_empty_stadium);
+	return (0);
+}
+
+
+en EXECUTE,
+
+en función render_game añadir 
+	set_texture(game->vars, i);
+		
+	
+void	set_texture(t_vars *vars, int i)
+{
+	el contenido de la función definida para el tiempo
+	time = get_time (current/gettimeofday - reference)
+	if (time < delay_1) (2 sg)
+		init_textures(vars->textures, vars->animate, animate_empty_stadium);
+	delay_2, 5sg
+		init_textures(vars->textures, vars->walls, spectators_relaxed);
+	delay_3 6sg
+		init_textures(vars->textures, vars->animate, animate_spectators_up);
+	delay_4 9sg
+		init_textures(vars->textures, vars->walls, spectators_relaxed);
+	time => delay_4
+		reference_time = gettimeofday();
+		init_textures(vars->textures, vars->animate, animate_empty_stadium);
+
+
+en FREE_FUNCTIONS
+	en free_game añadir free_simple_pointer(game->timers);
+
+en MAIN, generate_and_initialize_game
+modificar
+	(*game)->vars = malloc(sizeof(t_vars));
+	(*game)->timers = malloc(sizeof(t_timers));
+	if (!(*game)->vars || !(*game)->timers)
+	{
+		write(2, MEM_ALLOC, ft_strlen(MEM_ALLOC));
+		free_game(*game);
+		free_simple_pointer(*track_elements);
+		return (-1);
+	}
+	ft_bzero((*game)->vars, sizeof(t_vars));
+	set_initial_timers((*game)->timers);
+	return (0);
+}
+
+void	set_initial_timers(t_timers *timers)
+{
+	timers->delay_1 = 2;
+	timers->delay_1 = 5;
+	timers->delay_1 = 6;		
+	timers->delay_1 = 9;
+	timers->reference_time = 0;
+}

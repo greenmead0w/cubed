@@ -6,12 +6,14 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:26:50 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/10 09:32:16 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/20 18:56:01 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
+
+# include <sys/types.h>
 
 //Checks
 typedef struct s_track_items
@@ -111,6 +113,14 @@ typedef struct s_ray
 	t_texture	tex; //texture that this ray has summoned
 }		t_ray;
 
+typedef struct s_delay
+{
+	time_t	delay_1;
+	time_t	delay_2;
+	time_t	delay_3;
+	time_t	delay_4;
+}	t_delay;
+
 //General struct for the game
 typedef struct s_game
 {
@@ -120,6 +130,7 @@ typedef struct s_game
 	t_player	*player;
 	t_ray		*rays;
 	int			update; //"dirty flag", 1 if image should be updated, else 0
+	t_delay		*delays;
 }	t_game;
 
 #endif //STRUCTS_H

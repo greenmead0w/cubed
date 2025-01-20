@@ -6,52 +6,20 @@
 /*   By: dpinedo- <dpinedo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 20:05:12 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/16 22:22:04 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/20 20:06:54 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-/*
-**	game->player->speed = 10.0/64; --> pixels per key_press
-*/
-static void	*init_player(t_game *game)
+static void	draw_all_elements(t_game *game)
 {
-	game->player = malloc(sizeof(t_player));
-	if (!game->player)
-	{
-		write(2, MEM_ALLOC, ft_strlen(MEM_ALLOC));
-		return ((void *) 1);
-	}
-	game->player->turn_direction = 0;
-	game->player->walk_direction = 0;
-	game->player->rotation_speed = 8 * (M_PI / 180);
-	game->player->speed = 10.0 / 64;
-	initial_player_data(game->vars->game_map, game->vars->map_rows, \
-			game->vars->map_cols, game->player);
-	game->player->field_of_view = 60 * (M_PI / 180);
-	game->player->dist_to_plane = (game->vars->screen_width / 2)
-		/ (tan(game->player->field_of_view / 2));
-	game->player->display_size = game->vars->min_tile / 2.0;
-	return ((void *) 0);
-}
-
-static int	init_game(t_game *game)
-{
-	if (get_textures(game->conn, game->vars->textures, game->vars))
-		return (-1);
-	if (init_player(game))
-		return (-1);
-	game->vars->num_rays = game->vars->screen_width / RAY_WIDTH;
-	game->rays = malloc(game->vars->num_rays * sizeof(t_ray));
-	if (!game->rays)
-	{
-		write(2, MEM_ALLOC, ft_strlen(MEM_ALLOC));
-		return (-1);
-	}
-	ft_bzero(game->rays, sizeof(t_ray));
-	game->update = 1;
-	return (0);
+	draw_ceiling(game);
+	draw_floor(game);
+	draw_ray_cast(game, 0);
+	draw_2d_map(game);
+	draw_all_rays(game);
+	draw_player(game->conn, game->player, game->vars);
 }
 
 /*
@@ -68,23 +36,28 @@ static int	render_game(void *game)
 {
 	t_game	*g;
 
-	g = (t_game *)game;
+	g = game;
 	g->conn->image.ptr = mlx_new_image(g->conn->mlx,
 			g->vars->screen_width, g->vars->screen_height);
+	if (!g->conn->image.ptr)
+	{
+		write(2, MEM_ALLOC, ft_strlen(MEM_ALLOC));
+		return (-1);
+	}
 	g->conn->image.addr = mlx_get_data_addr(g->conn->image.ptr,
 			&g->conn->image.bpp, &g->conn->image.line_length,
 			&g->conn->image.endian);
+	if (!g->conn->image.addr)
+	{
+		write(2, MEM_ALLOC, ft_strlen(MEM_ALLOC));
+		return (-1);
+	}
 	if (g->update)
 	{
 		update(g);
 	}
-	draw_ceiling(g);
-	draw_floor(g);
-	draw_ray_cast(g, 0);
-	draw_2d_map(g);
-	draw_all_rays(g);
-	draw_player(g->conn, g->player, g->vars);
-	mlx_put_image_to_window(g->conn->mlx, g->conn->win,
+	draw_all_elements(g);
+	IMAGE_TO_WINDOW(g->conn->mlx, g->conn->win,
 		g->conn->image.ptr, 0, 0);
 	mlx_destroy_image(g->conn->mlx, g->conn->image.ptr);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 14:31:54 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/10 12:52:46 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/20 19:20:37 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <math.h>
+# include <sys/time.h>
 # include "../minilibx-linux/mlx.h"
 
 char	check(char *file, t_game *game, t_track_items *track_elements);
@@ -34,6 +35,7 @@ char	**make_rectangular_map(char **map, int lines, int max_len);
 int		check_map(t_vars *vars);
 char	execute(t_game *game);
 void	*create_connection(t_game *game);
+int     init_game(t_game *game);
 // char	get_textures(t_conn *con, t_texture **textures);
 char	get_textures(t_conn *con, t_texture **tex, t_vars *vars);
 void	render_map(t_game *game);

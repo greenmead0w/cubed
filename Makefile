@@ -6,7 +6,7 @@
 #    By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/15 01:31:40 by dpinedo-          #+#    #+#              #
-#    Updated: 2025/01/16 20:44:51 by dpinedo-         ###   ########.fr        #
+#    Updated: 2025/01/20 19:22:47 by dpinedo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRCS =	main_cubed.c\
 	key_hook.c\
 	initial_player_data.c\
 	ft_close_conn.c\
+	init_game.c\
 	execute.c\
 	open_connection.c\
 	update.c\
@@ -64,6 +65,7 @@ SRCS_BONUS = main_cubed_bonus.c\
 	get_textures_bonus.c\
 	key_hook_bonus.c\
 	initial_player_data_bonus.c\
+	init_game_bonus.c\
 	ft_close_conn_bonus.c\
 	execute_bonus.c\
 	open_connection_bonus.c\

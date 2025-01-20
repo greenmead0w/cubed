@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 22:16:56 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/16 20:33:19 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/20 19:04:36 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # define EPSILON 0.000001
 
 # define XPM_TO_IMAGE mlx_xpm_file_to_image
-//# define IMAGE_TO_WINDOW mlx_put_image_to_window
+# define IMAGE_TO_WINDOW mlx_put_image_to_window
 
 # define COLORS_NUM 2
 # define TEXTURES_NUM 4
@@ -34,6 +34,11 @@
 # ifndef USAIN
 #  define USAIN 1
 # endif //USAIN
+
+# define DELAY_1 2
+# define DELAY_2 3
+# define DELAY_3 1
+# define DELAY_4 3
 
 //source: keysym def for XSERVER: 
 //	https://www.cl.cam.ac.uk/~mgk25/ucs/keysymdef.h 
