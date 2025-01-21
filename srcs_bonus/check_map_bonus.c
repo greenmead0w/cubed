@@ -100,9 +100,56 @@ static int	not_sealed_map(char **map, int lines, int max_len)
 	return (0);
 }
 
-char	fill_doors()
-{
 
+void	new_door(t_door *door, t_vars *vars)
+{
+	int	i;
+	int	j;
+	struct timeval tv;
+
+	i = 0;
+	while (vars->map[i] != NULL)
+	{
+		j = 0;
+		while (vars->map[i][j] != '\0')
+		{
+			if (vars->map[i][j] == 'D')
+			{
+				door->door_pos[0] = j;
+				door->door_pos[1] = i;
+				door->is_open = 0;
+				gettimeofday(&tv, NULL);
+				door->cooldown = tv.tv_sec * 1000.0 + tv.tv_usec / 1000.0;
+				vars->map[i][j] = 'd'; //otherwise same door being parsed always
+				return ;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+static char	fill_doors(t_game	*g)
+{
+	//TODO
+	/*
+	1 - allocate mem for array of size vars->door_count  + 1
+	2 - parse map and fill array element with new node data when door found
+	*/
+	t_door *door;
+	int i;
+
+	door = malloc(sizeof(t_door) * g->vars->door_count);
+	if (!door)
+		return (-1);
+	i = 0;
+	while (i < g->vars->door_count)
+	{
+		new_door(&door[i], g->vars);
+		i++;
+	}
+	g->vars->door = door;
+	return (0);
 }
 
 /*
@@ -112,28 +159,42 @@ char	fill_doors()
 **  3- caracteres válidos: "0,1, ,N,S,E,W"
 **  4- 
 */
-int	check_map(t_vars *vars)
+int	check_map_bonus(t_game *g)
 {
 	char	**rect_map;
 
-	vars->map_cols = map_max_length(vars->map);
-	vars->door_count = 0;
-	if (map_valid_chars(vars, vars->map) || map_start_position(vars->map) != 1)
+	g->vars->map_cols = map_max_length(g->vars->map);
+	g->vars->door_count = 0;
+	if (map_valid_chars(g->vars, g->vars->map) || map_start_position(g->vars->map) != 1)
 		return (-1);
-	printf("vars->doors is %d\n", vars->door_count);
-	rect_map = make_rectangular_map(vars->map, vars->map_rows, \
-		vars->map_cols);
+	printf("vars->doors is %d\n", g->vars->door_count);
+	rect_map = make_rectangular_map(g->vars->map, g->vars->map_rows, \
+		g->vars->map_cols);
 	if (rect_map == NULL)
 	{
 		write(2, MEM_ALLOC, ft_strlen(MEM_ALLOC));
 		return (-1);
 	}
-	if (not_sealed_map(rect_map, vars->map_rows, vars->map_cols))
+	if (not_sealed_map(rect_map, g->vars->map_rows, g->vars->map_cols))
 	{
 		free_double_pointer((void **)rect_map);
 		return (-1);
 	}
-	vars->game_map = rect_map;
-	fill_doors();
+	g->vars->game_map = rect_map;
+	if (fill_doors(g))
+	{
+		write(2, MEM_ALLOC, ft_strlen(MEM_ALLOC));
+		return (-1);
+	}
+	int i = 0;
+	while (i < g->vars->door_count)
+	{
+		printf("--------door[%d]-------------\n", i);
+		printf("pos_x is: %d\n",g->vars->door[i].door_pos[0]);
+		printf("pos_y is: %d\n",g->vars->door[i].door_pos[1]);
+		printf("is_open is: %d\n",g->vars->door[i].is_open);
+		printf("cooldown is: %f\n",g->vars->door[i].cooldown);
+		i++;
+	}
 	return (0);
 }

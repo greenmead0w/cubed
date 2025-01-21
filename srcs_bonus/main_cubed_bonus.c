@@ -78,13 +78,11 @@ static char	check_and_parse(char *file, t_game *game, \
 		free_all_game(game);
 		return (-1);
 	}
-	if (check_map(game->vars))
+	if (check_map_bonus(game))
 	{
 		free_all_game(game);
 		return (-1);
 	}
-	printf("exit\n");
-	exit(1);
 	return (0);
 }
 

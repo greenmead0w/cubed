@@ -39,8 +39,20 @@ static void	*init_player(t_game *game)
 
 static int	init_game(t_game *game)
 {
-	if (get_textures(game->conn, game->vars->textures, game->vars))
+	if (get_wall_textures_bonus(game->conn, game->vars->textures, game->vars))
 		return (-1);
+	if (get_doors_textures(game))
+		return (-1);
+	int i = 0;
+	while (i < game->vars->door_count)
+	{
+		printf("--------door[%d]-------------\n", i);
+		printf("tex_close.path: %s\n",game->vars->door[i].tex_close.path);
+		printf("tex_open.path: %s\n",game->vars->door[i].tex_open.path);
+		i++;
+	}
+	printf("exit\n");
+	exit(1);
 	if (init_player(game))
 		return (-1);
 	game->vars->num_rays = game->vars->screen_width / RAY_WIDTH;

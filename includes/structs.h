@@ -85,15 +85,15 @@ typedef struct s_textures
 	char	side; //which side of the wall texture corresponds to
 }		t_texture;
 
-typedef struct	s_doors
+typedef struct	s_door
 {
-	int			door_pos[2]; //dudas si poner double o no [CHECKEAR CÓMO ESTÁ HECHO CON LOS RAYS]
+	int			door_pos[2]; //[0] is col, [1] is line. doubts if it should be double
 	char		is_open; //flag para saber qué textura renderizar
-	t_texture	open;
-	t_texture	close;
-	double		cooldown; //para no spammear el cambio de textura
+	t_texture	tex_close;
+	t_texture	tex_open;
+	double		cooldown; // milliseconds. para no spammear el cambio de textura
 
-}	t_doors
+}	t_door;
 
 typedef struct s_vars
 {
@@ -108,7 +108,7 @@ typedef struct s_vars
 	int			big_tile;
 	int			min_tile;
 	int			door_count;
-	t_doors		door;
+	t_door	*door;
 }		t_vars;
 
 //player data 
