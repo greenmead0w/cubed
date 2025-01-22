@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_hook.c                                         :+:      :+:    :+:   */
+/*   events_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 10:24:24 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/10 12:22:10 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/22 19:10:17 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,26 @@ int	key_release(int kc, t_game *game)
 	if (kc == XK_W || kc == XK_S || kc == XK_A || kc == XK_D)
 		game->player->walk_direction = '0';
 	else if (kc == XK_LEFT || kc == XK_RIGHT)
+		game->player->turn_direction = 0;
+	return (0);
+}
+
+int	mouse_press(int key_code, int x, int y, t_game *game)
+{
+	(void)x;
+	(void)y;
+	if (key_code == 1)
+		game->player->turn_direction = -1;
+	else if (key_code == 3)
+		game->player->turn_direction = 1;
+	return (0);
+}
+
+int	mouse_release(int key_code, int x, int y, t_game *game)
+{
+	(void)x;
+	(void)y;
+	if (key_code == 1 || key_code == 3)
 		game->player->turn_direction = 0;
 	return (0);
 }

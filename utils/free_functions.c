@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 21:58:14 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/14 21:32:13 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/22 19:32:39 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ void	free_all_game(t_game *game)
 		free_simple_pointer(game->vars);
 		if (game->conn)
 			free_mlx(game->conn);
-		free_simple_pointer(game->player);
-		free_simple_pointer(game->rays);
+		//free_simple_pointer(game->player);
+		//free_simple_pointer(game->rays);
 		free_simple_pointer(game);
 	}
 }

@@ -6,7 +6,7 @@
 #    By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/15 01:31:40 by dpinedo-          #+#    #+#              #
-#    Updated: 2025/01/20 19:22:47 by dpinedo-         ###   ########.fr        #
+#    Updated: 2025/01/22 19:15:33 by mzuloaga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,7 @@ SRCS_BONUS = main_cubed_bonus.c\
 	make_rectangular_map_bonus.c\
 	check_map_bonus.c\
 	get_textures_bonus.c\
-	key_hook_bonus.c\
+	events_bonus.c\
 	initial_player_data_bonus.c\
 	init_game_bonus.c\
 	ft_close_conn_bonus.c\
@@ -75,7 +75,8 @@ SRCS_BONUS = main_cubed_bonus.c\
 	mini_map_rays_bonus.c\
 	vertical_border_bonus.c\
 	horizontal_border_bonus.c\
-	update2_bonus.c
+	update2_bonus.c\
+	draw_health_bonus.c
 
 LIBS =  libmlx.a libutils.a
 LIBS_PATH = $(patsubst %.a,$(LIBS_DIR)/%.a,$(LIBS))

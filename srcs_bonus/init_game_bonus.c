@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpinedo- <dpinedo-@student.42urduliz.      +#+  +:+       +#+        */
+/*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 19:14:14 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/20 19:30:55 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/22 19:12:45 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,6 @@ int	init_game(t_game *game)
 	}
 	ft_bzero(game->rays, sizeof(t_ray));
 	game->update = 1;
+	game->player->health = 100;
 	return (0);
 }

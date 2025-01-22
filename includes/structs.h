@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:26:50 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/20 18:56:01 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/22 19:03:11 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct s_player
 	double	dist_to_plane; //distance to projection plane, constant
 	double	field_of_view;
 	double	display_size; //size (pixels) of the player figure in the 2d miniMap
+	double	health;
 }		t_player;
 
 typedef struct s_ray
@@ -112,6 +113,21 @@ typedef struct s_ray
 	int			y; // (pixel) starting position for the wall strip
 	t_texture	tex; //texture that this ray has summoned
 }		t_ray;
+
+//used for drawing the health bar
+typedef struct s_health
+{
+	int	width;
+	int	height;
+	int	start_x;
+	int	start_y;
+	int	end_x;
+	int	end_y;
+	int	border_width;
+	int	border_c;
+	int	life_c;
+	int	damage_c;
+}	t_health;
 
 typedef struct s_delay
 {

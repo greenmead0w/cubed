@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   update.c                                           :+:      :+:    :+:   */
+/*   update_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 21:26:38 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/16 20:34:35 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/22 19:25:45 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,11 @@ static void	update_play_pos(t_vars *vars, t_player *player)
 	new_y = player->play_pos[0];
 	new_pos(player, &new_x, &new_y, angle);
 	if (is_collision(new_x, new_y, player, vars))
+	{
+		if (player->health)
+			player->health -= 5;
 		return ;
+	}
 	player->play_pos[0] = new_y;
 	player->play_pos[1] = new_x;
 }
@@ -106,6 +110,11 @@ void	cast_all_rays(t_game *game)
 */
 void	update(t_game *game)
 {
+	if (game->player->health <= 0)
+	{
+		write(1, HEALTH, ft_strlen(HEALTH));
+		ft_close_conn(game);
+	}
 	update_play_pos(game->vars, game->player);
 	if (game->player->turn_direction != 0)
 		game->player->rotation_angle += \

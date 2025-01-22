@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 14:31:54 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/20 19:20:37 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/22 19:00:26 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,11 @@ void	draw_all_rays(t_game *game);
 void	draw_ray_cast(t_game *game, int i);
 void	draw_ceiling(t_game *game);
 void	draw_floor(t_game *game);
+
+
+//BONUS
+int		mouse_press(int key_code, int x, int y, t_game *game);
+int		mouse_release(int key_code, int x, int y, t_game *game);
+void	draw_health(t_game *game);
 
 #endif //CUBED_H
