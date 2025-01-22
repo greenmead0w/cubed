@@ -51,8 +51,8 @@ static int	init_game(t_game *game)
 		printf("tex_open.path: %s\n",game->vars->door[i].tex_open.path);
 		i++;
 	}
-	printf("exit\n");
-	exit(1);
+	// printf("exit\n");
+	// exit(1);
 	if (init_player(game))
 		return (-1);
 	game->vars->num_rays = game->vars->screen_width / RAY_WIDTH;
@@ -116,6 +116,7 @@ char	execute(t_game *game)
 	mlx_hook(game->conn->win, 17, 0, ft_close_conn, game);
 	mlx_hook(game->conn->win, 4, 1L << 2, mouse_press, game);
 	mlx_hook(game->conn->win, 5, 1L << 3, mouse_release, game);
+	mlx_hook(game->conn->win, 2, 1L << 0, spacebar_press, game);
 	mlx_loop_hook(game->conn->mlx, render_game, game);
 	mlx_loop(game->conn->mlx);
 	return (0);

@@ -47,11 +47,11 @@ static void	upwards_facing_ray(t_ray *ray, t_player *player, t_vars *vars)
 
 	delta_y = -1;
 	horz_find_point_a(ray, player, 'u');
-	if (ray_is_wall(ray->pos[0], ray->pos[1] - 1, vars, ray))
+	if (ray_is_wall_bonus(ray->pos[0], ray->pos[1] - 1, vars, ray))
 		return ;
 	delta_x = delta_y / tan(ray->angle);
 	tile_increment = sqrt(pow(delta_x, 2) + pow(delta_y, 2));
-	while (!ray_is_wall(ray->pos[0], ray->pos[1] - 1, vars, ray))
+	while (!ray_is_wall_bonus(ray->pos[0], ray->pos[1] - 1, vars, ray))
 	{
 		ray->pos[0] += delta_x;
 		ray->pos[1] += delta_y;
@@ -71,11 +71,11 @@ static void	downwards_facing_ray(t_ray *ray, t_player *player, t_vars *vars)
 
 	delta_y = 1;
 	horz_find_point_a(ray, player, 'd');
-	if (ray_is_wall(ray->pos[0], ray->pos[1], vars, ray))
+	if (ray_is_wall_bonus(ray->pos[0], ray->pos[1], vars, ray))
 		return ;
 	delta_x = delta_y / tan(ray->angle);
 	tile_increment = sqrt(pow(delta_x, 2) + pow(delta_y, 2));
-	while (!ray_is_wall(ray->pos[0], ray->pos[1], vars, ray))
+	while (!ray_is_wall_bonus(ray->pos[0], ray->pos[1], vars, ray))
 	{
 		ray->pos[0] += delta_x;
 		ray->pos[1] += delta_y;

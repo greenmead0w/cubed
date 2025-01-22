@@ -85,7 +85,7 @@ void	ray_cast(t_ray *ray, t_player *player, t_vars *vars)
 		*ray = horz_ray;
 }
 
-void	cast_all_rays(t_game *game)
+void	cast_all_rays_bonus(t_game *game)
 {
 	double	angle;
 	int		i;
@@ -95,10 +95,26 @@ void	cast_all_rays(t_game *game)
 	while (i < game->vars->num_rays)
 	{
 		game->rays[i].angle = angle;
+		game->rays[i].purpose = 'W';
 		ray_cast(&(game->rays[i]), game->player, game->vars);
 		angle += game->player->field_of_view / game->vars->screen_width;
 		i++;
 	}
+}
+
+static void cast_door_ray_bonus(t_game *game)
+{
+	t_ray *ray;
+
+	ray = malloc(sizeof(t_ray));
+	//check for malloc error
+	ray->angle = game->player->rotation_angle;
+	ray->purpose = 'D';
+	ray_cast(ray, game->player, game->vars);
+	printf("ray.door.distance is: %f\n ", ray->distance);
+	//update to door open if distance to ray below threshold
+	//when rendering if open is default then closed else render open texture
+
 }
 
 /*
@@ -116,5 +132,12 @@ void	update(t_game *game)
 	if (game->player->turn_direction != 0)
 		game->player->rotation_angle += \
 		game->player->rotation_speed * game->player->turn_direction;
-	cast_all_rays(game);
+	cast_all_rays_bonus(game);
+	if (game->vars->space_press)
+	{
+		cast_door_ray_bonus(game);
+		game->vars->space_press = 0;
+	}
+	printf("exit\n");
+	exit(1);
 }

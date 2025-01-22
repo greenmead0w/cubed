@@ -63,3 +63,10 @@ int	mouse_release(int key_code, int x, int y, t_game *game)
 	game->player->turn_direction = 0;
 	return (0);
 }
+
+int	spacebar_press(int keycode, t_game *game)
+{
+	if (keycode == 32)
+		game->vars->space_press = 1;
+	return (0);
+}

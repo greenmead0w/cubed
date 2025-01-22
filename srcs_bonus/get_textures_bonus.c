@@ -42,6 +42,7 @@ static	char	get_door_textures_bonus(t_conn *con, t_texture *tex, t_vars *vars, c
 {
 	tex->width = vars->big_tile;
 	tex->height = vars->big_tile;
+	tex->path = path;
 	tex->img.ptr = XPM_TO_IMAGE(con->mlx, path, \
 			&tex->width, &tex->height);
 	tex->img.addr = mlx_get_data_addr(tex->img.ptr, \

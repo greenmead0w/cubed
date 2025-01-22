@@ -109,6 +109,7 @@ typedef struct s_vars
 	int			min_tile;
 	int			door_count;
 	t_door	*door;
+	int		space_press; //tracks if space bar has been pressed. 0 by default, 1 if pressed
 }		t_vars;
 
 //player data 
@@ -137,6 +138,7 @@ typedef struct s_ray
 	int			x;//pixel coord values where wall will be rendered
 	int			y; // (pixel) starting position for the wall strip
 	t_texture	tex; //texture that this ray has summoned
+	char	purpose; //this ray was casted for...possible values: 'W'(wall) or 'D'(door)
 }		t_ray;
 
 //General struct for the game

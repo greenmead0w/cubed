@@ -52,7 +52,7 @@ static char	wall_side_hit(int x, int y, t_vars *vars, t_ray *ray)
 **	if (y == vars->map_rows) --> last row of char ** is null, 
 **	if doing game_map[last_row] then seg fault
 */
-int	ray_is_wall(int x, int y, t_vars *vars, t_ray *ray)
+int	ray_is_wall_bonus(int x, int y, t_vars *vars, t_ray *ray)
 {
 	if (x > vars->map_cols || x < 0 || y < 0 || y > vars->map_rows)
 	{
@@ -64,11 +64,13 @@ int	ray_is_wall(int x, int y, t_vars *vars, t_ray *ray)
 		ray->hit_side = 'N';
 		return (1);
 	}
-	if (vars->game_map[y][x] == '1' )
+	if (vars->game_map[y][x] == '1' && ray->purpose == 'W')
 	{
 		ray->hit_side = wall_side_hit(x, y, vars, ray);
 		return (1);
 	}
+	else if (vars->game_map[y][x] == 'D')
+		return (1);
 	else
 		return (0);
 }

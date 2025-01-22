@@ -36,8 +36,8 @@
 # endif //USAIN
 
 //doors textures path - MODIFY FOR ACTUAL DOOR TEXTURES
-# define DOOR_OPEN "textures/bricks.xpm"
-# define DOOR_CLOSE "textures/sand.xpm"
+# define DOOR_OPEN "textures/north.xpm"
+# define DOOR_CLOSE "textures/south.xpm"
 
 //source: keysym def for XSERVER: 
 //	https://www.cl.cam.ac.uk/~mgk25/ucs/keysymdef.h 

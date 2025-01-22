@@ -60,8 +60,13 @@ void	draw_floor(t_game *game);
 int		check_map_bonus(t_game *g);
 int		mouse_press(int key_code, int x, int y, t_game *game);
 int		mouse_release(int key_code, int x, int y, t_game *game);
+int		spacebar_press(int keycode, t_game *game);
 void	draw_health(t_game *game);
 char	get_wall_textures_bonus(t_conn *con, t_texture **tex, t_vars *vars);
 char	get_doors_textures(t_game *g);
+void	cast_all_rays_bonus(t_game *game);
+int		ray_is_wall_bonus(int x, int y, t_vars *vars, t_ray *ray);
+
+
 
 #endif //CUBED_H
