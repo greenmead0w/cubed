@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 21:58:14 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/22 19:32:39 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/23 11:37:54 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ static void	free_color_list(t_color *color_root)
 
 void	free_mlx(t_conn *conn)
 {
+	if (conn->image.ptr)
+		mlx_destroy_image(conn->mlx, conn->image.ptr);
 	mlx_destroy_window(conn->mlx, conn->win);
 	mlx_destroy_display(conn->mlx);
 	free_simple_pointer(conn->mlx);
@@ -72,8 +74,8 @@ void	free_all_game(t_game *game)
 		free_simple_pointer(game->vars);
 		if (game->conn)
 			free_mlx(game->conn);
-		//free_simple_pointer(game->player);
-		//free_simple_pointer(game->rays);
+		free_simple_pointer(game->player);
+		free_simple_pointer(game->rays);
 		free_simple_pointer(game);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 20:05:12 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/22 19:13:14 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/23 11:34:16 by mzuloaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,12 @@ static int	render_game(void *game)
 		write(2, MEM_ALLOC, ft_strlen(MEM_ALLOC));
 		return (-1);
 	}
-	if (g->update)
-	{
-		update(g);
-	}
+	update(g);
 	draw_all_elements(g);
 	IMAGE_TO_WINDOW(g->conn->mlx, g->conn->win,
 		g->conn->image.ptr, 0, 0);
 	mlx_destroy_image(g->conn->mlx, g->conn->image.ptr);
+	g->conn->image.ptr = NULL;
 	return (0);
 }
 
