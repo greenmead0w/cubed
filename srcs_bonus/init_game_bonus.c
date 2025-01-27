@@ -6,22 +6,11 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 19:14:14 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/22 19:12:45 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/27 20:07:15 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cubed.h"
-
-char	init_delays(t_game *game)
-{
-	game->delays = malloc(sizeof(t_delay));
-	if (!game->delays)
-	{
-		write(2, MEM_ALLOC, ft_strlen(MEM_ALLOC));
-		return (-1);
-	}
-	return (0);
-}
+#include "cubed_bonus.h"
 
 /*
 **	game->player->speed = 10.0/64; --> pixels per key_press
@@ -49,7 +38,7 @@ static void	*init_player(t_game *game)
 
 int	init_game(t_game *game)
 {
-	if (get_textures(game->conn, game->vars->textures, game->vars))
+	if (get_textures(game->conn, game->vars))
 		return (-1);
 	if (init_player(game))
 		return (-1);

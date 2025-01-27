@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_functions.c                                   :+:      :+:    :+:   */
+/*   free_functions_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 21:58:14 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/23 11:37:54 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/27 21:02:45 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
-#include <stdlib.h>
+#include "cubed_bonus.h"
 
 //Igual hay que añadir una función que se llama cuando hay un error y exiteamos?
 void	free_simple_pointer(void *ptr)
@@ -67,7 +66,9 @@ void	free_all_game(t_game *game)
 		free_color_list(game->color_root);
 		if (game->vars)
 		{
-			free_textures(game->conn, game->vars->textures, 4);
+			free_images(game->conn, game->vars->walls, 4, 1);
+			free_images(game->conn, game->vars->animate_empty, 4, 0);
+			free_images(game->conn, game->vars->animate_cheer, 4, 0);
 			free_double_pointer((void **)game->vars->map);
 			free_double_pointer((void **)game->vars->game_map);
 		}

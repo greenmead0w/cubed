@@ -6,11 +6,11 @@
 /*   By: dpinedo- <dpinedo-@student.42urduliz.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 20:46:32 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/09 20:49:29 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/27 21:50:55 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "cubed.h"
 
 // linea 8 - ultima linea no va a tener break of line
 static char	*create_rectangular_line(char *line, int max_len)

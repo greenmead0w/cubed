@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_map.c                                        :+:      :+:    :+:   */
+/*   check_map_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 21:26:35 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/09 20:53:29 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/27 19:34:45 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cubed.h"
+#include "cubed_bonus.h"
 
 //returns 1 if valid chars, -1 if not and 0 if map == NULL
 static int	map_valid_chars(char **map)

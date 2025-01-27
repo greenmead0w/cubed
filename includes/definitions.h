@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 22:16:56 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/20 19:04:36 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/27 19:59:12 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,11 @@
 # endif //USAIN
 
 # define DELAY_1 2
-# define DELAY_2 3
-# define DELAY_3 1
-# define DELAY_4 3
+# define DELAY_2 5
+# define DELAY_3 7
+# define DELAY_4 10
+
+# define SIDES 4
 
 //source: keysym def for XSERVER: 
 //	https://www.cl.cam.ac.uk/~mgk25/ucs/keysymdef.h 

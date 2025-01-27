@@ -6,11 +6,11 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 20:05:12 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/23 11:34:16 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/27 19:37:29 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cubed.h"
+#include "cubed_bonus.h"
 
 static void	draw_all_elements(t_game *game)
 {
@@ -54,6 +54,7 @@ static int	render_game(void *game)
 		return (-1);
 	}
 	update(g);
+	set_texture_to_display(g->vars);
 	draw_all_elements(g);
 	IMAGE_TO_WINDOW(g->conn->mlx, g->conn->win,
 		g->conn->image.ptr, 0, 0);

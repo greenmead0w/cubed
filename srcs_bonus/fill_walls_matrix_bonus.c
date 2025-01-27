@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_textures_matrix.c                             :+:      :+:    :+:   */
+/*   fill_walls_matrix_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:59:47 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/15 20:05:25 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/23 21:51:11 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cubed.h"
+#include "cubed_bonus.h"
 
-static char	fill_textures_path(t_texture *ptr, char *line)
+static char	fill_walls_path(t_texture *ptr, char *line)
 {
 	char	**split;
 	int		len;
@@ -39,7 +39,7 @@ static char	fill_textures_path(t_texture *ptr, char *line)
 	return (0);
 }
 
-char	fill_textures_matrix(char *line, t_vars *vars)
+char	fill_walls_matrix(char *line, t_vars *vars)
 {
 	int	i;
 
@@ -51,8 +51,8 @@ char	fill_textures_matrix(char *line, t_vars *vars)
 		i = 2;
 	if (*line == 'W')
 		i = 3;
-	vars->textures[i]->side = *line;
-	if (fill_textures_path(vars->textures[i], line))
+	vars->walls[i]->side = *line;
+	if (fill_walls_path(vars->walls[i], line))
 		return (-1);
 	return (0);
 }

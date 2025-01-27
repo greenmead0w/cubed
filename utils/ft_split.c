@@ -6,11 +6,12 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 12:48:26 by mzuloaga          #+#    #+#             */
-/*   Updated: 2025/01/10 12:48:33 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/23 20:17:42 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
+#include <stdlib.h>
 
 static size_t	ft_count_substrings(const char *s, char c)
 {

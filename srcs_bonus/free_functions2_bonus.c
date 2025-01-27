@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_functions2.c                                  :+:      :+:    :+:   */
+/*   free_functions2_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 12:46:10 by mzuloaga          #+#    #+#             */
-/*   Updated: 2025/01/15 19:28:33 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/27 21:03:27 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "cubed_bonus.h"
 
-void	free_textures(t_conn *conn, t_texture **ptr, int counter)
+void	free_images(t_conn *conn, t_texture **ptr, int counter, int flag_walls)
 {
 	int	i;
 
 	i = 0;
 	while (i < counter)
 	{
-		free_simple_pointer(ptr[i]->path);
+		if (flag_walls)
+			free_simple_pointer(ptr[i]->path);
 		if (ptr[i]->img.ptr)
 		{
 			if (conn)

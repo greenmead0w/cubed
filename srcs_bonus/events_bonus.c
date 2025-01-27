@@ -6,12 +6,11 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 10:24:24 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/22 19:10:17 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/27 19:35:54 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cubed.h"
-#include <stdio.h>
+#include "cubed_bonus.h"
 
 int	key_press(int keycode, t_game *game)
 {

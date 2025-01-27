@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   examine_line.c                                     :+:      :+:    :+:   */
+/*   examine_line_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 21:16:14 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/10 18:00:26 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/27 19:37:14 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cubed.h"
+#include "cubed_bonus.h"
 #include <fcntl.h>
 
 static char	check_texture(char *line)

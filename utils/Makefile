@@ -6,7 +6,7 @@
 #    By: dpinedo- <dpinedo-@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/15 01:31:40 by dpinedo-          #+#    #+#              #
-#    Updated: 2024/11/27 20:22:44 by dpinedo-         ###   ########.fr        #
+#    Updated: 2025/01/23 20:09:17 by dpinedo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,6 @@ RM = -f
 
 SRCS =  ft_strcmp.c\
 	compare_textures_functions.c\
-	free_functions.c\
 	ft_strlcpy.c\
 	ft_atoi.c\
 	ft_memset.c\
@@ -37,16 +36,11 @@ SRCS =  ft_strcmp.c\
 	define_textures_set.c\
 	ft_strjoin.c\
 	gnl.c\
-	ft_lstnew.c\
-	ft_lstadd_back.c\
 	ft_strcpy.c\
 	map_max_length.c\
 	texture_extension.c\
 	ft_split.c\
-	draw_others.c\
-	draw_3d.c\
 	angle_ops.c\
-	free_functions2.c
 
 
 OBJS = $(SRCS:.c=.o)

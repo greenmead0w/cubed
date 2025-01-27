@@ -6,11 +6,11 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 21:26:38 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/23 11:25:41 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/27 19:42:52 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cubed.h"
+#include "cubed_bonus.h"
 
 static void	new_pos(t_player *player, double *new_x,
 	double *new_y, double angle)

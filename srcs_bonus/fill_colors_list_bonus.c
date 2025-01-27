@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_colors_list.c                                 :+:      :+:    :+:   */
+/*   fill_colors_list_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 19:39:26 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/14 20:25:42 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/27 19:37:45 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cubed.h"
+#include "cubed_bonus.h"
 
 static t_color	*generate_and_add_node(t_game *game)
 {

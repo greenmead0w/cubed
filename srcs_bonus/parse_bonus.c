@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   parse_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:54:08 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/14 20:17:01 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/27 20:24:14 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cubed.h"
+#include "cubed_bonus.h"
 #include <fcntl.h>
 
 /*
@@ -33,7 +33,7 @@ static char	parse_items(char *line, t_game *game)
 	if (*run == 'F' || *run == 'C')
 		result = fill_colors_list(run, game);
 	else if (!compare_to_all_textures(run))
-		result = fill_textures_matrix(run, game->vars);
+		result = fill_walls_matrix(run, game->vars);
 	else if (*run == '1')
 		result = fill_map(game->vars, line);
 	else

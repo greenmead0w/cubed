@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_connection.c                                  :+:      :+:    :+:   */
+/*   open_connection_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpinedo- <dpinedo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 20:48:39 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/15 21:06:28 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/27 19:41:43 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cubed.h"
+#include "cubed_bonus.h"
 
 static	int	find_tile_size(int cols, int rows, int flag)
 {

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   horizontal_border.c                                :+:      :+:    :+:   */
+/*   horizontal_border_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 22:01:58 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/10 12:21:26 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/27 19:39:21 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cubed.h"
+#include "cubed_bonus.h"
 
 /*
 **	solving for the adjacent

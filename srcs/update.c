@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 21:26:38 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/16 20:35:33 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/27 19:04:18 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static void	new_pos(t_player *player, double *new_x,
 {
 	if (player->walk_direction == 'w')
 	{
-		*new_x += cos(angle) * player->speed * USAIN;
-		*new_y += sin(angle) * player->speed * USAIN;
+		*new_x += cos(angle) * player->speed;
+		*new_y += sin(angle) * player->speed;
 	}
 	else if (player->walk_direction == 'a')
 	{

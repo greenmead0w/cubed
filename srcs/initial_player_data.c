@@ -6,12 +6,11 @@
 /*   By: dpinedo- <dpinedo-@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:33:36 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/09 19:30:39 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/27 20:01:44 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
-#include "definitions.h"
+#include "cubed.h"
 
 /*
 ** Angles in computer graphics increase clockwise

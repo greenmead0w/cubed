@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
+/*   structs_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:26:50 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/27 22:00:35 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/27 20:12:14 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTS_H
-# define STRUCTS_H
+#ifndef STRUCTS_BONUS_H
+# define STRUCTS_BONUS_H
 
 # include <sys/types.h>
+
+enum e_mode
+{
+	animate_empty_stadium,
+	animate_spectators_up,
+	spectators_relaxed
+};
 
 //Checks
 typedef struct s_track_items
@@ -75,6 +82,9 @@ typedef struct s_textures
 typedef struct s_vars
 {
 	t_texture	*textures[4];
+	t_texture	*walls[4];
+	t_texture	*animate_empty[4];
+	t_texture	*animate_cheer[4];
 	char		**map;
 	char		**game_map; //rect map
 	int			map_rows;
@@ -84,6 +94,7 @@ typedef struct s_vars
 	int			num_rays;
 	int			big_tile;
 	int			min_tile;
+	time_t		reference_time;
 }		t_vars;
 
 //player data 
@@ -98,6 +109,7 @@ typedef struct s_player
 	double	dist_to_plane; //distance to projection plane, constant
 	double	field_of_view;
 	double	display_size; //size (pixels) of the player figure in the 2d miniMap
+	double	health;
 }		t_player;
 
 typedef struct s_ray
@@ -113,6 +125,21 @@ typedef struct s_ray
 	t_texture	tex; //texture that this ray has summoned
 }		t_ray;
 
+//used for drawing the health bar
+typedef struct s_health
+{
+	int	width;
+	int	height;
+	int	start_x;
+	int	start_y;
+	int	end_x;
+	int	end_y;
+	int	border_width;
+	int	border_c;
+	int	life_c;
+	int	damage_c;
+}	t_health;
+
 //General struct for the game
 typedef struct s_game
 {
@@ -124,4 +151,4 @@ typedef struct s_game
 	int			update; //"dirty flag", 1 if image should be updated, else 0
 }	t_game;
 
-#endif //STRUCTS_H
+#endif //STRUCTS_BONUS_H

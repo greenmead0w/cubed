@@ -6,11 +6,11 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 12:44:14 by mzuloaga          #+#    #+#             */
-/*   Updated: 2025/01/10 12:44:52 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/23 19:53:03 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "structs_bonus.h"
 
 void	put_pixel_to_image(t_conn *conn, int x, int y, int color)
 {

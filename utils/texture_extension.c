@@ -6,11 +6,12 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 12:51:03 by mzuloaga          #+#    #+#             */
-/*   Updated: 2025/01/10 12:51:22 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/23 20:17:00 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
+#include <unistd.h>
 
 char	texture_extension(char *line, char *start, int fd)
 {

@@ -6,11 +6,11 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 12:43:39 by mzuloaga          #+#    #+#             */
-/*   Updated: 2025/01/15 20:24:07 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/23 20:13:08 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "cubed.h"
 
 t_texture	get_ray_texture(t_game *game, t_ray ray)
 {

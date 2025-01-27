@@ -6,11 +6,11 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 12:26:26 by mzuloaga          #+#    #+#             */
-/*   Updated: 2025/01/10 12:40:57 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/22 21:40:07 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include <math.h>
 
 /*
 **  cap rotations to 1 full circle, so radian between 0 and 2 pi

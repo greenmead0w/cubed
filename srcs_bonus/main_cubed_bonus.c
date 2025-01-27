@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_cubed.c                                       :+:      :+:    :+:   */
+/*   main_cubed_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpinedo- <dpinedo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:25:06 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/15 21:06:37 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/27 21:46:11 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cubed.h"
+#include "cubed_bonus.h"
 
 static char	generate_and_initialize_game(t_game **game, \
 		t_track_items **track_elements)
@@ -39,27 +39,6 @@ static char	generate_and_initialize_game(t_game **game, \
 	return (0);
 }
 
-static char	init_textures(t_game *game)
-{
-	int	i;
-
-	i = 0;
-	while (i < 4)
-	{
-		game->vars->textures[i] = malloc(sizeof(t_texture));
-		if (!game->vars->textures[i])
-		{
-			free_textures(NULL, game->vars->textures, i);
-			free_simple_pointer(game->vars);
-			free_simple_pointer(game);
-			return (-1);
-		}
-		ft_bzero(game->vars->textures[i], sizeof(t_texture));
-		i++;
-	}
-	return (0);
-}
-
 static char	check_and_parse(char *file, t_game *game, \
 		t_track_items *track_elems)
 {
@@ -71,7 +50,7 @@ static char	check_and_parse(char *file, t_game *game, \
 		return (-1);
 	}
 	free_simple_pointer(track_elems);
-	if (init_textures(game))
+	if (init_images(game))
 		return (-1);
 	if (parse(file, game))
 	{

@@ -6,7 +6,7 @@
 #    By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/15 01:31:40 by dpinedo-          #+#    #+#              #
-#    Updated: 2025/01/22 19:15:33 by mzuloaga         ###   ########.fr        #
+#    Updated: 2025/01/27 20:21:11 by dpinedo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,13 +50,18 @@ SRCS =	main_cubed.c\
 	mini_map_rays.c\
 	vertical_border.c\
 	horizontal_border.c\
-	update2.c
+	update2.c\
+	draw_3d.c\
+	draw_others.c\
+	free_functions2.c\
+	free_functions.c\
+	ft_list_functions.c
 
 SRCS_BONUS = main_cubed_bonus.c\
 	check_bonus.c\
 	examine_color_bonus.c\
 	fill_colors_list_bonus.c\
-	fill_textures_matrix_bonus.c\
+	fill_walls_matrix_bonus.c\
 	parse_bonus.c\
 	examine_line_bonus.c\
 	fill_map_bonus.c\
@@ -66,6 +71,7 @@ SRCS_BONUS = main_cubed_bonus.c\
 	events_bonus.c\
 	initial_player_data_bonus.c\
 	init_game_bonus.c\
+	init_images_bonus.c\
 	ft_close_conn_bonus.c\
 	execute_bonus.c\
 	open_connection_bonus.c\
@@ -76,7 +82,14 @@ SRCS_BONUS = main_cubed_bonus.c\
 	vertical_border_bonus.c\
 	horizontal_border_bonus.c\
 	update2_bonus.c\
-	draw_health_bonus.c
+	draw_health_bonus.c\
+	animate_sprite_bonus.c\
+	draw_3d_bonus.c\
+	draw_others_bonus.c\
+	free_functions2_bonus.c\
+	free_functions_bonus.c\
+	ft_list_functions_bonus.c
+
 
 LIBS =  libmlx.a libutils.a
 LIBS_PATH = $(patsubst %.a,$(LIBS_DIR)/%.a,$(LIBS))

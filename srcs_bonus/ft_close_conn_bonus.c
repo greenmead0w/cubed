@@ -6,11 +6,11 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:52:38 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/23 11:06:43 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/27 19:38:50 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cubed.h"
+#include "cubed_bonus.h"
 #include <stdlib.h>
 
 int	ft_close_conn(t_game *game)

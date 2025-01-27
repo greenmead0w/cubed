@@ -6,11 +6,11 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:11:59 by mzuloaga          #+#    #+#             */
-/*   Updated: 2025/01/22 19:12:09 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/27 19:35:28 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cubed.h"
+#include "cubed_bonus.h"
 
 static	void	fill_health(t_health *h, t_game *game)
 {
