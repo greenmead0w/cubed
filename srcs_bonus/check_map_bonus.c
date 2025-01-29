@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 21:26:35 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/27 19:34:45 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/28 21:20:34 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 //returns 1 if valid chars, -1 if not and 0 if map == NULL
 static int	map_valid_chars(char **map)
 {
-	const char	*valid_chars = "01 NSEW";
+	const char	*valid_chars = "01 NSEWD";
 	int			i;
 	int			j;
 
@@ -120,6 +120,11 @@ int	check_map(t_vars *vars)
 		return (-1);
 	}
 	if (not_sealed_map(rect_map, vars->map_rows, vars->map_cols))
+	{
+		free_double_pointer((void **)rect_map);
+		return (-1);
+	}
+	if (check_doors(rect_map))
 	{
 		free_double_pointer((void **)rect_map);
 		return (-1);

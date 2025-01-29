@@ -6,12 +6,12 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 10:24:24 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/27 19:35:54 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/29 21:02:51 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed_bonus.h"
-
+#include <stdio.h>
 int	key_press(int keycode, t_game *game)
 {
 	if (keycode == XK_ESCAPE)
@@ -28,9 +28,10 @@ int	key_press(int keycode, t_game *game)
 		game->player->turn_direction = -1;
 	else if (keycode == XK_RIGHT)
 		game->player->turn_direction = 1;
-	if (game->player->walk_direction != '0'
-		|| game->player->turn_direction != 0)
-		game->update = 1;
+	else if (keycode == XK_SPACE)
+		game->vars->door_flag = 1;
+	printf("(key_press)\n");
+	printf("door_flag %i\n", game->vars->door_flag);
 	return (0);
 }
 

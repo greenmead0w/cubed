@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:26:50 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/27 20:12:14 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/29 20:58:37 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ enum e_mode
 {
 	animate_empty_stadium,
 	animate_spectators_up,
-	spectators_relaxed
+	spectators_relaxed,
+	door
 };
 
 //Checks
@@ -85,6 +86,7 @@ typedef struct s_vars
 	t_texture	*walls[4];
 	t_texture	*animate_empty[4];
 	t_texture	*animate_cheer[4];
+	t_texture	*door_texture[1];
 	char		**map;
 	char		**game_map; //rect map
 	int			map_rows;
@@ -95,6 +97,8 @@ typedef struct s_vars
 	int			big_tile;
 	int			min_tile;
 	time_t		reference_time;
+	char		door_flag;
+	char		central_flag;
 }		t_vars;
 
 //player data 
@@ -148,6 +152,7 @@ typedef struct s_game
 	t_conn		*conn;
 	t_player	*player;
 	t_ray		*rays;
+	t_ray		central_ray;
 	int			update; //"dirty flag", 1 if image should be updated, else 0
 }	t_game;
 

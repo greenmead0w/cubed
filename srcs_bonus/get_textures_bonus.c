@@ -6,7 +6,7 @@
 /*   By: dpinedo- <dpinedo-@student.42urduliz.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 21:41:18 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/24 18:41:07 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/29 19:47:30 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ void	set_animate_images_path(t_texture **type, int n, enum e_mode mode)
 		animate_path = "textures/empty_stadium.xpm";
 	else if (mode == animate_spectators_up)
 		animate_path = "textures/stadium_cheering.xpm";
+	else if (mode == door)
+	{
+		type[0]->path = "textures/door.xpm";
+		type[0]->side = 'D';
+		return ;
+	}
 	while (i < n)
 	{
 		type[i]->path = animate_path;
@@ -63,11 +69,14 @@ char	get_textures(t_conn *con, t_vars *vars)
 {
 	set_animate_images_path(vars->animate_empty, SIDES, animate_empty_stadium);
 	set_animate_images_path(vars->animate_cheer, SIDES, animate_spectators_up);
+	set_animate_images_path(vars->door_texture, 1, door);
 	if (get_xml_images_from_xpm(con, vars->walls, vars, SIDES))
 		return (-1);
 	if (get_xml_images_from_xpm(con, vars->animate_empty, vars, SIDES))
 		return (-1);
 	if (get_xml_images_from_xpm(con, vars->animate_cheer, vars, SIDES))
+		return (-1);
+	if (get_xml_images_from_xpm(con, vars->door_texture, vars, 1))
 		return (-1);
 	return (0);
 }

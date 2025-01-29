@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 12:31:31 by mzuloaga          #+#    #+#             */
-/*   Updated: 2025/01/27 19:42:34 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/29 21:05:05 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,13 @@ int	ray_is_wall(int x, int y, t_vars *vars, t_ray *ray)
 		ray->hit_side = wall_side_hit(x, y, vars, ray);
 		return (1);
 	}
+	else if (vars->game_map[y][x] == 'D')
+	{
+		ray->hit_side = 'D';
+		return (1);
+	}
+	else if (vars->game_map[y][x] == 'P' && vars-> central_flag)
+		return (1);
 	else
 		return (0);
 }
@@ -82,7 +89,7 @@ int	pos_is_wall(double x, double y, t_vars *vars)
 	iy = (int)y;
 	if (ix > vars->map_cols || ix < 0 || iy < 0 || iy > vars->map_rows)
 		return (1);
-	if (vars->game_map[iy][ix] == '1' )
+	if (vars->game_map[iy][ix] == '1' || vars->game_map[iy][ix] == 'D')
 		return (1);
 	else
 		return (0);

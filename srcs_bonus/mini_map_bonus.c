@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 12:24:21 by mzuloaga          #+#    #+#             */
-/*   Updated: 2025/01/27 19:41:14 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/28 19:36:26 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ static void	draw_row(t_draw_2d *p, t_game *game)
 			put_pixel_to_image(game->conn, p->curr_x, p->curr_y, 0xFFA500);
 		else if (p->value == '1' || p->value == ' ')
 			put_pixel_to_image(game->conn, p->curr_x, p->curr_y, 0x000000);
+		else if (p->value == 'D')
+			put_pixel_to_image(game->conn, p->curr_x, p->curr_y, 0x142157);
 		else
 			put_pixel_to_image(game->conn, p->curr_x, p->curr_y, 0xFFFFFF);
 		p->curr_x++;

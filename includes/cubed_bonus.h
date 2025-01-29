@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 14:31:54 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/27 22:06:38 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/28 21:29:05 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include "../minilibx-linux/mlx.h"
 
 char	check(char *file, t_game *game, t_track_items *track_elements);
+int	check_doors(char **map);
 char	examine_line(char *line, t_game *game, t_track_items *track_elems);
 char	examine_color(char *line, t_track_items *track_elements);
 char	parse(char *file, t_game *game);
@@ -44,6 +45,7 @@ int		key_release(int kc, t_game *game);
 int		initial_player_data(char **map, int rows,
 			int columns, t_player *player);
 int		ft_close_conn(t_game *game);
+void	central_ray_cast(t_ray *ray, t_player *player, t_vars *vars);
 void	update(t_game *game);
 void	draw_2d_map(t_game *game);
 void	draw_player(t_conn *conn, t_player *player, t_vars *vars);

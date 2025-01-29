@@ -6,7 +6,7 @@
 #    By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/15 01:31:40 by dpinedo-          #+#    #+#              #
-#    Updated: 2025/01/27 20:21:11 by dpinedo-         ###   ########.fr        #
+#    Updated: 2025/01/28 21:30:46 by dpinedo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ SRCS =	main_cubed.c\
 
 SRCS_BONUS = main_cubed_bonus.c\
 	check_bonus.c\
+	check_doors_bonus.c\
 	examine_color_bonus.c\
 	fill_colors_list_bonus.c\
 	fill_walls_matrix_bonus.c\
@@ -75,6 +76,7 @@ SRCS_BONUS = main_cubed_bonus.c\
 	ft_close_conn_bonus.c\
 	execute_bonus.c\
 	open_connection_bonus.c\
+	central_ray_cast_bonus.c\
 	update_bonus.c\
 	display_bonus.c\
 	mini_map_bonus.c\

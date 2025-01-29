@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 21:58:14 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/27 21:02:45 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/28 20:48:11 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	free_all_game(t_game *game)
 			free_images(game->conn, game->vars->walls, 4, 1);
 			free_images(game->conn, game->vars->animate_empty, 4, 0);
 			free_images(game->conn, game->vars->animate_cheer, 4, 0);
+			free_images(game->conn, game->vars->door_texture, 1, 0);
 			free_double_pointer((void **)game->vars->map);
 			free_double_pointer((void **)game->vars->game_map);
 		}

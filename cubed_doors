@@ -1,0 +1,197 @@
+PARA RENDERIZAR EN 3-D
+
+1)
+En structs.h
+
+(en vars)
+typedef struct s_vars 
+{
+	t_texture	*walls[5];  //se añade la textura door
+	char		door_flag; //1 puerta cerrada (en mapa 'D) y 0 puerta abierta ('P')
+}	t_vars;
+
+
+
+
+2)
+Get_textures.c
+
+char	get_textures(t_conn *con, t_texture **tex, t_vars *vars)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		tex[i]->width = vars->big_tile;
+		tex[i]->height = vars->big_tile;
+		tex[i]->img.ptr = XPM_TO_IMAGE(con->mlx, tex[i]->path, \
+			&tex[i]->width, &tex[i]->height);
+		tex[i]->img.addr = mlx_get_data_addr(tex[i]->img.ptr, \
+			&tex[i]->img.bpp, &tex[i]->img.line_length, \
+			&tex[i]->img.endian);
+		if (!tex[i]->img.ptr || !tex[i]->img.addr)
+		{
+			write(2, TEXT_LOAD, ft_strlen(TEXT_LOAD));
+			return (-1);
+		}
+		i++;
+	}
+	//añado la textura de la puerta aquí para probar, luego se colocará en el código de otra 
+	//manera, junto con walls y animate
+	tex[4]->path = "texture/door.xpm";
+	tex[4]->width = vars->big_tile;
+	tex[4]->height = vars->big_tile;
+	tex[4]->img.ptr = XPM_TO_IMAGE(con->mlx, tex[i]->path, \
+			&tex[i]->width, &tex[i]->height);
+	tex[4]->img.addr = mlx_get_data_addr(tex[i]->img.ptr, \
+			&tex[i]->img.bpp, &tex[i]->img.line_length, \
+			&tex[i]->img.endian);
+	if (!tex[i]->img.ptr || !tex[i]->img.addr)
+	{
+		write(2, TEXT_LOAD, ft_strlen(TEXT_LOAD));
+		return (-1);
+	}
+	return (0);
+}
+
+
+
+2 - 1)
+En central_ray_cast.c
+
+void	is_door_close(t_vars *vars, t_ray *ray)
+{
+	char	value;
+
+	value = 0;
+	//tenemos 4 opciones
+	//puerta cerrada (carácter D) y que se cumplan las condiciones para abrirla
+	//puerta cerrada y que no se cumplan las condiciones para abrirla
+	//puerta abierta (carácter P) y que se cumplan las condiciones para cerrarla
+	//puerta abierta y que no se cumplan las condiciones para cerrarla
+	if (vars->game_map[y][x] == 'D' && ray->distance < MAX_DIST_TO_OPEN && vars->door_flag)
+	{
+		game_map[y][x] = 'P';
+		value = 0;
+	}
+	else if (vars->game_map[y][x] == 'D')
+	{
+		ray->hit_side = 'D';
+		value = 1;
+	}
+	else if (vars->game_map[y][x] == 'P' && ray->distance < MAX_DIST_TO_OPEN && vars->door_flag)
+	{
+		game_map[y][x] = 'D';
+		ray->hit_side = 'D';
+		value = 1;
+	}
+	else if (vars->game_map[y][x] == 'P')
+		value = 0;
+	vars->door_flag = 0;
+	return (value);	
+}
+
+
+3)
+Update2.c
+
+int	ray_is_wall(int x, int y, t_vars *vars, t_ray *ray)
+{
+	if (x > vars->map_cols || x < 0 || y < 0 || y > vars->map_rows)
+	{
+		ray->distance = INT_MAX;
+		return (1);
+	}
+	else if (y == vars->map_rows)
+	{
+		ray->hit_side = 'N';
+		return (1);
+	}
+	esle if (vars->game_map[y][x] == '1' )
+	{
+		ray->hit_side = wall_side_hit(x, y, vars, ray);
+		return (1);
+	}
+	//opciones de encontrar una puerta cerrada o abierta
+	else if (vars->game_map[y][x] == 'D') 
+	{
+		ray->hit_side = 'D';
+		return (1);
+	}
+	else
+		return (0);
+}
+
+
+
+4)
+Update2.c
+
+int	pos_is_wall(double x, double y, t_vars *vars)
+{
+	int	ix;
+	int	iy;
+
+	ix = (int)x;
+	iy = (int)y;
+	if (ix > vars->map_cols || ix < 0 || iy < 0 || iy > vars->map_rows)
+		return (1);
+	//se añade la opción de puerta cerrada
+	if (vars->game_map[iy][ix] == '1' || vars->game_map[iy][ix] == 'D')
+		return (1);
+	else
+		return (0);
+}
+
+
+
+5)
+Draw_3d.c
+
+t_texture	get_ray_texture(t_game *game, t_ray ray)
+{
+	t_texture	*texture;
+	int		i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (ray.hit_side == SET_2[i])
+			texture = game->vars->textures[i];
+		//se añade la opción de puerta cerrada
+		else if (ray.hit_side == 'D')
+			texture = textura de la puerta;
+		i++;
+	}
+	return (*texture);
+}
+
+
+
+
+PARA MINI-MAP
+6)
+Mini_map.c
+
+static void	draw_row(t_draw_2d *p, t_game *game)
+{
+	int	remaining;
+
+	p->curr_x = p->start_x;
+	remaining = game->vars->min_tile;
+	while (remaining)
+	{
+		if (is_border_map(p, game->vars))
+			put_pixel_to_image(game->conn, p->curr_x, p->curr_y, 0xFFA500);
+		else if (p->value == '1' || p->value == ' ')
+			put_pixel_to_image(game->conn, p->curr_x, p->curr_y, 0x000000);
+		//se añade el color para indicar la puerta cerrada en el minimapa
+		else if (p->value == 'D')
+			put_pixel_to_image(game->conn, p->curr_x, p->curr_y, 0x142157);
+		else
+			put_pixel_to_image(game->conn, p->curr_x, p->curr_y, 0xFFFFFF);
+		p->curr_x++;
+		remaining--;
+	}
+}

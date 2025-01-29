@@ -6,7 +6,7 @@
 /*   By: dpinedo- <dpinedo-@student.42urduliz.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:04:34 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/27 22:05:36 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/29 19:57:56 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ char	init_images(t_game *game)
 		control_var = -1;
 	if (init_images_by_type(game->vars->animate_cheer, SIDES))
 		control_var = -1;
+	if (init_images_by_type(game->vars->door_texture, 1))
+		 control_var = -1;
 	if (control_var)
 		free_all_game(game);
 	return (control_var);

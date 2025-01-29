@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 21:24:20 by dpinedo-          #+#    #+#             */
-/*   Updated: 2025/01/22 19:01:13 by mzuloaga         ###   ########.fr       */
+/*   Updated: 2025/01/28 21:26:41 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@
 # define CHARACTER "Map contains invalid characters\n"
 # define PLAYER "No players or more than one\n"
 # define SPACE "Invalid space in map\n"
+# define DOOR_NO_WALL "Door must be next to walls\n"
+# define ADJACENT_DOORS "Doors can not be adjacent\n"
 
 //HEALTH
 # define HEALTH "Player refuses to play until you learn how to avoid walls\n"

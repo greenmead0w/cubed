@@ -6,7 +6,7 @@
 /*   By: mzuloaga <mzuloaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 12:43:39 by mzuloaga          #+#    #+#             */
-/*   Updated: 2025/01/23 20:22:13 by dpinedo-         ###   ########.fr       */
+/*   Updated: 2025/01/29 19:40:42 by dpinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ t_texture	get_ray_texture(t_game *game, t_ray ray)
 			texture = game->vars->textures[i];
 		i++;
 	}
+	if (ray.hit_side == 'D')
+			texture = game->vars->door_texture[0];
 	return (*texture);
 }
 
