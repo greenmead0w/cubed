@@ -34,7 +34,7 @@ static void	horz_find_point_a(t_ray *ray, t_player *player, char flag)
 	ray->pos[0] = x;
 	ray->pos[1] = y;
 	ray->distance = sqrt(pow(adjacent, 2) + pow(opposite, 2));
-	printf("ray_x %f, ray_y %f\n", ray->pos[0], ray->pos[1]);
+	//printf("ray_x %f, ray_y %f\n", ray->pos[0], ray->pos[1]);
 }
 
 /*  delta_x; //adjacent
@@ -46,7 +46,7 @@ static void	upwards_facing_ray(t_ray *ray, t_player *player, t_vars *vars)
 	double	delta_y;
 	double	tile_increment;
 
-	printf("(upwards_facing_ray)\n");
+	//printf("(upwards_facing_ray)\n");
 	delta_y = -1;
 	horz_find_point_a(ray, player, 'u');
 	if (ray_is_wall(ray->pos[0], ray->pos[1] - 1, vars, ray))
@@ -58,8 +58,9 @@ static void	upwards_facing_ray(t_ray *ray, t_player *player, t_vars *vars)
 		ray->pos[0] += delta_x;
 		ray->pos[1] += delta_y;
 		ray->distance += tile_increment;
-		printf("ray_x %f, ray_y %f\n", ray->pos[0], ray->pos[1]);
+		//printf("ray_x %f, ray_y %f\n", ray->pos[0], ray->pos[1]);
 	}
+	ray->pos[1] -= 1;
 }
 
 /*  delta_x; //adjacent
@@ -72,7 +73,7 @@ static void	downwards_facing_ray(t_ray *ray, t_player *player, t_vars *vars)
 	double	delta_y;
 	double	tile_increment;
 
-	printf("(downwards_facing_ray)\n");
+	//printf("(downwards_facing_ray)\n");
 	delta_y = 1;
 	horz_find_point_a(ray, player, 'd');
 	if (ray_is_wall(ray->pos[0], ray->pos[1], vars, ray))
@@ -84,7 +85,7 @@ static void	downwards_facing_ray(t_ray *ray, t_player *player, t_vars *vars)
 		ray->pos[0] += delta_x;
 		ray->pos[1] += delta_y;
 		ray->distance += tile_increment;
-		printf("ray_x %f, ray_y %f\n", ray->pos[0], ray->pos[1]);
+		//printf("ray_x %f, ray_y %f\n", ray->pos[0], ray->pos[1]);
 	}
 }
 
@@ -95,7 +96,7 @@ static void	downwards_facing_ray(t_ray *ray, t_player *player, t_vars *vars)
 */
 void	horizontal_border(t_ray *ray, t_player *player, t_vars *vars)
 {
-	printf("(horizontal_border)\n");
+	//printf("(horizontal_border)\n");
 	if (ray->angle < EPSILON || fmod(ray->angle, M_PI) < EPSILON)
 	{
 		ray->distance = INT_MAX;

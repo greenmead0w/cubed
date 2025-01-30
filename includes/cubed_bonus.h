@@ -58,6 +58,7 @@ void	draw_all_rays(t_game *game);
 void	draw_ray_cast(t_game *game, int i);
 void	draw_ceiling(t_game *game);
 void	draw_floor(t_game *game);
+void draw_central_ray(t_game *game);
 void	set_texture_to_display(t_vars *vars);
 
 t_color			*ft_lstnew(void);

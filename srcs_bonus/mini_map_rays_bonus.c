@@ -31,7 +31,7 @@ static	void	get_ray_coordinates(t_ray ray, t_player *player,
 **  and then are used as unit vectors
 **  this is not clean code but capped by max number of variables per function
 */
-static	void	draw_ray(int *line, t_conn *conn)
+static	void	draw_ray(int *line, t_conn *conn, int color)
 {
 	double	adjacent;
 	double	opposite;
@@ -48,7 +48,7 @@ static	void	draw_ray(int *line, t_conn *conn)
 	curr_y = line[1];
 	while (hypotenuse)
 	{
-		put_pixel_to_image(conn, curr_x, curr_y, 0xFF0000);
+		put_pixel_to_image(conn, curr_x, curr_y, color);
 		curr_x += adjacent;
 		curr_y += opposite;
 		hypotenuse--;
@@ -70,7 +70,15 @@ void	draw_all_rays(t_game *game)
 	while (i < game->vars->screen_width)
 	{
 		get_ray_coordinates(game->rays[i], game->player, line, game->vars);
-		draw_ray(line, game->conn);
+		draw_ray(line, game->conn, 0xFF0000);
 		i++;
 	}
+}
+
+void draw_central_ray(t_game *game)
+{
+	int	line[4];
+
+	get_ray_coordinates(game->central_ray, game->player, line, game->vars);
+	draw_ray(line, game->conn, 0x00FF00);
 }

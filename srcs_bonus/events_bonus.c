@@ -30,8 +30,6 @@ int	key_press(int keycode, t_game *game)
 		game->player->turn_direction = 1;
 	else if (keycode == XK_SPACE)
 		game->vars->door_flag = 1;
-	printf("(key_press)\n");
-	printf("door_flag %i\n", game->vars->door_flag);
 	return (0);
 }
 

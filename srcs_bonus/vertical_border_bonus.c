@@ -86,6 +86,8 @@ static void	left_facing_ray(t_ray *ray, t_player *player, t_vars *vars)
 		ray->pos[1] += delta_y;
 		ray->distance += tile_increment;
 	}
+	ray->pos[0] -= 1;
+
 }
 
 /*

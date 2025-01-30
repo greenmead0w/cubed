@@ -21,6 +21,7 @@ static void	draw_all_elements(t_game *game)
 	draw_all_rays(game);
 	draw_player(game->conn, game->player, game->vars);
 	draw_health(game);
+	draw_central_ray(game);
 }
 
 /*

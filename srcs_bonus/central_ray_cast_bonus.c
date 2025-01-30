@@ -16,13 +16,12 @@
 
 static void	is_door_close(int x, int y, t_vars *vars, t_ray *ray)
 {
-	y = 15;
-	x = 18;
+	//printf("after_ ray_x %d, ray_y %d\n", x, y);
 	if (vars->game_map[y][x] == 'D' && ray->distance < MAX_DIST_TO_OPEN && vars->door_flag)
 		vars->game_map[y][x] = 'P';
 	else if (vars->game_map[y][x] == 'P' && ray->distance < MAX_DIST_TO_OPEN && vars->door_flag)
 		vars->game_map[y][x] = 'D';
-	printf("x, y, map %i %i %c\n", y, x, vars->game_map[y][x]); 
+	//printf("x, y, map %i %i %c\n", y, x, vars->game_map[y][x]); 
 	vars->door_flag = 0;
 }
 
@@ -32,8 +31,7 @@ void	central_ray_cast(t_ray *ray, t_player *player, t_vars *vars)
 	t_ray	horz_ray;
 	double	angle;
 
-	printf("(central_ray_casting)\n");
-	sleep(1);
+	//printf("(central_ray_casting)\n");
 	ray->angle = player->rotation_angle;
 	angle = standardize_angle(ray->angle);
 	vert_ray.angle = angle;
@@ -48,7 +46,7 @@ void	central_ray_cast(t_ray *ray, t_player *player, t_vars *vars)
 	else
 		*ray = horz_ray;
 	vars->central_flag = 0;
-	printf("distance %f\n", ray->distance);
-	printf("ray_x %f, ray_y %f\n", ray->pos[0], ray->pos[1] - 1);
-	is_door_close(ray->pos[0], ray->pos[1] - 1, vars, ray);
+	// printf("distance %f\n", ray->distance);
+	//printf("before: ray_x %f, ray_y %f\n", ray->pos[0], ray->pos[1]);
+	is_door_close(ray->pos[0], ray->pos[1], vars, ray);
 }
